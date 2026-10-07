@@ -21,7 +21,7 @@ window.IMPULS.setWindow = function (ms) {
 };
 
 window.IMPULS.setPack = function (id) {
-  if (id !== "p1") {
+  if (id !== "p1" && id !== "p2") {
     return;
   }
   window.IMPULS.state.pack = id;

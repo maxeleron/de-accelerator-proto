@@ -23,6 +23,7 @@ const renderMenu = function () {
     document.getElementById(id).setAttribute("aria-pressed", pressed ? "true" : "false");
   });
   document.querySelector('[data-pack="p1"]').setAttribute("aria-pressed", state.pack === "p1" ? "true" : "false");
+  document.querySelector('[data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
 };
 
 const showScreen = function (id) {
@@ -477,6 +478,9 @@ const restoreRound = function () {
     return false;
   }
   window.IMPULS.setWindow(saved.windowMs);
+  if (saved.pack === "p1" || saved.pack === "p2") {
+    window.IMPULS.setPack(saved.pack);
+  }
   if (saved.done === true) {
     const hits = Number(saved.hits);
     const total = Number(saved.total);
@@ -520,6 +524,11 @@ const bindClicks = function () {
 
   document.querySelector('[data-pack="p1"]').addEventListener("click", function () {
     window.IMPULS.setPack("p1");
+    renderMenu();
+  });
+
+  document.querySelector('[data-pack="p2"]').addEventListener("click", function () {
+    window.IMPULS.setPack("p2");
     renderMenu();
   });
 

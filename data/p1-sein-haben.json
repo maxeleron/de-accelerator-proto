@@ -16,15 +16,85 @@
   {
     "id": "sh-03",
     "muster": "sein-haben",
-    "prompt": "ми є",
-    "answer": "sind",
+    "prompt": "він є",
+    "answer": "ist",
     "options": ["bin", "bist", "ist", "sind"]
   },
   {
     "id": "sh-04",
     "muster": "sein-haben",
+    "prompt": "ми є",
+    "answer": "sind",
+    "options": ["bin", "bist", "ist", "sind"]
+  },
+  {
+    "id": "sh-05",
+    "muster": "sein-haben",
+    "prompt": "ви є",
+    "answer": "seid",
+    "options": ["bin", "bist", "seid", "sind"]
+  },
+  {
+    "id": "sh-06",
+    "muster": "sein-haben",
+    "prompt": "вони є",
+    "answer": "sind",
+    "options": ["bin", "bist", "ist", "sind"]
+  },
+  {
+    "id": "sh-07",
+    "muster": "sein-haben",
+    "prompt": "Ви є",
+    "answer": "sind",
+    "options": ["bin", "bist", "ist", "sind"]
+  },
+  {
+    "id": "sh-08",
+    "muster": "sein-haben",
     "prompt": "я маю",
     "answer": "habe",
+    "options": ["habe", "hast", "hat", "haben"]
+  },
+  {
+    "id": "sh-09",
+    "muster": "sein-haben",
+    "prompt": "ти маю",
+    "answer": "hast",
+    "options": ["habe", "hast", "hat", "haben"]
+  },
+  {
+    "id": "sh-10",
+    "muster": "sein-haben",
+    "prompt": "він маю",
+    "answer": "hat",
+    "options": ["habe", "hast", "hat", "haben"]
+  },
+  {
+    "id": "sh-11",
+    "muster": "sein-haben",
+    "prompt": "ми маю",
+    "answer": "haben",
+    "options": ["habe", "hast", "hat", "haben"]
+  },
+  {
+    "id": "sh-12",
+    "muster": "sein-haben",
+    "prompt": "ви маю",
+    "answer": "habt",
+    "options": ["habe", "hast", "habt", "haben"]
+  },
+  {
+    "id": "sh-13",
+    "muster": "sein-haben",
+    "prompt": "вони маю",
+    "answer": "haben",
+    "options": ["habe", "hast", "hat", "haben"]
+  },
+  {
+    "id": "sh-14",
+    "muster": "sein-haben",
+    "prompt": "Ви маю",
+    "answer": "haben",
     "options": ["habe", "hast", "hat", "haben"]
   }
 ]
