@@ -1,10 +1,10 @@
 window.IMPULS = window.IMPULS || {};
 
 const WINDOW_OPTIONS = [
-  { ms: 1600, label: "М’яко 1600" },
-  { ms: 1200, label: "Рівно 1200" },
-  { ms: 900, label: "Жорстко 900" },
-  { ms: 0, label: "Без вікна" }
+  { ms: 0, label: "Без часових меж" },
+  { ms: 2500, label: "М’яко 2500 мс" },
+  { ms: 1800, label: "Рівно 1800 мс" },
+  { ms: 1200, label: "Жорстко 1200 мс" }
 ];
 
 const VERDICTS = {
@@ -15,6 +15,7 @@ const VERDICTS = {
 };
 
 let flashId = 0;
+let abortPending = false;
 
 const winSelectRoot = function () {
   return document.getElementById("win-select");
@@ -37,6 +38,28 @@ const closeWinSelect = function () {
   winSelectFace().setAttribute("aria-expanded", "false");
 };
 
+const isRoundSetupOpen = function () {
+  return !document.getElementById("round-setup").classList.contains("is-hidden");
+};
+
+window.IMPULS.closeRoundSetup = function () {
+  document.getElementById("round-setup").classList.add("is-hidden");
+  document.getElementById("btn-round-edit").setAttribute("aria-expanded", "false");
+  closeWinSelect();
+};
+
+window.IMPULS.toggleRoundSetup = function () {
+  if (window.IMPULS.state.phase !== "menu") {
+    return;
+  }
+  if (isRoundSetupOpen()) {
+    window.IMPULS.closeRoundSetup();
+    return;
+  }
+  document.getElementById("round-setup").classList.remove("is-hidden");
+  document.getElementById("btn-round-edit").setAttribute("aria-expanded", "true");
+};
+
 const openWinSelect = function () {
   winSelectMenu().classList.remove("is-hidden");
   winSelectFace().setAttribute("aria-expanded", "true");
@@ -48,15 +71,160 @@ const windowOptionIndex = function (ms) {
       return i;
     }
   }
-  return 1;
+  return 2;
 };
 
 const windowOptionLabel = function (ms) {
   return WINDOW_OPTIONS[windowOptionIndex(ms)].label;
 };
 
+const startLabel = function (pack) {
+  if (pack === "p2") {
+    return "Почати раунд P2";
+  }
+  if (pack === "p3") {
+    return "Почати раунд P3";
+  }
+  if (pack === "p4") {
+    return "Почати раунд P4";
+  }
+  return "Почати раунд P1";
+};
+
+const PACK_IDS = ["p1", "p2", "p3", "p4"];
+
+const packDeck = function (pack) {
+  if (pack === "p2") {
+    return window.IMPULS.cardsP2 || [];
+  }
+  if (pack === "p3") {
+    return window.IMPULS.cardsP3 || [];
+  }
+  if (pack === "p4") {
+    return window.IMPULS.cardsP4 || [];
+  }
+  return window.IMPULS.cards || [];
+};
+
+const emptySeen = function () {
+  return { p1: [], p2: [], p3: [], p4: [] };
+};
+
+const loadSeen = function () {
+  let saved;
+  try {
+    saved = window.IMPULS.load("seen");
+  } catch (err) {
+    saved = undefined;
+  }
+  const next = emptySeen();
+  if (!saved || typeof saved !== "object") {
+    return next;
+  }
+  for (let i = 0; i < PACK_IDS.length; i += 1) {
+    const pack = PACK_IDS[i];
+    if (Array.isArray(saved[pack])) {
+      next[pack] = saved[pack].slice();
+    }
+  }
+  return next;
+};
+
+const saveSeen = function (seen) {
+  try {
+    window.IMPULS.save("seen", seen);
+  } catch (err) {
+    // Сховище інколи недоступне. Ознайомлення лишається на цей кадр.
+  }
+};
+
+const hasSeenId = function (list, id) {
+  for (let i = 0; i < list.length; i += 1) {
+    if (list[i] === id) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const markSeen = function (pack, id) {
+  if (!id || PACK_IDS.indexOf(pack) < 0) {
+    return;
+  }
+  const seen = loadSeen();
+  if (hasSeenId(seen[pack], id)) {
+    return;
+  }
+  seen[pack].push(id);
+  saveSeen(seen);
+};
+
+const seenCount = function (pack, seen) {
+  const deck = packDeck(pack);
+  const list = seen[pack] || [];
+  let count = 0;
+  for (let i = 0; i < list.length; i += 1) {
+    for (let j = 0; j < deck.length; j += 1) {
+      if (deck[j].id === list[i]) {
+        count += 1;
+        break;
+      }
+    }
+  }
+  return count;
+};
+
+const renderPackSeen = function () {
+  const seen = loadSeen();
+  for (let i = 0; i < PACK_IDS.length; i += 1) {
+    const pack = PACK_IDS[i];
+    const label = document.querySelector('[data-pack="' + pack + '"] .pack-seen');
+    if (!label) {
+      continue;
+    }
+    const total = packDeck(pack).length;
+    label.textContent = seenCount(pack, seen) + " / " + total;
+  }
+};
+
+const packCount = function (pack) {
+  const n = packDeck(pack).length;
+  return n > 0 ? n : 1;
+};
+
+const clampRoundSize = function () {
+  const state = window.IMPULS.state;
+  const max = packCount(state.pack);
+  let n = state.roundSize;
+  if (typeof n !== "number" || !Number.isFinite(n) || n < 1) {
+    n = max;
+  } else {
+    n = Math.floor(n);
+    if (n > max) {
+      n = max;
+    }
+    if (n < 1) {
+      n = 1;
+    }
+  }
+  state.roundSize = n;
+  return max;
+};
+
+const renderRoundSize = function () {
+  const max = clampRoundSize();
+  const n = window.IMPULS.state.roundSize;
+  const slider = document.getElementById("round-size");
+  slider.min = "1";
+  slider.max = String(max);
+  slider.value = String(n);
+  document.getElementById("round-size-label").textContent = n + " / " + max;
+};
+
 const renderMenu = function () {
   const state = window.IMPULS.state;
+  document.getElementById("btn-start").textContent = startLabel(state.pack);
+  renderRoundSize();
   document.getElementById("win-select-current").textContent = windowOptionLabel(state.windowMs);
   const items = winSelectRoot().querySelectorAll("[data-ms]");
   for (let i = 0; i < items.length; i += 1) {
@@ -67,6 +235,7 @@ const renderMenu = function () {
   document.querySelector('[data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
   document.querySelector('[data-pack="p3"]').setAttribute("aria-pressed", state.pack === "p3" ? "true" : "false");
   document.querySelector('[data-pack="p4"]').setAttribute("aria-pressed", state.pack === "p4" ? "true" : "false");
+  renderPackSeen();
 };
 
 const showScreen = function (id) {
@@ -191,7 +360,14 @@ const idsKnown = function (list) {
 };
 
 const isWindow = function (ms) {
-  return ms === 1600 || ms === 1200 || ms === 900 || ms === 0;
+  return ms === 0 || ms === 2500 || ms === 1800 || ms === 1200;
+};
+
+const normalizeWindow = function (ms) {
+  if (isWindow(ms)) {
+    return ms;
+  }
+  return 1800;
 };
 
 const copyLatency = function (source) {
@@ -269,6 +445,7 @@ const clearPickFill = function () {
 
 const finishRound = function () {
   const state = window.IMPULS.state;
+  abortPending = false;
   cancelFrame();
   clearFlash();
   state.locked = true;
@@ -306,6 +483,7 @@ const showNext = function () {
     return;
   }
   state.currentId = upcoming.id;
+  markSeen(state.pack, card.id);
   state.presented = window.IMPULS.shuffle(card.options);
   document.getElementById("stimulus").textContent = card.prompt;
   document.getElementById("gloss").textContent = card.gloss || "";
@@ -315,7 +493,7 @@ const showNext = function () {
     btn.textContent = label;
     btn.classList.toggle("is-hidden", !label);
   }
-  const total = window.IMPULS.loadCards().length;
+  const total = Object.keys(state.first).length + state.main.length;
   const badge = document.getElementById("repair-badge");
   if (upcoming.repair) {
     document.getElementById("counter").textContent = total + "/" + total;
@@ -349,6 +527,10 @@ const flash = function (verdict, optionIndex) {
     flashId = 0;
     timer.classList.remove("is-hit", "is-miss");
     clearPickFill();
+    if (abortPending) {
+      finishRound();
+      return;
+    }
     showNext();
   }, 200);
 };
@@ -436,7 +618,7 @@ window.IMPULS.choose = function (index) {
   }
   const elapsed = performance.now() - state.cardStartedAt;
   let verdict = "miss";
-  // Без вікна late немає: лише hit або miss.
+  // Без часових меж late немає: лише hit або miss.
   if (state.windowMs > 0 && elapsed >= state.windowMs) {
     verdict = "late";
   } else if (sameAnswer(pick, card.answer)) {
@@ -574,6 +756,9 @@ window.IMPULS.selectWindow = function (ms) {
 };
 
 const stepWindow = function (delta) {
+  if (!isRoundSetupOpen()) {
+    return;
+  }
   const index = windowOptionIndex(window.IMPULS.state.windowMs);
   const next = index + delta;
   if (next < 0 || next >= WINDOW_OPTIONS.length) {
@@ -587,23 +772,39 @@ window.IMPULS.startRound = function () {
   if (state.phase !== "menu") {
     return;
   }
+  window.IMPULS.closeRoundSetup();
   cancelFrame();
   clearFlash();
   const cards = window.IMPULS.loadCards();
   if (!cards.length) {
     return;
   }
-  state.main = window.IMPULS.buildQueue(cards);
+  clampRoundSize();
+  state.main = window.IMPULS.buildQueue(cards, state.roundSize);
   state.repair = [];
   state.first = {};
   state.latency = {};
   state.currentId = null;
   state.presented = [];
   state.locked = false;
+  abortPending = false;
   window.IMPULS.setPhase("round");
   persistActive();
   showScreen("screen-round");
   showNext();
+};
+
+window.IMPULS.requestAbort = function () {
+  const phase = window.IMPULS.state.phase;
+  if (phase !== "round" && phase !== "repair") {
+    return;
+  }
+  // Під час межі картку не обривати: лише намір, вихід після спалаху.
+  if (!window.IMPULS.state.locked) {
+    abortPending = true;
+    return;
+  }
+  finishRound();
 };
 
 const restoreRound = function () {
@@ -611,11 +812,7 @@ const restoreRound = function () {
   if (!saved || typeof saved !== "object") {
     return false;
   }
-  if (!isWindow(saved.windowMs)) {
-    writeRound(null);
-    return false;
-  }
-  window.IMPULS.setWindow(saved.windowMs);
+  window.IMPULS.setWindow(normalizeWindow(saved.windowMs));
   if (saved.pack === "p1" || saved.pack === "p2" || saved.pack === "p3" || saved.pack === "p4") {
     window.IMPULS.setPack(saved.pack);
   }
@@ -636,6 +833,7 @@ const restoreRound = function () {
   state.repair = saved.repair.slice();
   state.first = copyVerdicts(saved.first);
   state.latency = copyLatency(saved.latency);
+  state.roundSize = Object.keys(state.first).length + state.main.length;
   if (state.main.length === 0 && state.repair.length === 0) {
     window.IMPULS.setPhase("menu");
     writeRound(null);
@@ -679,6 +877,9 @@ const bindClicks = function () {
   // Колесо гортає лише закритий список; на краях стоп, сторінку не скролити.
   root.addEventListener("wheel", function (event) {
     event.preventDefault();
+    if (!isRoundSetupOpen()) {
+      return;
+    }
     if (isWinSelectOpen()) {
       return;
     }
@@ -719,6 +920,31 @@ const bindClicks = function () {
 
   document.getElementById("btn-start").addEventListener("click", function () {
     window.IMPULS.startRound();
+  });
+
+  document.getElementById("btn-round-edit").addEventListener("click", function () {
+    window.IMPULS.toggleRoundSetup();
+  });
+
+  document.getElementById("round-size").addEventListener("input", function (event) {
+    const max = packCount(window.IMPULS.state.pack);
+    let n = Number(event.target.value);
+    if (!Number.isFinite(n)) {
+      n = max;
+    }
+    n = Math.floor(n);
+    if (n < 1) {
+      n = 1;
+    }
+    if (n > max) {
+      n = max;
+    }
+    window.IMPULS.state.roundSize = n;
+    renderRoundSize();
+  });
+
+  document.getElementById("btn-abort").addEventListener("click", function () {
+    window.IMPULS.requestAbort();
   });
 
   document.getElementById("btn-settings").addEventListener("click", function () {

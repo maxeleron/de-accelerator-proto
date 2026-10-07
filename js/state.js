@@ -3,7 +3,8 @@ window.IMPULS = window.IMPULS || {};
 window.IMPULS.state = {
   phase: "menu",
   pack: "p1",
-  windowMs: 1200,
+  windowMs: 1800,
+  roundSize: 0,
   main: [],
   repair: [],
   currentId: null,

@@ -13,12 +13,24 @@ window.IMPULS.shuffle = function (list) {
   return next;
 };
 
-window.IMPULS.buildQueue = function (cards) {
+window.IMPULS.buildQueue = function (cards, count) {
   const ids = [];
   for (let i = 0; i < cards.length; i += 1) {
     ids.push(cards[i].id);
   }
-  return window.IMPULS.shuffle(ids);
+  const shuffled = window.IMPULS.shuffle(ids);
+  // Зріз після перемішування, не перші N з колоди.
+  if (typeof count !== "number" || !Number.isFinite(count)) {
+    return shuffled;
+  }
+  let n = Math.floor(count);
+  if (n < 1) {
+    n = 1;
+  }
+  if (n > shuffled.length) {
+    n = shuffled.length;
+  }
+  return shuffled.slice(0, n);
 };
 
 window.IMPULS.pushRepair = function (cardId) {

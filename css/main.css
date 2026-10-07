@@ -94,11 +94,19 @@ h2 {
   color: var(--muted);
 }
 
-#btn-start {
+#start-split {
+  display: flex;
   width: 100%;
   height: 72px;
+}
+
+#btn-start {
+  flex: 1;
+  min-width: 0;
+  height: 72px;
+  padding: 0 16px;
   border: 0;
-  border-radius: 4px;
+  border-radius: 4px 0 0 4px;
   background: var(--accent);
   color: var(--on-fill);
   font-size: 18px;
@@ -106,13 +114,71 @@ h2 {
   cursor: pointer;
 }
 
-#btn-start:hover {
+#btn-round-edit {
+  width: 56px;
+  flex-shrink: 0;
+  height: 72px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-left: 1px solid rgba(231, 238, 233, 0.35);
+  border-radius: 0 4px 4px 0;
+  background: var(--accent);
+  color: var(--on-fill);
+  cursor: pointer;
+}
+
+#btn-start:hover,
+#btn-round-edit:hover {
   background: var(--accent-hover);
+}
+
+#icon-round-edit {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+#round-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#round-size-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#round-size {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+#round-size-label {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8b978f;
+  white-space: nowrap;
 }
 
 #btn-base {
   width: 100%;
   height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  text-align: left;
   border: 1px solid var(--border);
   border-radius: 4px;
   background: var(--surface);
@@ -125,6 +191,16 @@ h2 {
   border-color: var(--accent);
 }
 
+#btn-base svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+#icon-base {
+  fill: currentColor;
+}
+
 .rows {
   display: flex;
   flex-direction: column;
@@ -135,11 +211,27 @@ h2 {
   width: 100%;
   height: 48px;
   padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   text-align: left;
   border: 1px solid var(--border);
   border-radius: 4px;
   background: var(--surface);
   cursor: pointer;
+}
+
+.pack-name {
+  min-width: 0;
+}
+
+.pack-seen {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8b978f;
+  white-space: nowrap;
 }
 
 .rows button[aria-pressed="true"] {
@@ -313,7 +405,10 @@ html[data-theme="light"] #icon-moon {
 #screen-settings.is-hidden,
 #repair-badge.is-hidden,
 .options button.is-hidden,
-#win-select .win-select-menu.is-hidden {
+#win-select .win-select-menu.is-hidden,
+#round-setup.is-hidden,
+#btn-clear-progress.is-hidden,
+#clear-progress-confirm.is-hidden {
   display: none;
 }
 
@@ -336,6 +431,18 @@ html[data-theme="light"] #icon-moon {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
+}
+
+#btn-abort {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8b978f;
+  cursor: pointer;
+  text-align: left;
 }
 
 #counter,
@@ -449,9 +556,50 @@ html[data-theme="light"] #icon-moon {
   border-color: var(--accent);
 }
 
-#settings-empty {
-  font-size: 15px;
-  color: var(--muted);
+#visual-empty,
+#clear-progress-warn {
+  font-size: 13px;
+  font-weight: 500;
+  color: #8b978f;
+}
+
+#btn-clear-progress,
+#btn-clear-cancel,
+#btn-clear-wipe {
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  font-size: 16px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+#btn-clear-progress {
+  width: 100%;
+}
+
+#btn-clear-progress:hover,
+#btn-clear-cancel:hover,
+#btn-clear-wipe:hover {
+  border-color: var(--accent);
+}
+
+#clear-progress-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.clear-progress-actions {
+  display: flex;
+  gap: 8px;
+}
+
+#btn-clear-cancel,
+#btn-clear-wipe {
+  flex: 1;
 }
 
 #screen-base {

@@ -1,26 +1,35 @@
 window.IMPULS = window.IMPULS || {};
 
 // Пауза під час вікна заборонена: Esc раунд не зупиняє.
+const roundSetupOpen = function () {
+  const panel = document.getElementById("round-setup");
+  return panel && !panel.classList.contains("is-hidden");
+};
+
 const onMenuKey = function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
     document.getElementById("btn-start").click();
     return;
   }
+  // Клавіші межі лише коли панель прогону відкрита.
+  if (!roundSetupOpen()) {
+    return;
+  }
   if (event.key === "1") {
-    window.IMPULS.selectWindow(1600);
+    window.IMPULS.selectWindow(0);
     return;
   }
   if (event.key === "2") {
-    window.IMPULS.selectWindow(1200);
+    window.IMPULS.selectWindow(2500);
     return;
   }
   if (event.key === "3") {
-    window.IMPULS.selectWindow(900);
+    window.IMPULS.selectWindow(1800);
     return;
   }
   if (event.key === "4") {
-    window.IMPULS.selectWindow(0);
+    window.IMPULS.selectWindow(1200);
   }
 };
 

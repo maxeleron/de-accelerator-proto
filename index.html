@@ -25,36 +25,68 @@
 
     <section class="block" aria-labelledby="label-round">
       <h2 id="label-round">Раунд</h2>
-      <button type="button" id="btn-start">Почати раунд</button>
-      <button type="button" id="btn-base">База знань</button>
+      <div id="start-split">
+        <button type="button" id="btn-start">Почати раунд P1</button>
+        <button type="button" id="btn-round-edit" aria-expanded="false" aria-controls="round-setup" aria-label="Параметри прогону">
+          <svg id="icon-round-edit" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+          </svg>
+        </button>
+      </div>
+      <div id="round-setup" class="is-hidden">
+        <section class="block" aria-labelledby="label-window">
+          <h2 id="label-window">Часові межі (мс)</h2>
+          <div id="win-select">
+            <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-window win-select-current">
+              <span id="win-select-current">Рівно 1800 мс</span>
+              <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 9l4-4 4 4"></path>
+                <path d="M8 15l4 4 4-4"></path>
+              </svg>
+            </button>
+            <div class="win-select-menu is-hidden">
+              <button type="button" data-ms="0">Без часових меж</button>
+              <button type="button" data-ms="2500">М’яко 2500 мс</button>
+              <button type="button" data-ms="1800">Рівно 1800 мс</button>
+              <button type="button" data-ms="1200">Жорстко 1200 мс</button>
+            </div>
+          </div>
+        </section>
+        <section class="block" aria-labelledby="label-round-size">
+          <h2 id="label-round-size">Довжина</h2>
+          <div id="round-size-row">
+            <input type="range" id="round-size" min="1" max="14" value="14">
+            <p id="round-size-label">14 / 14</p>
+          </div>
+        </section>
+      </div>
+      <button type="button" id="btn-base">
+        <svg id="icon-base" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 5a2 2 0 0 1 2-2h6v16H5a2 2 0 0 0-2 2V5zm10-2h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2h-6V3z"></path>
+        </svg>
+        База знань
+      </button>
     </section>
 
     <section class="block" aria-labelledby="label-pack">
       <h2 id="label-pack">Пакет</h2>
       <div class="rows">
-        <button type="button" data-pack="p1" aria-pressed="true">P1 Sein / haben</button>
-        <button type="button" data-pack="p2" aria-pressed="false">P2 Особові закінчення</button>
-        <button type="button" data-pack="p3" aria-pressed="false">P3 Артикль</button>
-        <button type="button" data-pack="p4" aria-pressed="false">P4 Akkusativ</button>
-      </div>
-    </section>
-
-    <section class="block" aria-labelledby="label-window">
-      <h2 id="label-window">Часові межі (мс)</h2>
-      <div id="win-select">
-        <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-window win-select-current">
-          <span id="win-select-current">Рівно 1200</span>
-          <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M8 9l4-4 4 4"></path>
-            <path d="M8 15l4 4 4-4"></path>
-          </svg>
+        <button type="button" data-pack="p1" aria-pressed="true">
+          <span class="pack-name">P1 Sein / haben</span>
+          <span class="pack-seen">0 / 14</span>
         </button>
-        <div class="win-select-menu is-hidden">
-          <button type="button" data-ms="1600">М’яко 1600</button>
-          <button type="button" data-ms="1200">Рівно 1200</button>
-          <button type="button" data-ms="900">Жорстко 900</button>
-          <button type="button" data-ms="0">Без вікна</button>
-        </div>
+        <button type="button" data-pack="p2" aria-pressed="false">
+          <span class="pack-name">P2 Особові закінчення</span>
+          <span class="pack-seen">0 / 18</span>
+        </button>
+        <button type="button" data-pack="p3" aria-pressed="false">
+          <span class="pack-name">P3 Артикль</span>
+          <span class="pack-seen">0 / 12</span>
+        </button>
+        <button type="button" data-pack="p4" aria-pressed="false">
+          <span class="pack-name">P4 Akkusativ</span>
+          <span class="pack-seen">0 / 24</span>
+        </button>
       </div>
     </section>
 
@@ -71,6 +103,7 @@
       <p id="counter">1/14</p>
       <p id="repair-badge" class="is-hidden">Промахи</p>
     </div>
+    <button type="button" id="btn-abort">Вийти</button>
     <div class="stimulus-block">
       <p id="stimulus"></p>
       <p id="gloss"></p>
@@ -87,7 +120,21 @@
   <section id="screen-settings" class="is-hidden" tabindex="-1">
     <button type="button" id="btn-settings-back">До меню</button>
     <h2 id="label-settings">Налаштування</h2>
-    <p id="settings-empty">Тут ще немає пунктів</p>
+    <section class="block" aria-labelledby="label-visual">
+      <h2 id="label-visual">Візуал</h2>
+      <p id="visual-empty">Поки порожньо</p>
+    </section>
+    <section class="block" aria-labelledby="label-data">
+      <h2 id="label-data">Дані</h2>
+      <button type="button" id="btn-clear-progress">Очистити прогрес</button>
+      <div id="clear-progress-confirm" class="is-hidden">
+        <p id="clear-progress-warn">Прогрес буде стерто</p>
+        <div class="clear-progress-actions">
+          <button type="button" id="btn-clear-cancel">Скасувати</button>
+          <button type="button" id="btn-clear-wipe">Стерти</button>
+        </div>
+      </div>
+    </section>
   </section>
 
   <section id="screen-base" class="is-hidden" tabindex="-1">
