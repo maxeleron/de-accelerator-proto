@@ -152,6 +152,73 @@ h2 {
   color: var(--text);
 }
 
+#win-select {
+  position: relative;
+}
+
+#win-select .win-select-face {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+#win-select .win-select-face[aria-expanded="true"] {
+  border-color: var(--accent);
+}
+
+#win-select .win-select-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#win-select .win-select-menu {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  top: calc(100% + 4px);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+#win-select .win-select-menu button {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  text-align: left;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+#win-select .win-select-menu button[aria-selected="true"] {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+#win-select .win-select-menu button:hover {
+  background: var(--surface);
+}
+
 #menu-status {
   font-size: 15px;
   color: var(--muted-strong);
@@ -164,6 +231,36 @@ button:focus {
 button:focus-visible {
   outline: 2px solid var(--text);
   outline-offset: 3px;
+}
+
+#btn-settings {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 20;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+#btn-settings:hover {
+  border-color: var(--accent);
+}
+
+#btn-settings svg {
+  width: 22px;
+  height: 22px;
+}
+
+#icon-settings {
+  fill: currentColor;
 }
 
 #btn-theme {
@@ -217,8 +314,11 @@ html[data-theme="light"] #icon-moon {
 #screen-menu.is-hidden,
 #screen-round.is-hidden,
 #screen-base.is-hidden,
+#screen-settings.is-hidden,
+#btn-settings.is-hidden,
 #repair-badge.is-hidden,
-.options button.is-hidden {
+.options button.is-hidden,
+#win-select .win-select-menu.is-hidden {
   display: none;
 }
 
@@ -324,6 +424,39 @@ html[data-theme="light"] #icon-moon {
   background: var(--miss);
   border-color: var(--miss);
   color: var(--on-fill);
+}
+
+#screen-settings {
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+#screen-settings:focus {
+  outline: none;
+}
+
+#btn-settings-back {
+  align-self: flex-start;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+#btn-settings-back:hover {
+  border-color: var(--accent);
+}
+
+#settings-empty {
+  font-size: 15px;
+  color: var(--muted);
 }
 
 #screen-base {

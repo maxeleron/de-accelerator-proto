@@ -70,6 +70,13 @@ window.IMPULS.bindKeys = function () {
       }
       return;
     }
+    if (phase === "settings") {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        window.IMPULS.closeSettings();
+      }
+      return;
+    }
     if (phase === "round" || phase === "repair") {
       onRoundKey(event);
     }

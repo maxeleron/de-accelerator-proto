@@ -8,6 +8,11 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+  <button type="button" id="btn-settings" aria-label="Налаштування">
+    <svg id="icon-settings" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.04 7.04 0 0 0-1.63-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.55-1.63.94l-2.39-.96a.5.5 0 0 0-.61.22L2.77 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94L2.89 14.52a.5.5 0 0 0-.12.64l1.92 3.32c.14.24.4.34.61.22l2.39-.96c.5.39 1.04.7 1.63.94l.36 2.54c.05.24.26.42.5.42h3.84c.24 0 .45-.18.5-.42l.36-2.54c.59-.24 1.13-.55 1.63-.94l2.39.96c.22.12.47.02.61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"></path>
+    </svg>
+  </button>
   <button type="button" id="btn-theme" aria-label="Світла тема">
     <svg id="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M16 3.5A8.5 8.5 0 1 0 20.5 16 7 7 0 0 1 16 3.5z"></path>
@@ -41,11 +46,20 @@
 
     <section class="block" aria-labelledby="label-window">
       <h2 id="label-window">Часові межі (мс)</h2>
-      <div class="rows">
-        <button type="button" id="win-soft" aria-pressed="false">М’яко 1600</button>
-        <button type="button" id="win-even" aria-pressed="true">Рівно 1200</button>
-        <button type="button" id="win-hard" aria-pressed="false">Жорстко 900</button>
-        <button type="button" id="win-free" aria-pressed="false">Без вікна</button>
+      <div id="win-select">
+        <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-window win-select-current">
+          <span id="win-select-current">Рівно 1200</span>
+          <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 9l4-4 4 4"></path>
+            <path d="M8 15l4 4 4-4"></path>
+          </svg>
+        </button>
+        <div class="win-select-menu is-hidden">
+          <button type="button" data-ms="1600">М’яко 1600</button>
+          <button type="button" data-ms="1200">Рівно 1200</button>
+          <button type="button" data-ms="900">Жорстко 900</button>
+          <button type="button" data-ms="0">Без вікна</button>
+        </div>
       </div>
     </section>
 
@@ -70,6 +84,12 @@
     </div>
   </section>
 
+  <section id="screen-settings" class="is-hidden" tabindex="-1">
+    <button type="button" id="btn-settings-back">До меню</button>
+    <h2 id="label-settings">Налаштування</h2>
+    <p id="settings-empty">Тут ще немає пунктів</p>
+  </section>
+
   <section id="screen-base" class="is-hidden" tabindex="-1">
     <button type="button" id="btn-base-back">До меню</button>
     <h2 id="label-base">База знань</h2>
@@ -84,6 +104,7 @@
   <script src="js/state.js" defer></script>
   <script src="js/queue.js" defer></script>
   <script src="js/input.js" defer></script>
+  <script src="js/settings.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

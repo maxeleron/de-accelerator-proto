@@ -1,11 +1,11 @@
 window.IMPULS = window.IMPULS || {};
 
-const MENU_WINDOWS = {
-  "win-soft": 1600,
-  "win-even": 1200,
-  "win-hard": 900,
-  "win-free": 0
-};
+const WINDOW_OPTIONS = [
+  { ms: 1600, label: "М’яко 1600" },
+  { ms: 1200, label: "Рівно 1200" },
+  { ms: 900, label: "Жорстко 900" },
+  { ms: 0, label: "Без вікна" }
+];
 
 const VERDICTS = {
   hit: true,
@@ -16,12 +16,53 @@ const VERDICTS = {
 
 let flashId = 0;
 
+const winSelectRoot = function () {
+  return document.getElementById("win-select");
+};
+
+const winSelectFace = function () {
+  return winSelectRoot().querySelector(".win-select-face");
+};
+
+const winSelectMenu = function () {
+  return winSelectRoot().querySelector(".win-select-menu");
+};
+
+const isWinSelectOpen = function () {
+  return !winSelectMenu().classList.contains("is-hidden");
+};
+
+const closeWinSelect = function () {
+  winSelectMenu().classList.add("is-hidden");
+  winSelectFace().setAttribute("aria-expanded", "false");
+};
+
+const openWinSelect = function () {
+  winSelectMenu().classList.remove("is-hidden");
+  winSelectFace().setAttribute("aria-expanded", "true");
+};
+
+const windowOptionIndex = function (ms) {
+  for (let i = 0; i < WINDOW_OPTIONS.length; i += 1) {
+    if (WINDOW_OPTIONS[i].ms === ms) {
+      return i;
+    }
+  }
+  return 1;
+};
+
+const windowOptionLabel = function (ms) {
+  return WINDOW_OPTIONS[windowOptionIndex(ms)].label;
+};
+
 const renderMenu = function () {
   const state = window.IMPULS.state;
-  Object.keys(MENU_WINDOWS).forEach(function (id) {
-    const pressed = MENU_WINDOWS[id] === state.windowMs;
-    document.getElementById(id).setAttribute("aria-pressed", pressed ? "true" : "false");
-  });
+  document.getElementById("win-select-current").textContent = windowOptionLabel(state.windowMs);
+  const items = winSelectRoot().querySelectorAll("[data-ms]");
+  for (let i = 0; i < items.length; i += 1) {
+    const ms = Number(items[i].getAttribute("data-ms"));
+    items[i].setAttribute("aria-selected", ms === state.windowMs ? "true" : "false");
+  }
   document.querySelector('[data-pack="p1"]').setAttribute("aria-pressed", state.pack === "p1" ? "true" : "false");
   document.querySelector('[data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
   document.querySelector('[data-pack="p3"]').setAttribute("aria-pressed", state.pack === "p3" ? "true" : "false");
@@ -32,6 +73,9 @@ const showScreen = function (id) {
   document.getElementById("screen-menu").classList.toggle("is-hidden", id !== "screen-menu");
   document.getElementById("screen-round").classList.toggle("is-hidden", id !== "screen-round");
   document.getElementById("screen-base").classList.toggle("is-hidden", id !== "screen-base");
+  document.getElementById("screen-settings").classList.toggle("is-hidden", id !== "screen-settings");
+  const showGear = id === "screen-menu" || id === "screen-settings";
+  document.getElementById("btn-settings").classList.toggle("is-hidden", !showGear);
 };
 
 const focusRound = function () {
@@ -432,6 +476,24 @@ window.IMPULS.showBase = function (id) {
   fillBaseBody(section);
 };
 
+window.IMPULS.openSettings = function () {
+  if (window.IMPULS.state.phase !== "menu") {
+    return;
+  }
+  window.IMPULS.setPhase("settings");
+  showScreen("screen-settings");
+  document.getElementById("screen-settings").focus();
+};
+
+window.IMPULS.closeSettings = function () {
+  if (window.IMPULS.state.phase !== "settings") {
+    return;
+  }
+  window.IMPULS.setPhase("menu");
+  showScreen("screen-menu");
+  document.getElementById("btn-settings").focus();
+};
+
 window.IMPULS.openBase = function () {
   if (window.IMPULS.state.phase !== "menu") {
     return;
@@ -464,6 +526,16 @@ window.IMPULS.selectWindow = function (ms) {
   }
   window.IMPULS.setWindow(ms);
   renderMenu();
+  closeWinSelect();
+};
+
+const stepWindow = function (delta) {
+  const index = windowOptionIndex(window.IMPULS.state.windowMs);
+  const next = index + delta;
+  if (next < 0 || next >= WINDOW_OPTIONS.length) {
+    return;
+  }
+  window.IMPULS.selectWindow(WINDOW_OPTIONS[next].ms);
 };
 
 window.IMPULS.startRound = function () {
@@ -538,10 +610,52 @@ const restoreRound = function () {
 };
 
 const bindClicks = function () {
-  Object.keys(MENU_WINDOWS).forEach(function (id) {
-    document.getElementById(id).addEventListener("click", function () {
-      window.IMPULS.selectWindow(MENU_WINDOWS[id]);
-    });
+  const root = winSelectRoot();
+  const face = winSelectFace();
+  const menu = winSelectMenu();
+
+  face.addEventListener("click", function () {
+    if (isWinSelectOpen()) {
+      closeWinSelect();
+      return;
+    }
+    openWinSelect();
+  });
+
+  root.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  });
+
+  menu.addEventListener("click", function (event) {
+    const item = event.target.closest("[data-ms]");
+    if (!item) {
+      return;
+    }
+    window.IMPULS.selectWindow(Number(item.getAttribute("data-ms")));
+    closeWinSelect();
+  });
+
+  // Колесо гортає лише закритий список; на краях стоп, сторінку не скролити.
+  root.addEventListener("wheel", function (event) {
+    event.preventDefault();
+    if (isWinSelectOpen()) {
+      return;
+    }
+    if (event.deltaY > 0) {
+      stepWindow(1);
+      return;
+    }
+    if (event.deltaY < 0) {
+      stepWindow(-1);
+    }
+  }, { passive: false });
+
+  document.addEventListener("click", function (event) {
+    if (!root.contains(event.target)) {
+      closeWinSelect();
+    }
   });
 
   document.querySelector('[data-pack="p1"]').addEventListener("click", function () {
@@ -566,6 +680,14 @@ const bindClicks = function () {
 
   document.getElementById("btn-start").addEventListener("click", function () {
     window.IMPULS.startRound();
+  });
+
+  document.getElementById("btn-settings").addEventListener("click", function () {
+    window.IMPULS.openSettings();
+  });
+
+  document.getElementById("btn-settings-back").addEventListener("click", function () {
+    window.IMPULS.closeSettings();
   });
 
   document.getElementById("btn-base").addEventListener("click", function () {
