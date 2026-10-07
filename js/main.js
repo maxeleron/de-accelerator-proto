@@ -74,8 +74,81 @@ const showScreen = function (id) {
   document.getElementById("screen-round").classList.toggle("is-hidden", id !== "screen-round");
   document.getElementById("screen-base").classList.toggle("is-hidden", id !== "screen-base");
   document.getElementById("screen-settings").classList.toggle("is-hidden", id !== "screen-settings");
-  const showGear = id === "screen-menu" || id === "screen-settings";
-  document.getElementById("btn-settings").classList.toggle("is-hidden", !showGear);
+};
+
+const replaceHistory = function (screen) {
+  try {
+    history.replaceState({ screen: screen }, "");
+  } catch (err) {
+    // file:// інколи не дає history.state
+  }
+};
+
+const pushHistory = function (screen) {
+  try {
+    history.pushState({ screen: screen }, "");
+  } catch (err) {
+    // file:// інколи не дає history.state
+  }
+};
+
+const showMenuView = function () {
+  const from = window.IMPULS.state.phase;
+  window.IMPULS.setPhase("menu");
+  showScreen("screen-menu");
+  if (from === "settings") {
+    document.getElementById("btn-settings").focus();
+    return;
+  }
+  if (from === "base") {
+    document.getElementById("btn-base").focus();
+  }
+};
+
+const showSettingsView = function () {
+  window.IMPULS.setPhase("settings");
+  showScreen("screen-settings");
+  document.getElementById("screen-settings").focus();
+};
+
+const showBaseView = function () {
+  const sections = window.IMPULS.loadHandbook();
+  if (!sections.length) {
+    showMenuView();
+    return;
+  }
+  window.IMPULS.setPhase("base");
+  showScreen("screen-base");
+  window.IMPULS.showBase(window.IMPULS.state.baseId || sections[0].id);
+  document.getElementById("screen-base").focus();
+};
+
+const applyHistoryState = function (state) {
+  const phase = window.IMPULS.state.phase;
+  // Раунд свого екрану в історії не має; назад лишає в раунді.
+  if (phase === "round" || phase === "repair") {
+    pushHistory("menu");
+    return;
+  }
+  const screen = state && state.screen;
+  if (screen === "base") {
+    showBaseView();
+    return;
+  }
+  if (screen === "settings") {
+    showSettingsView();
+    return;
+  }
+  showMenuView();
+};
+
+const bindHistory = function () {
+  replaceHistory("menu");
+  // Другий menu, щоб назад під час раунду не вів на попередній сайт.
+  pushHistory("menu");
+  window.addEventListener("popstate", function (event) {
+    applyHistoryState(event.state);
+  });
 };
 
 const focusRound = function () {
@@ -90,17 +163,6 @@ const findCard = function (id) {
     }
   }
   return null;
-};
-
-const countHits = function (first) {
-  let hits = 0;
-  const ids = Object.keys(first);
-  for (let i = 0; i < ids.length; i += 1) {
-    if (first[ids[i]] === "hit") {
-      hits += 1;
-    }
-  }
-  return hits;
 };
 
 const copyVerdicts = function (source) {
@@ -205,14 +267,8 @@ const clearPickFill = function () {
   }
 };
 
-const statusText = function (hits, total) {
-  return "Перший імпульс: " + hits + "/" + total;
-};
-
 const finishRound = function () {
   const state = window.IMPULS.state;
-  const hits = countHits(state.first);
-  const total = window.IMPULS.loadCards().length;
   cancelFrame();
   clearFlash();
   state.locked = true;
@@ -223,13 +279,10 @@ const finishRound = function () {
   window.IMPULS.setPhase("menu");
   writeRound({
     done: true,
-    hits: hits,
-    total: total,
     windowMs: state.windowMs,
     pack: state.pack
   });
   showScreen("screen-menu");
-  document.getElementById("menu-status").textContent = statusText(hits, total);
   document.getElementById("repair-badge").classList.add("is-hidden");
   document.getElementById("timer").classList.remove("is-hit", "is-miss");
   clearPickFill();
@@ -324,8 +377,6 @@ const commit = function (verdict, elapsedMs, optionIndex) {
   if (state.main.length === 0 && state.repair.length === 0) {
     writeRound({
       done: true,
-      hits: countHits(state.first),
-      total: window.IMPULS.loadCards().length,
       windowMs: state.windowMs,
       pack: state.pack
     });
@@ -480,18 +531,15 @@ window.IMPULS.openSettings = function () {
   if (window.IMPULS.state.phase !== "menu") {
     return;
   }
-  window.IMPULS.setPhase("settings");
-  showScreen("screen-settings");
-  document.getElementById("screen-settings").focus();
+  pushHistory("settings");
+  showSettingsView();
 };
 
 window.IMPULS.closeSettings = function () {
   if (window.IMPULS.state.phase !== "settings") {
     return;
   }
-  window.IMPULS.setPhase("menu");
-  showScreen("screen-menu");
-  document.getElementById("btn-settings").focus();
+  history.back();
 };
 
 window.IMPULS.openBase = function () {
@@ -502,19 +550,15 @@ window.IMPULS.openBase = function () {
   if (!sections.length) {
     return;
   }
-  window.IMPULS.setPhase("base");
-  showScreen("screen-base");
-  window.IMPULS.showBase(window.IMPULS.state.baseId || sections[0].id);
-  document.getElementById("screen-base").focus();
+  pushHistory("base");
+  showBaseView();
 };
 
 window.IMPULS.closeBase = function () {
   if (window.IMPULS.state.phase !== "base") {
     return;
   }
-  window.IMPULS.setPhase("menu");
-  showScreen("screen-menu");
-  document.getElementById("btn-base").focus();
+  history.back();
 };
 
 window.IMPULS.selectWindow = function (ms) {
@@ -576,11 +620,6 @@ const restoreRound = function () {
     window.IMPULS.setPack(saved.pack);
   }
   if (saved.done === true) {
-    const hits = Number(saved.hits);
-    const total = Number(saved.total);
-    if (Number.isFinite(hits) && Number.isFinite(total)) {
-      document.getElementById("menu-status").textContent = statusText(hits, total);
-    }
     renderMenu();
     return true;
   }
@@ -713,6 +752,7 @@ const bindClicks = function () {
 document.addEventListener("DOMContentLoaded", function () {
   bindClicks();
   window.IMPULS.bindKeys();
+  bindHistory();
   if (!restoreRound()) {
     renderMenu();
   }
