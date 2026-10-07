@@ -59,7 +59,7 @@ const showClearConfirm = function (on) {
 };
 
 const resetPackSeenLabels = function () {
-  const labels = document.querySelectorAll(".pack-seen");
+  const labels = document.querySelectorAll("[data-pack] .pack-seen");
   for (let i = 0; i < labels.length; i += 1) {
     const bits = String(labels[i].textContent).split("/");
     const total = bits.length > 1 ? bits[1].trim() : "0";

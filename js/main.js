@@ -108,7 +108,7 @@ const startLabel = function (pack) {
     return "Почати раунд P4";
   }
   if (pack === "mix") {
-    return "Почати раунд мікс";
+    return "Почати раунд PX";
   }
   return "Почати раунд P1";
 };
@@ -216,6 +216,23 @@ const seenCount = function (pack, seen) {
   return count;
 };
 
+const uniquePackCardCount = function () {
+  const seen = {};
+  let n = 0;
+  for (let i = 0; i < PACK_IDS.length; i += 1) {
+    const deck = packDeck(PACK_IDS[i]);
+    for (let j = 0; j < deck.length; j += 1) {
+      const id = deck[j].id;
+      if (!id || seen[id]) {
+        continue;
+      }
+      seen[id] = true;
+      n += 1;
+    }
+  }
+  return n;
+};
+
 const renderPackSeen = function () {
   const seen = loadSeen();
   for (let i = 0; i < PACK_IDS.length; i += 1) {
@@ -226,6 +243,10 @@ const renderPackSeen = function () {
     }
     const total = packDeck(pack).length;
     label.textContent = seenCount(pack, seen) + " / " + total;
+  }
+  const mixLabel = document.querySelector("#btn-mix .pack-seen");
+  if (mixLabel) {
+    mixLabel.textContent = String(uniquePackCardCount());
   }
 };
 

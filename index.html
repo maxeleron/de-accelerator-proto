@@ -72,7 +72,7 @@
       <h2 id="label-pack">Пакет</h2>
       <div class="rows">
         <button type="button" data-pack="p1" aria-pressed="true">
-          <span class="pack-name">P1 Sein / haben</span>
+          <span class="pack-name">P1 Дієслово sein / haben</span>
           <span class="pack-seen">0 / 14</span>
         </button>
         <button type="button" data-pack="p2" aria-pressed="false">
@@ -80,15 +80,18 @@
           <span class="pack-seen">0 / 18</span>
         </button>
         <button type="button" data-pack="p3" aria-pressed="false">
-          <span class="pack-name">P3 Артикль</span>
+          <span class="pack-name">P3 Артикль називний</span>
           <span class="pack-seen">0 / 24</span>
         </button>
         <button type="button" data-pack="p4" aria-pressed="false">
-          <span class="pack-name">P4 Akkusativ</span>
+          <span class="pack-name">P4 Артикль знахідний</span>
           <span class="pack-seen">0 / 48</span>
         </button>
+        <button type="button" id="btn-mix" aria-pressed="false">
+          <span class="pack-name">PX Усі пакети</span>
+          <span class="pack-seen">104</span>
+        </button>
       </div>
-      <button type="button" id="btn-mix" aria-pressed="false">Перемішати</button>
     </section>
 
     <button type="button" id="btn-settings">
@@ -101,10 +104,14 @@
 
   <section id="screen-round" class="is-hidden" tabindex="-1">
     <div class="round-meta">
+      <button type="button" id="btn-abort" aria-label="Вийти">
+        <svg id="icon-abort" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 12H5M12 5l-7 7 7 7" fill="none"></path>
+        </svg>
+      </button>
       <p id="counter">1/14</p>
       <p id="repair-badge" class="is-hidden">Промахи</p>
     </div>
-    <button type="button" id="btn-abort">Вийти</button>
     <div class="stimulus-block">
       <p id="stimulus"></p>
       <p id="gloss"></p>
@@ -119,8 +126,14 @@
   </section>
 
   <section id="screen-settings" class="is-hidden" tabindex="-1">
-    <button type="button" id="btn-settings-back">До меню</button>
-    <h2 id="label-settings">Налаштування</h2>
+    <div class="screen-head">
+      <button type="button" id="btn-settings-back" aria-label="До меню">
+        <svg id="icon-settings-back" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 12H5M12 5l-7 7 7 7" fill="none"></path>
+        </svg>
+      </button>
+      <h2 id="label-settings">Налаштування</h2>
+    </div>
     <section class="block" aria-labelledby="label-visual">
       <h2 id="label-visual">Візуал</h2>
       <p id="visual-empty">Поки порожньо</p>
@@ -139,8 +152,14 @@
   </section>
 
   <section id="screen-base" class="is-hidden" tabindex="-1">
-    <button type="button" id="btn-base-back">До меню</button>
-    <h2 id="label-base">База знань</h2>
+    <div class="screen-head">
+      <button type="button" id="btn-base-back" aria-label="До меню">
+        <svg id="icon-base-back" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 12H5M12 5l-7 7 7 7" fill="none"></path>
+        </svg>
+      </button>
+      <h2 id="label-base">База знань</h2>
+    </div>
     <div class="base-layout">
       <nav id="base-nav" aria-labelledby="label-base"></nav>
       <div id="base-body"></div>
