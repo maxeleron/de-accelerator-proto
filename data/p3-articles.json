@@ -1,0 +1,86 @@
+[
+  {
+    "id": "ar-01",
+    "muster": "nominativ",
+    "prompt": "___ стіл",
+    "answer": "der",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-02",
+    "muster": "nominativ",
+    "prompt": "___ лампа",
+    "answer": "die",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-03",
+    "muster": "nominativ",
+    "prompt": "___ книга",
+    "answer": "das",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-04",
+    "muster": "nominativ",
+    "prompt": "___ чоловік",
+    "answer": "der",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-05",
+    "muster": "nominativ",
+    "prompt": "___ жінка",
+    "answer": "die",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-06",
+    "muster": "nominativ",
+    "prompt": "___ дитина",
+    "answer": "das",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-07",
+    "muster": "nominativ",
+    "prompt": "___ стілець",
+    "answer": "der",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-08",
+    "muster": "nominativ",
+    "prompt": "___ двері",
+    "answer": "die",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-09",
+    "muster": "nominativ",
+    "prompt": "___ вікно",
+    "answer": "das",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-10",
+    "muster": "nominativ",
+    "prompt": "___ собака",
+    "answer": "der",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-11",
+    "muster": "nominativ",
+    "prompt": "___ кішка",
+    "answer": "die",
+    "options": ["der", "die", "das"]
+  },
+  {
+    "id": "ar-12",
+    "muster": "nominativ",
+    "prompt": "___ будинок",
+    "answer": "das",
+    "options": ["der", "die", "das"]
+  }
+]

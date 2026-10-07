@@ -24,6 +24,8 @@ const renderMenu = function () {
   });
   document.querySelector('[data-pack="p1"]').setAttribute("aria-pressed", state.pack === "p1" ? "true" : "false");
   document.querySelector('[data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
+  document.querySelector('[data-pack="p3"]').setAttribute("aria-pressed", state.pack === "p3" ? "true" : "false");
+  document.querySelector('[data-pack="p4"]').setAttribute("aria-pressed", state.pack === "p4" ? "true" : "false");
 };
 
 const showScreen = function (id) {
@@ -203,7 +205,10 @@ const showNext = function () {
   state.presented = window.IMPULS.shuffle(card.options);
   document.getElementById("stimulus").textContent = card.prompt;
   for (let i = 0; i < 4; i += 1) {
-    document.getElementById("opt-" + (i + 1)).textContent = state.presented[i] || "";
+    const btn = document.getElementById("opt-" + (i + 1));
+    const label = state.presented[i] || "";
+    btn.textContent = label;
+    btn.classList.toggle("is-hidden", !label);
   }
   const total = window.IMPULS.loadCards().length;
   const badge = document.getElementById("repair-badge");
@@ -478,7 +483,7 @@ const restoreRound = function () {
     return false;
   }
   window.IMPULS.setWindow(saved.windowMs);
-  if (saved.pack === "p1" || saved.pack === "p2") {
+  if (saved.pack === "p1" || saved.pack === "p2" || saved.pack === "p3" || saved.pack === "p4") {
     window.IMPULS.setPack(saved.pack);
   }
   if (saved.done === true) {
@@ -529,6 +534,16 @@ const bindClicks = function () {
 
   document.querySelector('[data-pack="p2"]').addEventListener("click", function () {
     window.IMPULS.setPack("p2");
+    renderMenu();
+  });
+
+  document.querySelector('[data-pack="p3"]').addEventListener("click", function () {
+    window.IMPULS.setPack("p3");
+    renderMenu();
+  });
+
+  document.querySelector('[data-pack="p4"]').addEventListener("click", function () {
+    window.IMPULS.setPack("p4");
     renderMenu();
   });
 

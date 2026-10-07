@@ -139,7 +139,8 @@ button:focus-visible {
 #screen-menu.is-hidden,
 #screen-round.is-hidden,
 #screen-base.is-hidden,
-#repair-badge.is-hidden {
+#repair-badge.is-hidden,
+.options button.is-hidden {
   display: none;
 }
 

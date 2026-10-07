@@ -244,9 +244,288 @@ window.IMPULS.cardsP2.forEach(function (card) {
 });
 Object.freeze(window.IMPULS.cardsP2);
 
+// data/p3-articles.json — джерело правди. Копія тут, бо file:// не дає fetch.
+window.IMPULS.cardsP3 = [
+  {
+    id: "ar-01",
+    muster: "nominativ",
+    prompt: "___ стіл",
+    answer: "der",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-02",
+    muster: "nominativ",
+    prompt: "___ лампа",
+    answer: "die",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-03",
+    muster: "nominativ",
+    prompt: "___ книга",
+    answer: "das",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-04",
+    muster: "nominativ",
+    prompt: "___ чоловік",
+    answer: "der",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-05",
+    muster: "nominativ",
+    prompt: "___ жінка",
+    answer: "die",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-06",
+    muster: "nominativ",
+    prompt: "___ дитина",
+    answer: "das",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-07",
+    muster: "nominativ",
+    prompt: "___ стілець",
+    answer: "der",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-08",
+    muster: "nominativ",
+    prompt: "___ двері",
+    answer: "die",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-09",
+    muster: "nominativ",
+    prompt: "___ вікно",
+    answer: "das",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-10",
+    muster: "nominativ",
+    prompt: "___ собака",
+    answer: "der",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-11",
+    muster: "nominativ",
+    prompt: "___ кішка",
+    answer: "die",
+    options: ["der", "die", "das"]
+  },
+  {
+    id: "ar-12",
+    muster: "nominativ",
+    prompt: "___ будинок",
+    answer: "das",
+    options: ["der", "die", "das"]
+  }
+];
+
+window.IMPULS.cardsP3.forEach(function (card) {
+  Object.freeze(card.options);
+  Object.freeze(card);
+});
+Object.freeze(window.IMPULS.cardsP3);
+
+// data/p4-akkusativ.json — джерело правди. Копія тут, бо file:// не дає fetch.
+window.IMPULS.cardsP4 = [
+  {
+    id: "ak-01",
+    muster: "akkusativ",
+    prompt: "я бачу ___ стіл",
+    answer: "den",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-02",
+    muster: "akkusativ",
+    prompt: "я бачу ___ лампа",
+    answer: "die",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-03",
+    muster: "akkusativ",
+    prompt: "я бачу ___ книга",
+    answer: "das",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-04",
+    muster: "akkusativ",
+    prompt: "я бачу ___ чоловік",
+    answer: "den",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-05",
+    muster: "akkusativ",
+    prompt: "я бачу ___ жінка",
+    answer: "die",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-06",
+    muster: "akkusativ",
+    prompt: "я бачу ___ дитина",
+    answer: "das",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-07",
+    muster: "akkusativ",
+    prompt: "я бачу ___ стілець",
+    answer: "den",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-08",
+    muster: "akkusativ",
+    prompt: "я бачу ___ двері",
+    answer: "die",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-09",
+    muster: "akkusativ",
+    prompt: "я бачу ___ вікно",
+    answer: "das",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-10",
+    muster: "akkusativ",
+    prompt: "я бачу ___ собака",
+    answer: "den",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-11",
+    muster: "akkusativ",
+    prompt: "я бачу ___ кішка",
+    answer: "die",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-12",
+    muster: "akkusativ",
+    prompt: "я бачу ___ будинок",
+    answer: "das",
+    options: ["den", "die", "das"]
+  },
+  {
+    id: "ak-13",
+    muster: "akkusativ",
+    prompt: "я бачу ___ стіл (неозначений)",
+    answer: "einen",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-14",
+    muster: "akkusativ",
+    prompt: "я бачу ___ лампа (неозначений)",
+    answer: "eine",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-15",
+    muster: "akkusativ",
+    prompt: "я бачу ___ книга (неозначений)",
+    answer: "ein",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-16",
+    muster: "akkusativ",
+    prompt: "я бачу ___ чоловік (неозначений)",
+    answer: "einen",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-17",
+    muster: "akkusativ",
+    prompt: "я бачу ___ жінка (неозначений)",
+    answer: "eine",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-18",
+    muster: "akkusativ",
+    prompt: "я бачу ___ дитина (неозначений)",
+    answer: "ein",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-19",
+    muster: "akkusativ",
+    prompt: "я бачу ___ стілець (неозначений)",
+    answer: "einen",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-20",
+    muster: "akkusativ",
+    prompt: "я бачу ___ двері (неозначений)",
+    answer: "eine",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-21",
+    muster: "akkusativ",
+    prompt: "я бачу ___ вікно (неозначений)",
+    answer: "ein",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-22",
+    muster: "akkusativ",
+    prompt: "я бачу ___ собака (неозначений)",
+    answer: "einen",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-23",
+    muster: "akkusativ",
+    prompt: "я бачу ___ кішка (неозначений)",
+    answer: "eine",
+    options: ["einen", "eine", "ein"]
+  },
+  {
+    id: "ak-24",
+    muster: "akkusativ",
+    prompt: "я бачу ___ будинок (неозначений)",
+    answer: "ein",
+    options: ["einen", "eine", "ein"]
+  }
+];
+
+window.IMPULS.cardsP4.forEach(function (card) {
+  Object.freeze(card.options);
+  Object.freeze(card);
+});
+Object.freeze(window.IMPULS.cardsP4);
+
 window.IMPULS.loadCards = function () {
-  if (window.IMPULS.state && window.IMPULS.state.pack === "p2") {
+  const pack = window.IMPULS.state && window.IMPULS.state.pack;
+  if (pack === "p2") {
     return window.IMPULS.cardsP2;
+  }
+  if (pack === "p3") {
+    return window.IMPULS.cardsP3;
+  }
+  if (pack === "p4") {
+    return window.IMPULS.cardsP4;
   }
   return window.IMPULS.cards;
 };
