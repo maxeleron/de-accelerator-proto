@@ -2,145 +2,235 @@
   {
     "id": "en-01",
     "muster": "endings",
-    "prompt": "ich ___ (machen)",
-    "gloss": "я роблю",
+    "prompt": "ich ___ Sport",
+    "gloss": "я займаюсь спортом",
     "answer": "mache",
-    "options": ["mache", "machst", "macht", "machen"]
+    "options": [
+      "mache",
+      "machst",
+      "macht",
+      "machen"
+    ]
   },
   {
     "id": "en-02",
     "muster": "endings",
-    "prompt": "du ___ (machen)",
-    "gloss": "ти робиш",
+    "prompt": "du ___ Sport",
+    "gloss": "ти займаєшся спортом",
     "answer": "machst",
-    "options": ["mache", "machst", "macht", "machen"]
+    "options": [
+      "mache",
+      "machst",
+      "macht",
+      "machen"
+    ]
   },
   {
     "id": "en-03",
     "muster": "endings",
-    "prompt": "er ___ (machen)",
-    "gloss": "він робить",
+    "prompt": "er ___ Sport",
+    "gloss": "він займається спортом",
     "answer": "macht",
-    "options": ["mache", "machst", "macht", "machen"]
+    "options": [
+      "mache",
+      "machst",
+      "macht",
+      "machen"
+    ]
   },
   {
     "id": "en-04",
     "muster": "endings",
-    "prompt": "wir ___ (machen)",
-    "gloss": "ми робимо",
+    "prompt": "wir ___ Sport",
+    "gloss": "ми займаємось спортом",
     "answer": "machen",
-    "options": ["mache", "machst", "macht", "machen"]
+    "options": [
+      "mache",
+      "machst",
+      "macht",
+      "machen"
+    ]
   },
   {
     "id": "en-05",
     "muster": "endings",
-    "prompt": "ihr ___ (machen)",
-    "gloss": "ви робите",
+    "prompt": "ihr ___ Sport",
+    "gloss": "ви займаєтесь спортом",
     "answer": "macht",
-    "options": ["mache", "machst", "macht", "machen"]
+    "options": [
+      "mache",
+      "machst",
+      "macht",
+      "machen"
+    ]
   },
   {
     "id": "en-06",
     "muster": "endings",
-    "prompt": "sie ___ (machen)",
-    "gloss": "вони роблять",
+    "prompt": "sie ___ Sport",
+    "gloss": "вони займаються спортом",
     "answer": "machen",
-    "options": ["mache", "machst", "macht", "machen"]
+    "options": [
+      "mache",
+      "machst",
+      "macht",
+      "machen"
+    ]
   },
   {
     "id": "en-07",
     "muster": "endings",
-    "prompt": "ich ___ (lernen)",
-    "gloss": "я вчу",
+    "prompt": "ich ___ Deutsch",
+    "gloss": "я вчу німецьку",
     "answer": "lerne",
-    "options": ["lerne", "lernst", "lernt", "lernen"]
+    "options": [
+      "lerne",
+      "lernst",
+      "lernt",
+      "lernen"
+    ]
   },
   {
     "id": "en-08",
     "muster": "endings",
-    "prompt": "du ___ (lernen)",
-    "gloss": "ти вчиш",
+    "prompt": "du ___ Deutsch",
+    "gloss": "ти вчиш німецьку",
     "answer": "lernst",
-    "options": ["lerne", "lernst", "lernt", "lernen"]
+    "options": [
+      "lerne",
+      "lernst",
+      "lernt",
+      "lernen"
+    ]
   },
   {
     "id": "en-09",
     "muster": "endings",
-    "prompt": "er ___ (lernen)",
-    "gloss": "він вчить",
+    "prompt": "er ___ Deutsch",
+    "gloss": "він вчить німецьку",
     "answer": "lernt",
-    "options": ["lerne", "lernst", "lernt", "lernen"]
+    "options": [
+      "lerne",
+      "lernst",
+      "lernt",
+      "lernen"
+    ]
   },
   {
     "id": "en-10",
     "muster": "endings",
-    "prompt": "wir ___ (lernen)",
-    "gloss": "ми вчимо",
+    "prompt": "wir ___ Deutsch",
+    "gloss": "ми вчимо німецьку",
     "answer": "lernen",
-    "options": ["lerne", "lernst", "lernt", "lernen"]
+    "options": [
+      "lerne",
+      "lernst",
+      "lernt",
+      "lernen"
+    ]
   },
   {
     "id": "en-11",
     "muster": "endings",
-    "prompt": "ihr ___ (lernen)",
-    "gloss": "ви вчите",
+    "prompt": "ihr ___ Deutsch",
+    "gloss": "ви вчите німецьку",
     "answer": "lernt",
-    "options": ["lerne", "lernst", "lernt", "lernen"]
+    "options": [
+      "lerne",
+      "lernst",
+      "lernt",
+      "lernen"
+    ]
   },
   {
     "id": "en-12",
     "muster": "endings",
-    "prompt": "sie ___ (lernen)",
-    "gloss": "вони вчать",
+    "prompt": "sie ___ Deutsch",
+    "gloss": "вони вчать німецьку",
     "answer": "lernen",
-    "options": ["lerne", "lernst", "lernt", "lernen"]
+    "options": [
+      "lerne",
+      "lernst",
+      "lernt",
+      "lernen"
+    ]
   },
   {
     "id": "en-13",
     "muster": "endings",
-    "prompt": "ich ___ (wohnen)",
-    "gloss": "я живу",
+    "prompt": "ich ___ in Berlin",
+    "gloss": "я живу в Берліні",
     "answer": "wohne",
-    "options": ["wohne", "wohnst", "wohnt", "wohnen"]
+    "options": [
+      "wohne",
+      "wohnst",
+      "wohnt",
+      "wohnen"
+    ]
   },
   {
     "id": "en-14",
     "muster": "endings",
-    "prompt": "du ___ (wohnen)",
-    "gloss": "ти живеш",
+    "prompt": "du ___ in Berlin",
+    "gloss": "ти живеш у Берліні",
     "answer": "wohnst",
-    "options": ["wohne", "wohnst", "wohnt", "wohnen"]
+    "options": [
+      "wohne",
+      "wohnst",
+      "wohnt",
+      "wohnen"
+    ]
   },
   {
     "id": "en-15",
     "muster": "endings",
-    "prompt": "er ___ (wohnen)",
-    "gloss": "він живе",
+    "prompt": "er ___ in Berlin",
+    "gloss": "він живе в Берліні",
     "answer": "wohnt",
-    "options": ["wohne", "wohnst", "wohnt", "wohnen"]
+    "options": [
+      "wohne",
+      "wohnst",
+      "wohnt",
+      "wohnen"
+    ]
   },
   {
     "id": "en-16",
     "muster": "endings",
-    "prompt": "wir ___ (wohnen)",
-    "gloss": "ми живемо",
+    "prompt": "wir ___ in Berlin",
+    "gloss": "ми живемо в Берліні",
     "answer": "wohnen",
-    "options": ["wohne", "wohnst", "wohnt", "wohnen"]
+    "options": [
+      "wohne",
+      "wohnst",
+      "wohnt",
+      "wohnen"
+    ]
   },
   {
     "id": "en-17",
     "muster": "endings",
-    "prompt": "ihr ___ (wohnen)",
-    "gloss": "ви живете",
+    "prompt": "ihr ___ in Berlin",
+    "gloss": "ви живете в Берліні",
     "answer": "wohnt",
-    "options": ["wohne", "wohnst", "wohnt", "wohnen"]
+    "options": [
+      "wohne",
+      "wohnst",
+      "wohnt",
+      "wohnen"
+    ]
   },
   {
     "id": "en-18",
     "muster": "endings",
-    "prompt": "sie ___ (wohnen)",
-    "gloss": "вони живуть",
+    "prompt": "sie ___ in Berlin",
+    "gloss": "вони живуть у Берліні",
     "answer": "wohnen",
-    "options": ["wohne", "wohnst", "wohnt", "wohnen"]
+    "options": [
+      "wohne",
+      "wohnst",
+      "wohnt",
+      "wohnen"
+    ]
   }
 ]

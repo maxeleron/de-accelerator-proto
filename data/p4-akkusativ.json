@@ -2,193 +2,577 @@
   {
     "id": "ak-01",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Tisch",
-    "gloss": "я бачу стіл",
+    "prompt": "ich brauche ___ Tisch",
+    "gloss": "мені потрібно стіл",
     "answer": "den",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-02",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Lampe",
-    "gloss": "я бачу лампа",
+    "prompt": "er kauft ___ Lampe",
+    "gloss": "він купує лампу",
     "answer": "die",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-03",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Buch",
-    "gloss": "я бачу книга",
+    "prompt": "sie hat ___ Buch",
+    "gloss": "вона має книгу",
     "answer": "das",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-04",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Mann",
-    "gloss": "я бачу чоловік",
+    "prompt": "wir suchen ___ Mann",
+    "gloss": "ми шукаємо чоловіка",
     "answer": "den",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-05",
     "muster": "akkusativ",
     "prompt": "ich sehe ___ Frau",
-    "gloss": "я бачу жінка",
+    "gloss": "я бачу жінку",
     "answer": "die",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-06",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Kind",
-    "gloss": "я бачу дитина",
+    "prompt": "er braucht ___ Kind",
+    "gloss": "йому потрібно дитину",
     "answer": "das",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-07",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Stuhl",
-    "gloss": "я бачу стілець",
+    "prompt": "sie kauft ___ Stuhl",
+    "gloss": "вона купує стілець",
     "answer": "den",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-08",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Tür",
-    "gloss": "я бачу двері",
+    "prompt": "wir haben ___ Tür",
+    "gloss": "ми маємо двері",
     "answer": "die",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-09",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Fenster",
-    "gloss": "я бачу вікно",
+    "prompt": "ich suche ___ Fenster",
+    "gloss": "я шукаю вікно",
     "answer": "das",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-10",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Hund",
-    "gloss": "я бачу собака",
+    "prompt": "er sieht ___ Hund",
+    "gloss": "він бачить собаку",
     "answer": "den",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-11",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Katze",
-    "gloss": "я бачу кішка",
+    "prompt": "sie braucht ___ Katze",
+    "gloss": "їй потрібно кішку",
     "answer": "die",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-12",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Haus",
-    "gloss": "я бачу будинок",
+    "prompt": "wir kaufen ___ Haus",
+    "gloss": "ми купуємо будинок",
     "answer": "das",
-    "options": ["den", "die", "das"]
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-13",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Tisch, ein",
-    "gloss": "я бачу стіл, неозначений",
-    "answer": "einen",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "ich habe ___ Apfel",
+    "gloss": "я маю яблуко",
+    "answer": "den",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-14",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Lampe, ein",
-    "gloss": "я бачу лампа, неозначений",
-    "answer": "eine",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "er sucht ___ Kaffee",
+    "gloss": "він шукає каву",
+    "answer": "den",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-15",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Buch, ein",
-    "gloss": "я бачу книга, неозначений",
-    "answer": "ein",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "sie sieht ___ Tasche",
+    "gloss": "вона бачить сумку",
+    "answer": "die",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-16",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Mann, ein",
-    "gloss": "я бачу чоловік, неозначений",
-    "answer": "einen",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "wir brauchen ___ Auto",
+    "gloss": "нам потрібно авто",
+    "answer": "das",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-17",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Frau, ein",
-    "gloss": "я бачу жінка, неозначений",
-    "answer": "eine",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "ich kaufe ___ Computer",
+    "gloss": "я купую комп’ютер",
+    "answer": "den",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-18",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Kind, ein",
-    "gloss": "я бачу дитина, неозначений",
-    "answer": "ein",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "er hat ___ Schule",
+    "gloss": "він має школу",
+    "answer": "die",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-19",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Stuhl, ein",
-    "gloss": "я бачу стілець, неозначений",
-    "answer": "einen",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "sie sucht ___ Stift",
+    "gloss": "вона шукає олівець",
+    "answer": "den",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-20",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Tür, ein",
-    "gloss": "я бачу двері, неозначений",
-    "answer": "eine",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "wir sehen ___ Zeitung",
+    "gloss": "ми бачимо газету",
+    "answer": "die",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-21",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Fenster, ein",
-    "gloss": "я бачу вікно, неозначений",
-    "answer": "ein",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "ich brauche ___ Handy",
+    "gloss": "мені потрібно телефон",
+    "answer": "das",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-22",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Hund, ein",
-    "gloss": "я бачу собака, неозначений",
-    "answer": "einen",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "er kauft ___ Stadt",
+    "gloss": "він купує місто",
+    "answer": "die",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-23",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Katze, ein",
-    "gloss": "я бачу кішка, неозначений",
-    "answer": "eine",
-    "options": ["einen", "eine", "ein"]
+    "prompt": "sie hat ___ Wasser",
+    "gloss": "вона має воду",
+    "answer": "das",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
   },
   {
     "id": "ak-24",
     "muster": "akkusativ",
-    "prompt": "ich sehe ___ Haus, ein",
-    "gloss": "я бачу будинок, неозначений",
+    "prompt": "wir suchen ___ Freund",
+    "gloss": "ми шукаємо друга",
+    "answer": "den",
+    "options": [
+      "den",
+      "die",
+      "das"
+    ]
+  },
+  {
+    "id": "ak-25",
+    "muster": "akkusativ",
+    "prompt": "ich brauche ___ Tisch",
+    "gloss": "мені потрібно стіл",
+    "answer": "einen",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-26",
+    "muster": "akkusativ",
+    "prompt": "er kauft ___ Lampe",
+    "gloss": "він купує лампу",
+    "answer": "eine",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-27",
+    "muster": "akkusativ",
+    "prompt": "sie hat ___ Buch",
+    "gloss": "вона має книгу",
     "answer": "ein",
-    "options": ["einen", "eine", "ein"]
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-28",
+    "muster": "akkusativ",
+    "prompt": "wir suchen ___ Mann",
+    "gloss": "ми шукаємо чоловіка",
+    "answer": "einen",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-29",
+    "muster": "akkusativ",
+    "prompt": "ich sehe ___ Frau",
+    "gloss": "я бачу жінку",
+    "answer": "eine",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-30",
+    "muster": "akkusativ",
+    "prompt": "er braucht ___ Kind",
+    "gloss": "йому потрібно дитину",
+    "answer": "ein",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-31",
+    "muster": "akkusativ",
+    "prompt": "sie kauft ___ Stuhl",
+    "gloss": "вона купує стілець",
+    "answer": "einen",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-32",
+    "muster": "akkusativ",
+    "prompt": "wir haben ___ Tür",
+    "gloss": "ми маємо двері",
+    "answer": "eine",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-33",
+    "muster": "akkusativ",
+    "prompt": "ich suche ___ Fenster",
+    "gloss": "я шукаю вікно",
+    "answer": "ein",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-34",
+    "muster": "akkusativ",
+    "prompt": "er sieht ___ Hund",
+    "gloss": "він бачить собаку",
+    "answer": "einen",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-35",
+    "muster": "akkusativ",
+    "prompt": "sie braucht ___ Katze",
+    "gloss": "їй потрібно кішку",
+    "answer": "eine",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-36",
+    "muster": "akkusativ",
+    "prompt": "wir kaufen ___ Haus",
+    "gloss": "ми купуємо будинок",
+    "answer": "ein",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-37",
+    "muster": "akkusativ",
+    "prompt": "ich habe ___ Apfel",
+    "gloss": "я маю яблуко",
+    "answer": "einen",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-38",
+    "muster": "akkusativ",
+    "prompt": "er sucht ___ Kaffee",
+    "gloss": "він шукає каву",
+    "answer": "einen",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-39",
+    "muster": "akkusativ",
+    "prompt": "sie sieht ___ Tasche",
+    "gloss": "вона бачить сумку",
+    "answer": "eine",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-40",
+    "muster": "akkusativ",
+    "prompt": "wir brauchen ___ Auto",
+    "gloss": "нам потрібно авто",
+    "answer": "ein",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-41",
+    "muster": "akkusativ",
+    "prompt": "ich kaufe ___ Computer",
+    "gloss": "я купую комп’ютер",
+    "answer": "einen",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-42",
+    "muster": "akkusativ",
+    "prompt": "er hat ___ Schule",
+    "gloss": "він має школу",
+    "answer": "eine",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-43",
+    "muster": "akkusativ",
+    "prompt": "sie sucht ___ Stift",
+    "gloss": "вона шукає олівець",
+    "answer": "einen",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-44",
+    "muster": "akkusativ",
+    "prompt": "wir sehen ___ Zeitung",
+    "gloss": "ми бачимо газету",
+    "answer": "eine",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-45",
+    "muster": "akkusativ",
+    "prompt": "ich brauche ___ Handy",
+    "gloss": "мені потрібно телефон",
+    "answer": "ein",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-46",
+    "muster": "akkusativ",
+    "prompt": "er kauft ___ Stadt",
+    "gloss": "він купує місто",
+    "answer": "eine",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-47",
+    "muster": "akkusativ",
+    "prompt": "sie hat ___ Wasser",
+    "gloss": "вона має воду",
+    "answer": "ein",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
+  },
+  {
+    "id": "ak-48",
+    "muster": "akkusativ",
+    "prompt": "wir suchen ___ Freund",
+    "gloss": "ми шукаємо друга",
+    "answer": "einen",
+    "options": [
+      "einen",
+      "eine",
+      "ein"
+    ]
   }
 ]

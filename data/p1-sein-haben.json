@@ -2,113 +2,183 @@
   {
     "id": "sh-01",
     "muster": "sein-haben",
-    "prompt": "ich ___",
-    "gloss": "я є",
+    "prompt": "ich ___ müde",
+    "gloss": "я втомлений",
     "answer": "bin",
-    "options": ["bin", "bist", "ist", "sind"]
+    "options": [
+      "bin",
+      "bist",
+      "ist",
+      "sind"
+    ]
   },
   {
     "id": "sh-02",
     "muster": "sein-haben",
-    "prompt": "du ___",
-    "gloss": "ти є",
+    "prompt": "du ___ hier",
+    "gloss": "ти тут",
     "answer": "bist",
-    "options": ["bin", "bist", "ist", "sind"]
+    "options": [
+      "bin",
+      "bist",
+      "ist",
+      "sind"
+    ]
   },
   {
     "id": "sh-03",
     "muster": "sein-haben",
-    "prompt": "er ___",
-    "gloss": "він є",
+    "prompt": "er ___ Student",
+    "gloss": "він студент",
     "answer": "ist",
-    "options": ["bin", "bist", "ist", "sind"]
+    "options": [
+      "bin",
+      "bist",
+      "ist",
+      "sind"
+    ]
   },
   {
     "id": "sh-04",
     "muster": "sein-haben",
-    "prompt": "wir ___",
-    "gloss": "ми є",
+    "prompt": "wir ___ zu Hause",
+    "gloss": "ми вдома",
     "answer": "sind",
-    "options": ["bin", "bist", "ist", "sind"]
+    "options": [
+      "bin",
+      "bist",
+      "ist",
+      "sind"
+    ]
   },
   {
     "id": "sh-05",
     "muster": "sein-haben",
-    "prompt": "ihr ___",
-    "gloss": "ви є",
+    "prompt": "ihr ___ müde",
+    "gloss": "ви втомлені",
     "answer": "seid",
-    "options": ["bin", "bist", "seid", "sind"]
+    "options": [
+      "bin",
+      "bist",
+      "seid",
+      "sind"
+    ]
   },
   {
     "id": "sh-06",
     "muster": "sein-haben",
-    "prompt": "sie ___",
-    "gloss": "вони є",
+    "prompt": "sie ___ hier",
+    "gloss": "вони тут",
     "answer": "sind",
-    "options": ["bin", "bist", "ist", "sind"]
+    "options": [
+      "bin",
+      "bist",
+      "ist",
+      "sind"
+    ]
   },
   {
     "id": "sh-07",
     "muster": "sein-haben",
-    "prompt": "Sie ___",
-    "gloss": "Ви є",
+    "prompt": "Sie ___ Lehrer",
+    "gloss": "Ви вчитель",
     "answer": "sind",
-    "options": ["bin", "bist", "ist", "sind"]
+    "options": [
+      "bin",
+      "bist",
+      "ist",
+      "sind"
+    ]
   },
   {
     "id": "sh-08",
     "muster": "sein-haben",
-    "prompt": "ich ___",
-    "gloss": "я маю",
+    "prompt": "ich ___ Zeit",
+    "gloss": "я маю час",
     "answer": "habe",
-    "options": ["habe", "hast", "hat", "haben"]
+    "options": [
+      "habe",
+      "hast",
+      "hat",
+      "haben"
+    ]
   },
   {
     "id": "sh-09",
     "muster": "sein-haben",
-    "prompt": "du ___",
-    "gloss": "ти маєш",
+    "prompt": "du ___ ein Auto",
+    "gloss": "ти маєш авто",
     "answer": "hast",
-    "options": ["habe", "hast", "hat", "haben"]
+    "options": [
+      "habe",
+      "hast",
+      "hat",
+      "haben"
+    ]
   },
   {
     "id": "sh-10",
     "muster": "sein-haben",
-    "prompt": "er ___",
-    "gloss": "він має",
+    "prompt": "er ___ Zeit",
+    "gloss": "він має час",
     "answer": "hat",
-    "options": ["habe", "hast", "hat", "haben"]
+    "options": [
+      "habe",
+      "hast",
+      "hat",
+      "haben"
+    ]
   },
   {
     "id": "sh-11",
     "muster": "sein-haben",
-    "prompt": "wir ___",
-    "gloss": "ми маємо",
+    "prompt": "wir ___ ein Buch",
+    "gloss": "ми маємо книгу",
     "answer": "haben",
-    "options": ["habe", "hast", "hat", "haben"]
+    "options": [
+      "habe",
+      "hast",
+      "hat",
+      "haben"
+    ]
   },
   {
     "id": "sh-12",
     "muster": "sein-haben",
-    "prompt": "ihr ___",
-    "gloss": "ви маєте",
+    "prompt": "ihr ___ Zeit",
+    "gloss": "ви маєте час",
     "answer": "habt",
-    "options": ["habe", "hast", "habt", "haben"]
+    "options": [
+      "habe",
+      "hast",
+      "habt",
+      "haben"
+    ]
   },
   {
     "id": "sh-13",
     "muster": "sein-haben",
-    "prompt": "sie ___",
-    "gloss": "вони мають",
+    "prompt": "sie ___ Kinder",
+    "gloss": "вони мають дітей",
     "answer": "haben",
-    "options": ["habe", "hast", "hat", "haben"]
+    "options": [
+      "habe",
+      "hast",
+      "hat",
+      "haben"
+    ]
   },
   {
     "id": "sh-14",
     "muster": "sein-haben",
-    "prompt": "Sie ___",
-    "gloss": "Ви маєте",
+    "prompt": "Sie ___ Zeit",
+    "gloss": "Ви маєте час",
     "answer": "haben",
-    "options": ["habe", "hast", "hat", "haben"]
+    "options": [
+      "habe",
+      "hast",
+      "hat",
+      "haben"
+    ]
   }
 ]

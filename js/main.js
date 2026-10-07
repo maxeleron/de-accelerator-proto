@@ -107,6 +107,9 @@ const startLabel = function (pack) {
   if (pack === "p4") {
     return "Почати раунд P4";
   }
+  if (pack === "mix") {
+    return "Почати раунд мікс";
+  }
   return "Почати раунд P1";
 };
 
@@ -122,7 +125,27 @@ const packDeck = function (pack) {
   if (pack === "p4") {
     return window.IMPULS.cardsP4 || [];
   }
+  if (pack === "mix") {
+    return (window.IMPULS.cards || []).concat(
+      window.IMPULS.cardsP2 || [],
+      window.IMPULS.cardsP3 || [],
+      window.IMPULS.cardsP4 || []
+    );
+  }
   return window.IMPULS.cards || [];
+};
+
+const packOfCardId = function (id) {
+  for (let i = 0; i < PACK_IDS.length; i += 1) {
+    const pack = PACK_IDS[i];
+    const deck = packDeck(pack);
+    for (let j = 0; j < deck.length; j += 1) {
+      if (deck[j].id === id) {
+        return pack;
+      }
+    }
+  }
+  return "p1";
 };
 
 const emptySeen = function () {
@@ -254,6 +277,10 @@ const renderMenu = function () {
   document.querySelector('[data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
   document.querySelector('[data-pack="p3"]').setAttribute("aria-pressed", state.pack === "p3" ? "true" : "false");
   document.querySelector('[data-pack="p4"]').setAttribute("aria-pressed", state.pack === "p4" ? "true" : "false");
+  const mixBtn = document.getElementById("btn-mix");
+  if (mixBtn) {
+    mixBtn.setAttribute("aria-pressed", state.pack === "mix" ? "true" : "false");
+  }
   renderPackSeen();
 };
 
@@ -518,7 +545,7 @@ const showNext = function () {
     return;
   }
   state.currentId = upcoming.id;
-  markSeen(state.pack, card.id);
+  markSeen(packOfCardId(card.id), card.id);
   state.presented = window.IMPULS.shuffle(card.options);
   document.getElementById("stimulus").textContent = card.prompt;
   document.getElementById("gloss").textContent = card.gloss || "";
@@ -691,11 +718,15 @@ const fillBaseTable = function (parent, table) {
   }
   const body = addNode(el, "tbody");
   const rows = table.rows || [];
+  const markCol = typeof table.markCol === "number" ? table.markCol : -1;
   for (let i = 0; i < rows.length; i += 1) {
     const tr = addNode(body, "tr");
     const cells = rows[i];
     for (let j = 0; j < cells.length; j += 1) {
-      addNode(tr, "td", cells[j]);
+      const td = addNode(tr, "td", cells[j]);
+      if (j === markCol) {
+        td.className = "mark";
+      }
     }
   }
 };
@@ -704,8 +735,13 @@ const fillBaseNav = function (currentId) {
   const nav = document.getElementById("base-nav");
   nav.textContent = "";
   const sections = window.IMPULS.loadHandbook();
+  let lastGroup = "";
   for (let i = 0; i < sections.length; i += 1) {
     const section = sections[i];
+    if (section.group && section.group !== lastGroup) {
+      lastGroup = section.group;
+      addNode(nav, "h2", section.group, "base-nav-group");
+    }
     const btn = addNode(nav, "button");
     btn.type = "button";
     btn.textContent = section.title;
@@ -714,6 +750,20 @@ const fillBaseNav = function (currentId) {
       window.IMPULS.showBase(section.id);
     });
   }
+};
+
+const fillBaseExample = function (parent, item) {
+  if (item && typeof item === "object") {
+    const wrap = addNode(parent, "div", "", "base-example-block");
+    const line = addNode(wrap, "p", item.de, "base-example");
+    line.lang = "de";
+    if (item.uk) {
+      addNode(wrap, "p", item.uk, "base-example-uk");
+    }
+    return;
+  }
+  const line = addNode(parent, "p", item, "base-example");
+  line.lang = "de";
 };
 
 const fillBaseBody = function (section) {
@@ -729,8 +779,15 @@ const fillBaseBody = function (section) {
   }
   const examples = section.examples || [];
   for (let i = 0; i < examples.length; i += 1) {
-    const line = addNode(body, "p", examples[i], "base-example");
-    line.lang = "de";
+    fillBaseExample(body, examples[i]);
+  }
+  if (section.pack === "p1" || section.pack === "p2" || section.pack === "p3" || section.pack === "p4") {
+    const drill = addNode(body, "button", "Відпрацювати на швидкість", "base-drill");
+    drill.type = "button";
+    drill.addEventListener("click", function () {
+      window.IMPULS.setPack(section.pack);
+      window.IMPULS.startRound();
+    });
   }
 };
 
@@ -803,7 +860,7 @@ const stepWindow = function (delta) {
 };
 
 window.IMPULS.startRound = function () {
-  if (!ensureMenuPhase()) {
+  if (window.IMPULS.state.phase !== "base" && !ensureMenuPhase()) {
     return;
   }
   const state = window.IMPULS.state;
@@ -848,7 +905,7 @@ const restoreRound = function () {
     return false;
   }
   window.IMPULS.setWindow(normalizeWindow(saved.windowMs));
-  if (saved.pack === "p1" || saved.pack === "p2" || saved.pack === "p3" || saved.pack === "p4") {
+  if (saved.pack === "p1" || saved.pack === "p2" || saved.pack === "p3" || saved.pack === "p4" || saved.pack === "mix") {
     window.IMPULS.setPack(saved.pack);
   }
   if (saved.done === true) {
@@ -971,6 +1028,11 @@ const bindClicks = function () {
 
   document.querySelector('[data-pack="p4"]').addEventListener("click", function () {
     window.IMPULS.setPack("p4");
+    renderMenu();
+  });
+
+  document.getElementById("btn-mix").addEventListener("click", function () {
+    window.IMPULS.setPack("mix");
     renderMenu();
   });
 

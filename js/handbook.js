@@ -3,13 +3,15 @@ window.IMPULS = window.IMPULS || {};
 // data/handbook.json — джерело правди. Копія тут, бо file:// не дає fetch.
 window.IMPULS.handbook = [
   {
-    id: "p1",
-    title: "Sein und haben",
-    note: "Це не переклад «є/маю» щоразу, а особа.",
-    tables: [
+    "id": "p1",
+    "group": "Дієслова",
+    "pack": "p1",
+    "title": "Sein und haben",
+    "note": "Це не переклад «є/маю» щоразу, а особа.",
+    "tables": [
       {
-        caption: "sein",
-        rows: [
+        "caption": "sein",
+        "rows": [
           ["ich", "bin"],
           ["du", "bist"],
           ["er/sie/es", "ist"],
@@ -19,8 +21,8 @@ window.IMPULS.handbook = [
         ]
       },
       {
-        caption: "haben",
-        rows: [
+        "caption": "haben",
+        "rows": [
           ["ich", "habe"],
           ["du", "hast"],
           ["er/sie/es", "hat"],
@@ -32,13 +34,16 @@ window.IMPULS.handbook = [
     ]
   },
   {
-    id: "p2",
-    title: "Особові закінчення",
-    note: "machen: e, st, t, en, t, en. Той самий рядок для lernen, wohnen.",
-    tables: [
+    "id": "p2",
+    "group": "Дієслова",
+    "pack": "p2",
+    "title": "Особові закінчення",
+    "note": "machen: e, st, t, en, t, en. Той самий рядок для lernen, wohnen.",
+    "tables": [
       {
-        caption: "machen",
-        rows: [
+        "caption": "machen",
+        "markCol": 1,
+        "rows": [
           ["ich", "mache", "e"],
           ["du", "machst", "st"],
           ["er/sie/es", "macht", "t"],
@@ -50,13 +55,77 @@ window.IMPULS.handbook = [
     ]
   },
   {
-    id: "p3",
-    title: "Артикль Nominativ",
-    note: "der / die / das",
-    tables: [
+    "id": "modals",
+    "group": "Дієслова",
+    "title": "Модальні",
+    "note": "Особа на модальному, інфінітив у кінці.",
+    "tables": [
       {
-        caption: "12 іменників",
-        rows: [
+        "caption": "müssen",
+        "markCol": 1,
+        "rows": [
+          ["ich", "muss"],
+          ["du", "musst"],
+          ["er/sie/es", "muss"],
+          ["wir", "müssen"],
+          ["ihr", "müsst"],
+          ["sie/Sie", "müssen"]
+        ]
+      },
+      {
+        "caption": "können",
+        "markCol": 1,
+        "rows": [
+          ["ich", "kann"],
+          ["du", "kannst"],
+          ["er/sie/es", "kann"],
+          ["wir", "können"],
+          ["ihr", "könnt"],
+          ["sie/Sie", "können"]
+        ]
+      },
+      {
+        "caption": "wollen",
+        "markCol": 1,
+        "rows": [
+          ["ich", "will"],
+          ["du", "willst"],
+          ["er/sie/es", "will"],
+          ["wir", "wollen"],
+          ["ihr", "wollt"],
+          ["sie/Sie", "wollen"]
+        ]
+      }
+    ],
+    "examples": [
+      { "de": "Ich muss heute arbeiten.", "uk": "Я мушу сьогодні працювати." },
+      { "de": "Kannst du Deutsch?", "uk": "Ти вмієш німецьку?" },
+      { "de": "Wir wollen nach Hause gehen.", "uk": "Ми хочемо йти додому." }
+    ]
+  },
+  {
+    "id": "separable",
+    "group": "Дієслова",
+    "title": "Відокремлювані",
+    "note": "Префікс у теперішньому йде в кінець.",
+    "examples": [
+      { "de": "Ich stehe um 7 Uhr auf.", "uk": "Я встаю о 7 годині." },
+      { "de": "Ich kaufe heute ein.", "uk": "Я сьогодні роблю покупки." },
+      { "de": "Ich rufe dich an.", "uk": "Я тобі телефоную." },
+      { "de": "Kommst du mit?", "uk": "Ти йдеш з нами?" },
+      { "de": "Ich muss um 7 Uhr aufstehen.", "uk": "Я мушу встати о 7 годині." }
+    ]
+  },
+  {
+    "id": "p3",
+    "group": "Іменники та артиклі",
+    "pack": "p3",
+    "title": "Артикль Nominativ",
+    "note": "der / die / das",
+    "tables": [
+      {
+        "caption": "іменники",
+        "rows": [
           ["der", "Tisch"],
           ["die", "Lampe"],
           ["das", "Buch"],
@@ -68,18 +137,33 @@ window.IMPULS.handbook = [
           ["das", "Fenster"],
           ["der", "Hund"],
           ["die", "Katze"],
-          ["das", "Haus"]
+          ["das", "Haus"],
+          ["der", "Apfel"],
+          ["der", "Kaffee"],
+          ["die", "Tasche"],
+          ["das", "Auto"],
+          ["der", "Computer"],
+          ["die", "Schule"],
+          ["der", "Stift"],
+          ["die", "Zeitung"],
+          ["das", "Handy"],
+          ["die", "Stadt"],
+          ["das", "Wasser"],
+          ["der", "Freund"]
         ]
       }
     ]
   },
   {
-    id: "p4",
-    title: "Akkusativ",
-    tables: [
+    "id": "p4",
+    "group": "Іменники та артиклі",
+    "pack": "p4",
+    "title": "Akkusativ",
+    "tables": [
       {
-        caption: "артикль",
-        rows: [
+        "caption": "артикль",
+        "markCol": 1,
+        "rows": [
           ["der", "den"],
           ["die", "die"],
           ["das", "das"],
@@ -88,52 +172,51 @@ window.IMPULS.handbook = [
         ]
       }
     ],
-    examples: ["Ich sehe den Tisch.", "Ich sehe die Lampe."]
+    "examples": [
+      { "de": "Ich sehe den Tisch.", "uk": "Я бачу стіл." },
+      { "de": "Ich brauche eine Lampe.", "uk": "Мені потрібна лампа." },
+      { "de": "Er hat einen Hund.", "uk": "Він має собаку." },
+      { "de": "Sie kauft die Tasche.", "uk": "Вона купує сумку." },
+      { "de": "Wir suchen ein Auto.", "uk": "Ми шукаємо авто." }
+    ]
   },
   {
-    id: "v2",
-    title: "Порядок V2",
-    note: "Дієслово в розповіді на другому місці.",
-    examples: ["Ich gehe heute nach Hause.", "Heute gehe ich nach Hause.", "Morgen lerne ich Deutsch.", "Jetzt wohne ich hier.", "Ich gehe nicht nach Hause."]
-  },
-  {
-    id: "questions",
-    title: "Питання",
-    note: "Так/ні — дієслово перше; з питальним словом — дієслово друге.",
-    examples: ["Gehst du nach Hause?", "Hast du Zeit?", "Wo wohnst du?", "Was machst du?", "Wann lernst du?", "wo, was, wer, wann, wie, wohin"]
-  },
-  {
-    id: "negation",
-    title: "kein і nicht",
-    note: "kein заперечує іменник, nicht — дієслово.",
-    tables: [
+    "id": "dative",
+    "group": "Іменники та артиклі",
+    "title": "Датив",
+    "note": "Завжди датив після mit, von, zu, aus, nach, bei.",
+    "tables": [
       {
-        caption: "Nominativ",
-        rows: [
-          ["kein", "Tisch"],
-          ["keine", "Lampe"],
-          ["kein", "Buch"]
-        ]
-      },
-      {
-        caption: "Akkusativ",
-        rows: [
-          ["keinen", "Tisch"],
-          ["keine", "Lampe"],
-          ["kein", "Buch"]
+        "caption": "артикль",
+        "markCol": 1,
+        "rows": [
+          ["der", "dem"],
+          ["die", "der"],
+          ["das", "dem"],
+          ["die", "den"],
+          ["ein", "einem"],
+          ["eine", "einer"]
         ]
       }
     ],
-    examples: ["Ich habe kein Buch.", "Ich sehe keinen Tisch.", "Ich lerne nicht."]
+    "examples": [
+      { "de": "mit dem Freund", "uk": "з другом" },
+      { "de": "mit der Frau", "uk": "з жінкою" },
+      { "de": "zu dem Haus", "uk": "до будинку" },
+      { "de": "aus dem Haus", "uk": "з будинку" },
+      { "de": "nach Berlin", "uk": "до Берліна" },
+      { "de": "bei der Frau", "uk": "у жінки" }
+    ]
   },
   {
-    id: "plural",
-    title: "Множина",
-    note: "Артикль множини die, рід не зберігається.",
-    tables: [
+    "id": "plural",
+    "group": "Іменники та артиклі",
+    "title": "Множина",
+    "note": "Артикль множини die, рід не зберігається.",
+    "tables": [
       {
-        caption: "die",
-        rows: [
+        "caption": "die",
+        "rows": [
           ["Tisch", "Tische"],
           ["Lampe", "Lampen"],
           ["Buch", "Bücher"],
@@ -151,32 +234,72 @@ window.IMPULS.handbook = [
     ]
   },
   {
-    id: "dative",
-    title: "Датив",
-    note: "Завжди датив після mit, von, zu, aus, nach, bei.",
-    tables: [
+    "id": "v2",
+    "group": "Будова речення",
+    "title": "Порядок V2",
+    "note": "Дієслово в розповіді на другому місці.",
+    "examples": [
+      { "de": "Ich gehe heute nach Hause.", "uk": "Я сьогодні йду додому." },
+      { "de": "Heute gehe ich nach Hause.", "uk": "Сьогодні я йду додому." },
+      { "de": "Morgen lerne ich Deutsch.", "uk": "Завтра я вчу німецьку." },
+      { "de": "Jetzt wohne ich hier.", "uk": "Зараз я живу тут." },
+      { "de": "Ich gehe nicht nach Hause.", "uk": "Я не йду додому." }
+    ]
+  },
+  {
+    "id": "questions",
+    "group": "Будова речення",
+    "title": "Питання",
+    "note": "Так/ні — дієслово перше; з питальним словом — дієслово друге.",
+    "examples": [
+      { "de": "Gehst du nach Hause?", "uk": "Ти йдеш додому?" },
+      { "de": "Hast du Zeit?", "uk": "У тебе є час?" },
+      { "de": "Wo wohnst du?", "uk": "Де ти живеш?" },
+      { "de": "Was machst du?", "uk": "Що ти робиш?" },
+      { "de": "Wann lernst du?", "uk": "Коли ти вчиш?" },
+      { "de": "wo, was, wer, wann, wie, wohin", "uk": "де, що, хто, коли, як, куди" }
+    ]
+  },
+  {
+    "id": "negation",
+    "group": "Будова речення",
+    "title": "kein і nicht",
+    "note": "kein заперечує іменник, nicht — дієслово.",
+    "tables": [
       {
-        caption: "артикль",
-        rows: [
-          ["der", "dem"],
-          ["die", "der"],
-          ["das", "dem"],
-          ["die", "den"],
-          ["ein", "einem"],
-          ["eine", "einer"]
+        "caption": "Nominativ",
+        "rows": [
+          ["kein", "Tisch"],
+          ["keine", "Lampe"],
+          ["kein", "Buch"]
+        ]
+      },
+      {
+        "caption": "Akkusativ",
+        "markCol": 0,
+        "rows": [
+          ["keinen", "Tisch"],
+          ["keine", "Lampe"],
+          ["kein", "Buch"]
         ]
       }
     ],
-    examples: ["mit dem Freund", "mit der Frau", "zu dem Haus", "aus dem Haus", "nach Berlin", "bei der Frau"]
+    "examples": [
+      { "de": "Ich habe kein Buch.", "uk": "У мене немає книги." },
+      { "de": "Ich sehe keinen Tisch.", "uk": "Я не бачу стола." },
+      { "de": "Ich lerne nicht.", "uk": "Я не вчу." }
+    ]
   },
   {
-    id: "pronouns",
-    title: "Займенники",
-    note: "Akkusativ і Dativ.",
-    tables: [
+    "id": "pronouns",
+    "group": "Решта",
+    "title": "Займенники",
+    "note": "Akkusativ і Dativ.",
+    "tables": [
       {
-        caption: "Akkusativ",
-        rows: [
+        "caption": "Akkusativ",
+        "markCol": 1,
+        "rows": [
           ["ich", "mich"],
           ["du", "dich"],
           ["er", "ihn"],
@@ -189,8 +312,9 @@ window.IMPULS.handbook = [
         ]
       },
       {
-        caption: "Dativ",
-        rows: [
+        "caption": "Dativ",
+        "markCol": 1,
+        "rows": [
           ["ich", "mir"],
           ["du", "dir"],
           ["er", "ihm"],
@@ -203,66 +327,40 @@ window.IMPULS.handbook = [
         ]
       }
     ],
-    examples: ["Ich sehe ihn.", "Er sieht mich.", "Ich helfe dir."]
+    "examples": [
+      { "de": "Ich sehe ihn.", "uk": "Я його бачу." },
+      { "de": "Er sieht mich.", "uk": "Він мене бачить." },
+      { "de": "Ich helfe dir.", "uk": "Я тобі допомагаю." }
+    ]
   },
   {
-    id: "modals",
-    title: "Модальні",
-    note: "Особа на модальному, інфінітив у кінці.",
-    tables: [
-      {
-        caption: "müssen",
-        rows: [
-          ["ich", "muss"],
-          ["du", "musst"],
-          ["er/sie/es", "muss"],
-          ["wir", "müssen"],
-          ["ihr", "müsst"],
-          ["sie/Sie", "müssen"]
-        ]
-      },
-      {
-        caption: "können",
-        rows: [
-          ["ich", "kann"],
-          ["du", "kannst"],
-          ["er/sie/es", "kann"],
-          ["wir", "können"],
-          ["ihr", "könnt"],
-          ["sie/Sie", "können"]
-        ]
-      },
-      {
-        caption: "wollen",
-        rows: [
-          ["ich", "will"],
-          ["du", "willst"],
-          ["er/sie/es", "will"],
-          ["wir", "wollen"],
-          ["ihr", "wollt"],
-          ["sie/Sie", "wollen"]
-        ]
-      }
-    ],
-    examples: ["Ich muss heute arbeiten.", "Kannst du Deutsch?", "Wir wollen nach Hause gehen."]
+    "id": "possessive",
+    "group": "Решта",
+    "title": "Присвійні",
+    "note": "Як ein.",
+    "examples": [
+      { "de": "Das ist mein Buch.", "uk": "Це моя книга." },
+      { "de": "Ich sehe deinen Hund.", "uk": "Я бачу твого собаку." },
+      { "de": "meine Lampe", "uk": "моя лампа" },
+      { "de": "meinen Tisch", "uk": "мій стіл" }
+    ]
   },
   {
-    id: "separable",
-    title: "Відокремлювані",
-    note: "Префікс у теперішньому йде в кінець.",
-    examples: ["Ich stehe um 7 Uhr auf.", "Ich kaufe heute ein.", "Ich rufe dich an.", "Kommst du mit?", "Ich muss um 7 Uhr aufstehen."]
-  },
-  {
-    id: "possessive",
-    title: "Присвійні",
-    note: "Як ein.",
-    examples: ["Das ist mein Buch.", "Ich sehe deinen Hund.", "meine Lampe", "meinen Tisch"]
-  },
-  {
-    id: "time",
-    title: "Час",
-    note: "Коли і о котрій.",
-    examples: ["heute", "morgen", "jetzt", "um 7 Uhr", "am Montag", "am Abend", "im Januar", "Heute lerne ich Deutsch.", "Ich stehe um 7 Uhr auf."]
+    "id": "time",
+    "group": "Решта",
+    "title": "Час",
+    "note": "Коли і о котрій.",
+    "examples": [
+      { "de": "heute", "uk": "сьогодні" },
+      { "de": "morgen", "uk": "завтра" },
+      { "de": "jetzt", "uk": "зараз" },
+      { "de": "um 7 Uhr", "uk": "о 7 годині" },
+      { "de": "am Montag", "uk": "у понеділок" },
+      { "de": "am Abend", "uk": "увечері" },
+      { "de": "im Januar", "uk": "у січні" },
+      { "de": "Heute lerne ich Deutsch.", "uk": "Сьогодні я вчу німецьку." },
+      { "de": "Ich stehe um 7 Uhr auf.", "uk": "Я встаю о 7 годині." }
+    ]
   }
 ];
 
