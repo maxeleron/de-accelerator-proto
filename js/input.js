@@ -17,6 +17,10 @@ const onMenuKey = function (event) {
   }
   if (event.key === "3") {
     window.IMPULS.selectWindow(900);
+    return;
+  }
+  if (event.key === "4") {
+    window.IMPULS.selectWindow(0);
   }
 };
 

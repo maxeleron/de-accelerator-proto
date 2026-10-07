@@ -9,6 +9,7 @@ window.IMPULS.state = {
   currentId: null,
   presented: [],
   first: {},
+  latency: {},
   cardStartedAt: 0,
   locked: false,
   rafId: 0
@@ -30,10 +31,14 @@ window.IMPULS.setPhase = function (phase) {
 };
 
 // Ремонт не переписує вердикт першого імпульсу.
-window.IMPULS.recordAttempt = function (cardId, verdict) {
-  const first = window.IMPULS.state.first;
-  if (Object.prototype.hasOwnProperty.call(first, cardId)) {
+window.IMPULS.recordAttempt = function (cardId, verdict, ms) {
+  const state = window.IMPULS.state;
+  if (Object.prototype.hasOwnProperty.call(state.first, cardId)) {
     return;
   }
-  first[cardId] = verdict;
+  state.first[cardId] = verdict;
+  // Час до keydown пишемо в спробу; на екран поки не виводимо.
+  if (typeof ms === "number" && Number.isFinite(ms)) {
+    state.latency[cardId] = Math.round(ms);
+  }
 };

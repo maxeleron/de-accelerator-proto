@@ -3,7 +3,8 @@ window.IMPULS = window.IMPULS || {};
 const MENU_WINDOWS = {
   "win-soft": 1600,
   "win-even": 1200,
-  "win-hard": 900
+  "win-hard": 900,
+  "win-free": 0
 };
 
 const VERDICTS = {
@@ -80,7 +81,23 @@ const idsKnown = function (list) {
 };
 
 const isWindow = function (ms) {
-  return ms === 1600 || ms === 1200 || ms === 900;
+  return ms === 1600 || ms === 1200 || ms === 900 || ms === 0;
+};
+
+const copyLatency = function (source) {
+  const next = {};
+  if (!source) {
+    return next;
+  }
+  const ids = Object.keys(source);
+  for (let i = 0; i < ids.length; i += 1) {
+    const id = ids[i];
+    const ms = source[id];
+    if (findCard(id) && typeof ms === "number" && Number.isFinite(ms)) {
+      next[id] = ms;
+    }
+  }
+  return next;
 };
 
 const sameAnswer = function (pick, answer) {
@@ -112,7 +129,8 @@ const persistActive = function () {
     phase: state.phase,
     main: state.main.slice(),
     repair: state.repair.slice(),
-    first: copyVerdicts(state.first)
+    first: copyVerdicts(state.first),
+    latency: copyLatency(state.latency)
   });
 };
 
@@ -214,7 +232,7 @@ const flash = function (verdict) {
   }, 200);
 };
 
-const commit = function (verdict) {
+const commit = function (verdict, elapsedMs) {
   const state = window.IMPULS.state;
   if (state.locked) {
     return;
@@ -228,7 +246,7 @@ const commit = function (verdict) {
       window.IMPULS.pushRepair(id);
     }
   } else {
-    window.IMPULS.recordAttempt(id, verdict);
+    window.IMPULS.recordAttempt(id, verdict, elapsedMs);
     state.main.shift();
     if (verdict !== "hit") {
       window.IMPULS.pushRepair(id);
@@ -258,6 +276,11 @@ const armTimer = function (ms) {
   cancelFrame();
   timer.classList.remove("is-hit", "is-miss");
   timer.style.transform = "scaleX(1)";
+
+  // windowMs = 0: вікна немає — смуга стоїть повна, timeout не виникає.
+  if (ms === 0) {
+    return;
+  }
 
   const frame = function (now) {
     if (state.locked || state.cardStartedAt !== started) {
@@ -294,13 +317,13 @@ window.IMPULS.choose = function (index) {
   }
   const elapsed = performance.now() - state.cardStartedAt;
   let verdict = "miss";
-  // Після вікна це запізнення, навіть якщо форма правильна.
-  if (elapsed >= state.windowMs) {
+  // Без вікна late немає: лише hit або miss.
+  if (state.windowMs > 0 && elapsed >= state.windowMs) {
     verdict = "late";
   } else if (sameAnswer(pick, card.answer)) {
     verdict = "hit";
   }
-  commit(verdict);
+  commit(verdict, elapsed);
 };
 
 window.IMPULS.selectWindow = function (ms) {
@@ -328,6 +351,7 @@ window.IMPULS.startRound = function () {
   state.main = window.IMPULS.buildQueue(cards);
   state.repair = [];
   state.first = {};
+  state.latency = {};
   state.currentId = null;
   state.presented = [];
   state.locked = false;
@@ -368,6 +392,7 @@ const restoreRound = function () {
   state.main = saved.main.slice();
   state.repair = saved.repair.slice();
   state.first = copyVerdicts(saved.first);
+  state.latency = copyLatency(saved.latency);
   if (state.main.length === 0 && state.repair.length === 0) {
     window.IMPULS.setPhase("menu");
     writeRound(null);
