@@ -155,6 +155,12 @@ const clearFlash = function () {
   flashId = 0;
 };
 
+const clearPickFill = function () {
+  for (let i = 1; i <= 4; i += 1) {
+    document.getElementById("opt-" + i).classList.remove("is-hit", "is-miss");
+  }
+};
+
 const statusText = function (hits, total) {
   return "Перший імпульс: " + hits + "/" + total;
 };
@@ -182,6 +188,7 @@ const finishRound = function () {
   document.getElementById("menu-status").textContent = statusText(hits, total);
   document.getElementById("repair-badge").classList.add("is-hidden");
   document.getElementById("timer").classList.remove("is-hit", "is-miss");
+  clearPickFill();
   renderMenu();
   document.getElementById("btn-start").focus();
 };
@@ -224,22 +231,31 @@ const showNext = function () {
   armTimer(state.windowMs);
 };
 
-const flash = function (verdict) {
+const flash = function (verdict, optionIndex) {
   const timer = document.getElementById("timer");
   timer.style.transform = "scaleX(1)";
   timer.classList.remove("is-hit", "is-miss");
+  clearPickFill();
   // Стеля спалаху — 200 мс. Під смугою немає правила.
   timer.classList.add(verdict === "hit" ? "is-hit" : "is-miss");
+  // Late і timeout не заливають кнопку: вибору немає.
+  if (verdict === "hit" || verdict === "miss") {
+    const btn = document.getElementById("opt-" + (optionIndex + 1));
+    if (btn) {
+      btn.classList.add(verdict === "hit" ? "is-hit" : "is-miss");
+    }
+  }
   focusRound();
   clearFlash();
   flashId = window.setTimeout(function () {
     flashId = 0;
     timer.classList.remove("is-hit", "is-miss");
+    clearPickFill();
     showNext();
   }, 200);
 };
 
-const commit = function (verdict, elapsedMs) {
+const commit = function (verdict, elapsedMs, optionIndex) {
   const state = window.IMPULS.state;
   if (state.locked) {
     return;
@@ -271,7 +287,7 @@ const commit = function (verdict, elapsedMs) {
   } else {
     persistActive();
   }
-  flash(verdict);
+  flash(verdict, optionIndex);
 };
 
 const armTimer = function (ms) {
@@ -330,7 +346,7 @@ window.IMPULS.choose = function (index) {
   } else if (sameAnswer(pick, card.answer)) {
     verdict = "hit";
   }
-  commit(verdict, elapsed);
+  commit(verdict, elapsed, index);
 };
 
 const findSection = function (id) {

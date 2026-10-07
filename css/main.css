@@ -220,6 +220,20 @@ button:focus-visible {
   border-color: #1f6f6a;
 }
 
+.options button.is-hit,
+.options button.is-hit:hover {
+  background: #2f6f4e;
+  border-color: #2f6f4e;
+  color: #e7eee9;
+}
+
+.options button.is-miss,
+.options button.is-miss:hover {
+  background: #8f3d3d;
+  border-color: #8f3d3d;
+  color: #e7eee9;
+}
+
 #screen-base {
   width: 100%;
   max-width: 720px;
