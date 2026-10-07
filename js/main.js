@@ -22,20 +22,34 @@ const winSelectRoot = function () {
 };
 
 const winSelectFace = function () {
-  return winSelectRoot().querySelector(".win-select-face");
+  const root = winSelectRoot();
+  if (!root) {
+    return null;
+  }
+  return root.querySelector(".win-select-face");
 };
 
 const winSelectMenu = function () {
-  return winSelectRoot().querySelector(".win-select-menu");
+  const root = winSelectRoot();
+  if (!root) {
+    return null;
+  }
+  return root.querySelector(".win-select-menu");
 };
 
 const isWinSelectOpen = function () {
-  return !winSelectMenu().classList.contains("is-hidden");
+  const menu = winSelectMenu();
+  return menu && !menu.classList.contains("is-hidden");
 };
 
 const closeWinSelect = function () {
-  winSelectMenu().classList.add("is-hidden");
-  winSelectFace().setAttribute("aria-expanded", "false");
+  const menu = winSelectMenu();
+  const face = winSelectFace();
+  if (!menu || !face) {
+    return;
+  }
+  menu.classList.add("is-hidden");
+  face.setAttribute("aria-expanded", "false");
 };
 
 const isRoundSetupOpen = function () {
@@ -61,8 +75,13 @@ window.IMPULS.toggleRoundSetup = function () {
 };
 
 const openWinSelect = function () {
-  winSelectMenu().classList.remove("is-hidden");
-  winSelectFace().setAttribute("aria-expanded", "true");
+  const menu = winSelectMenu();
+  const face = winSelectFace();
+  if (!menu || !face) {
+    return;
+  }
+  menu.classList.remove("is-hidden");
+  face.setAttribute("aria-expanded", "true");
 };
 
 const windowOptionIndex = function (ms) {
@@ -847,55 +866,76 @@ const restoreRound = function () {
 };
 
 const bindClicks = function () {
+  document.getElementById("btn-start").addEventListener("click", function () {
+    window.IMPULS.startRound();
+  });
+
+  document.getElementById("btn-base").addEventListener("click", function () {
+    window.IMPULS.openBase();
+  });
+
+  document.getElementById("btn-settings").addEventListener("click", function () {
+    window.IMPULS.openSettings();
+  });
+
   const root = winSelectRoot();
   const face = winSelectFace();
   const menu = winSelectMenu();
 
-  face.addEventListener("click", function () {
-    if (isWinSelectOpen()) {
+  if (face) {
+    face.addEventListener("click", function () {
+      if (isWinSelectOpen()) {
+        closeWinSelect();
+        return;
+      }
+      openWinSelect();
+    });
+  }
+
+  if (root) {
+    root.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+      }
+    });
+  }
+
+  if (menu) {
+    menu.addEventListener("click", function (event) {
+      const item = event.target.closest("[data-ms]");
+      if (!item) {
+        return;
+      }
+      window.IMPULS.selectWindow(Number(item.getAttribute("data-ms")));
       closeWinSelect();
-      return;
-    }
-    openWinSelect();
-  });
-
-  root.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-    }
-  });
-
-  menu.addEventListener("click", function (event) {
-    const item = event.target.closest("[data-ms]");
-    if (!item) {
-      return;
-    }
-    window.IMPULS.selectWindow(Number(item.getAttribute("data-ms")));
-    closeWinSelect();
-  });
+    });
+  }
 
   // Колесо гортає лише закритий список; на краях стоп, сторінку не скролити.
-  root.addEventListener("wheel", function (event) {
-    event.preventDefault();
-    if (!isRoundSetupOpen()) {
-      return;
-    }
-    if (isWinSelectOpen()) {
-      return;
-    }
-    if (event.deltaY > 0) {
-      stepWindow(1);
-      return;
-    }
-    if (event.deltaY < 0) {
-      stepWindow(-1);
-    }
-  }, { passive: false });
+  if (root) {
+    root.addEventListener("wheel", function (event) {
+      event.preventDefault();
+      if (!isRoundSetupOpen()) {
+        return;
+      }
+      if (isWinSelectOpen()) {
+        return;
+      }
+      if (event.deltaY > 0) {
+        stepWindow(1);
+        return;
+      }
+      if (event.deltaY < 0) {
+        stepWindow(-1);
+      }
+    }, { passive: false });
+  }
 
   document.addEventListener("click", function (event) {
-    if (!root.contains(event.target)) {
-      closeWinSelect();
+    if (root && root.contains(event.target)) {
+      return;
     }
+    closeWinSelect();
   });
 
   document.querySelector('[data-pack="p1"]').addEventListener("click", function () {
@@ -916,10 +956,6 @@ const bindClicks = function () {
   document.querySelector('[data-pack="p4"]').addEventListener("click", function () {
     window.IMPULS.setPack("p4");
     renderMenu();
-  });
-
-  document.getElementById("btn-start").addEventListener("click", function () {
-    window.IMPULS.startRound();
   });
 
   document.getElementById("btn-round-edit").addEventListener("click", function () {
@@ -947,16 +983,8 @@ const bindClicks = function () {
     window.IMPULS.requestAbort();
   });
 
-  document.getElementById("btn-settings").addEventListener("click", function () {
-    window.IMPULS.openSettings();
-  });
-
   document.getElementById("btn-settings-back").addEventListener("click", function () {
     window.IMPULS.closeSettings();
-  });
-
-  document.getElementById("btn-base").addEventListener("click", function () {
-    window.IMPULS.openBase();
   });
 
   document.getElementById("btn-base-back").addEventListener("click", function () {

@@ -48,8 +48,14 @@ const emptySeen = function () {
 };
 
 const showClearConfirm = function (on) {
-  document.getElementById("btn-clear-progress").classList.toggle("is-hidden", on);
-  document.getElementById("clear-progress-confirm").classList.toggle("is-hidden", !on);
+  const btn = document.getElementById("btn-clear-progress");
+  const confirm = document.getElementById("clear-progress-confirm");
+  if (btn) {
+    btn.classList.toggle("is-hidden", on);
+  }
+  if (confirm) {
+    confirm.classList.toggle("is-hidden", !on);
+  }
 };
 
 const resetPackSeenLabels = function () {
@@ -86,23 +92,46 @@ window.IMPULS.clearProgress = function () {
 };
 
 const bindClearProgress = function () {
-  document.getElementById("btn-clear-progress").addEventListener("click", function () {
-    showClearConfirm(true);
-    document.getElementById("btn-clear-cancel").focus();
-  });
-  document.getElementById("btn-clear-cancel").addEventListener("click", function () {
-    showClearConfirm(false);
-    document.getElementById("btn-clear-progress").focus();
-  });
-  document.getElementById("btn-clear-wipe").addEventListener("click", function () {
-    window.IMPULS.clearProgress();
-    showClearConfirm(false);
-    document.getElementById("btn-clear-progress").focus();
-  });
+  const btn = document.getElementById("btn-clear-progress");
+  const cancel = document.getElementById("btn-clear-cancel");
+  const wipe = document.getElementById("btn-clear-wipe");
+  if (btn) {
+    btn.addEventListener("click", function () {
+      showClearConfirm(true);
+      if (cancel) {
+        cancel.focus();
+      }
+    });
+  }
+  if (cancel) {
+    cancel.addEventListener("click", function () {
+      showClearConfirm(false);
+      if (btn) {
+        btn.focus();
+      }
+    });
+  }
+  if (wipe) {
+    wipe.addEventListener("click", function () {
+      try {
+        window.IMPULS.clearProgress();
+      } catch (err) {
+        // Стирання не обриває застосунок.
+      }
+      showClearConfirm(false);
+      if (btn) {
+        btn.focus();
+      }
+    });
+  }
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-  bindClearProgress();
+  try {
+    bindClearProgress();
+  } catch (err) {
+    // Підтвердження стирання не обриває старт.
+  }
 });
 
 window.IMPULS.loadSettings();

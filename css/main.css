@@ -400,9 +400,6 @@ html[data-theme="light"] #icon-moon {
 }
 
 #screen-menu.is-hidden,
-#screen-round.is-hidden,
-#screen-base.is-hidden,
-#screen-settings.is-hidden,
 #repair-badge.is-hidden,
 .options button.is-hidden,
 #win-select .win-select-menu.is-hidden,
@@ -614,6 +611,14 @@ html[data-theme="light"] #icon-moon {
 
 #screen-base:focus {
   outline: none;
+}
+
+/* Прихований екран не ловить кліки меню і не лишається шаром поверх. */
+#screen-round.is-hidden,
+#screen-base.is-hidden,
+#screen-settings.is-hidden {
+  display: none;
+  pointer-events: none;
 }
 
 #btn-base-back {
