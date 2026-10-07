@@ -28,6 +28,7 @@ const renderMenu = function () {
 const showScreen = function (id) {
   document.getElementById("screen-menu").classList.toggle("is-hidden", id !== "screen-menu");
   document.getElementById("screen-round").classList.toggle("is-hidden", id !== "screen-round");
+  document.getElementById("screen-base").classList.toggle("is-hidden", id !== "screen-base");
 };
 
 const focusRound = function () {
@@ -326,6 +327,111 @@ window.IMPULS.choose = function (index) {
   commit(verdict, elapsed);
 };
 
+const findSection = function (id) {
+  const sections = window.IMPULS.loadHandbook();
+  for (let i = 0; i < sections.length; i += 1) {
+    if (sections[i].id === id) {
+      return sections[i];
+    }
+  }
+  return sections[0] || null;
+};
+
+const addNode = function (parent, tag, text, className) {
+  const el = document.createElement(tag);
+  if (className) {
+    el.className = className;
+  }
+  if (text) {
+    el.textContent = text;
+  }
+  parent.appendChild(el);
+  return el;
+};
+
+const fillBaseTable = function (parent, table) {
+  const el = addNode(parent, "table", "", "base-table");
+  if (table.caption) {
+    addNode(el, "caption", table.caption);
+  }
+  const body = addNode(el, "tbody");
+  const rows = table.rows || [];
+  for (let i = 0; i < rows.length; i += 1) {
+    const tr = addNode(body, "tr");
+    const cells = rows[i];
+    for (let j = 0; j < cells.length; j += 1) {
+      addNode(tr, "td", cells[j]);
+    }
+  }
+};
+
+const fillBaseNav = function (currentId) {
+  const nav = document.getElementById("base-nav");
+  nav.textContent = "";
+  const sections = window.IMPULS.loadHandbook();
+  for (let i = 0; i < sections.length; i += 1) {
+    const section = sections[i];
+    const btn = addNode(nav, "button");
+    btn.type = "button";
+    btn.textContent = section.title;
+    btn.setAttribute("aria-pressed", section.id === currentId ? "true" : "false");
+    btn.addEventListener("click", function () {
+      window.IMPULS.showBase(section.id);
+    });
+  }
+};
+
+const fillBaseBody = function (section) {
+  const body = document.getElementById("base-body");
+  body.textContent = "";
+  addNode(body, "h3", section.title);
+  if (section.note) {
+    addNode(body, "p", section.note, "base-note");
+  }
+  const tables = section.tables || [];
+  for (let i = 0; i < tables.length; i += 1) {
+    fillBaseTable(body, tables[i]);
+  }
+  const examples = section.examples || [];
+  for (let i = 0; i < examples.length; i += 1) {
+    const line = addNode(body, "p", examples[i], "base-example");
+    line.lang = "de";
+  }
+};
+
+window.IMPULS.showBase = function (id) {
+  const section = findSection(id);
+  if (!section) {
+    return;
+  }
+  window.IMPULS.state.baseId = section.id;
+  fillBaseNav(section.id);
+  fillBaseBody(section);
+};
+
+window.IMPULS.openBase = function () {
+  if (window.IMPULS.state.phase !== "menu") {
+    return;
+  }
+  const sections = window.IMPULS.loadHandbook();
+  if (!sections.length) {
+    return;
+  }
+  window.IMPULS.setPhase("base");
+  showScreen("screen-base");
+  window.IMPULS.showBase(window.IMPULS.state.baseId || sections[0].id);
+  document.getElementById("screen-base").focus();
+};
+
+window.IMPULS.closeBase = function () {
+  if (window.IMPULS.state.phase !== "base") {
+    return;
+  }
+  window.IMPULS.setPhase("menu");
+  showScreen("screen-menu");
+  document.getElementById("btn-base").focus();
+};
+
 window.IMPULS.selectWindow = function (ms) {
   if (window.IMPULS.state.phase !== "menu") {
     return;
@@ -419,6 +525,14 @@ const bindClicks = function () {
 
   document.getElementById("btn-start").addEventListener("click", function () {
     window.IMPULS.startRound();
+  });
+
+  document.getElementById("btn-base").addEventListener("click", function () {
+    window.IMPULS.openBase();
+  });
+
+  document.getElementById("btn-base-back").addEventListener("click", function () {
+    window.IMPULS.closeBase();
   });
 
   for (let i = 1; i <= 4; i += 1) {

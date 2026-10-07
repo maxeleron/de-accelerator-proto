@@ -10,6 +10,7 @@ window.IMPULS.state = {
   presented: [],
   first: {},
   latency: {},
+  baseId: null,
   cardStartedAt: 0,
   locked: false,
   rafId: 0

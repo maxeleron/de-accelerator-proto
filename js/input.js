@@ -63,6 +63,13 @@ window.IMPULS.bindKeys = function () {
       onMenuKey(event);
       return;
     }
+    if (phase === "base") {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        window.IMPULS.closeBase();
+      }
+      return;
+    }
     if (phase === "round" || phase === "repair") {
       onRoundKey(event);
     }

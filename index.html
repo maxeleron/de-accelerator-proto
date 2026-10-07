@@ -16,6 +16,7 @@
     <section class="block" aria-labelledby="label-round">
       <h2 id="label-round">Раунд</h2>
       <button type="button" id="btn-start">Почати раунд</button>
+      <button type="button" id="btn-base">База знань</button>
     </section>
 
     <section class="block" aria-labelledby="label-pack">
@@ -55,7 +56,17 @@
     </div>
   </section>
 
+  <section id="screen-base" class="is-hidden" tabindex="-1">
+    <button type="button" id="btn-base-back">До меню</button>
+    <h2 id="label-base">База знань</h2>
+    <div class="base-layout">
+      <nav id="base-nav" aria-labelledby="label-base"></nav>
+      <div id="base-body"></div>
+    </div>
+  </section>
+
   <script src="js/cards.js" defer></script>
+  <script src="js/handbook.js" defer></script>
   <script src="js/storage.js" defer></script>
   <script src="js/state.js" defer></script>
   <script src="js/queue.js" defer></script>
