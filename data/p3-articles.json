@@ -2,84 +2,96 @@
   {
     "id": "ar-01",
     "muster": "nominativ",
-    "prompt": "___ стіл",
+    "prompt": "___ Tisch",
+    "gloss": "стіл",
     "answer": "der",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-02",
     "muster": "nominativ",
-    "prompt": "___ лампа",
+    "prompt": "___ Lampe",
+    "gloss": "лампа",
     "answer": "die",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-03",
     "muster": "nominativ",
-    "prompt": "___ книга",
+    "prompt": "___ Buch",
+    "gloss": "книга",
     "answer": "das",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-04",
     "muster": "nominativ",
-    "prompt": "___ чоловік",
+    "prompt": "___ Mann",
+    "gloss": "чоловік",
     "answer": "der",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-05",
     "muster": "nominativ",
-    "prompt": "___ жінка",
+    "prompt": "___ Frau",
+    "gloss": "жінка",
     "answer": "die",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-06",
     "muster": "nominativ",
-    "prompt": "___ дитина",
+    "prompt": "___ Kind",
+    "gloss": "дитина",
     "answer": "das",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-07",
     "muster": "nominativ",
-    "prompt": "___ стілець",
+    "prompt": "___ Stuhl",
+    "gloss": "стілець",
     "answer": "der",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-08",
     "muster": "nominativ",
-    "prompt": "___ двері",
+    "prompt": "___ Tür",
+    "gloss": "двері",
     "answer": "die",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-09",
     "muster": "nominativ",
-    "prompt": "___ вікно",
+    "prompt": "___ Fenster",
+    "gloss": "вікно",
     "answer": "das",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-10",
     "muster": "nominativ",
-    "prompt": "___ собака",
+    "prompt": "___ Hund",
+    "gloss": "собака",
     "answer": "der",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-11",
     "muster": "nominativ",
-    "prompt": "___ кішка",
+    "prompt": "___ Katze",
+    "gloss": "кішка",
     "answer": "die",
     "options": ["der", "die", "das"]
   },
   {
     "id": "ar-12",
     "muster": "nominativ",
-    "prompt": "___ будинок",
+    "prompt": "___ Haus",
+    "gloss": "будинок",
     "answer": "das",
     "options": ["der", "die", "das"]
   }

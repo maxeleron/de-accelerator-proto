@@ -2,126 +2,144 @@
   {
     "id": "en-01",
     "muster": "endings",
-    "prompt": "я ___ (робити)",
+    "prompt": "ich ___ (machen)",
+    "gloss": "я роблю",
     "answer": "mache",
     "options": ["mache", "machst", "macht", "machen"]
   },
   {
     "id": "en-02",
     "muster": "endings",
-    "prompt": "ти ___ (робити)",
+    "prompt": "du ___ (machen)",
+    "gloss": "ти робиш",
     "answer": "machst",
     "options": ["mache", "machst", "macht", "machen"]
   },
   {
     "id": "en-03",
     "muster": "endings",
-    "prompt": "він ___ (робити)",
+    "prompt": "er ___ (machen)",
+    "gloss": "він робить",
     "answer": "macht",
     "options": ["mache", "machst", "macht", "machen"]
   },
   {
     "id": "en-04",
     "muster": "endings",
-    "prompt": "ми ___ (робити)",
+    "prompt": "wir ___ (machen)",
+    "gloss": "ми робимо",
     "answer": "machen",
     "options": ["mache", "machst", "macht", "machen"]
   },
   {
     "id": "en-05",
     "muster": "endings",
-    "prompt": "ви ___ (робити)",
+    "prompt": "ihr ___ (machen)",
+    "gloss": "ви робите",
     "answer": "macht",
     "options": ["mache", "machst", "macht", "machen"]
   },
   {
     "id": "en-06",
     "muster": "endings",
-    "prompt": "вони ___ (робити)",
+    "prompt": "sie ___ (machen)",
+    "gloss": "вони роблять",
     "answer": "machen",
     "options": ["mache", "machst", "macht", "machen"]
   },
   {
     "id": "en-07",
     "muster": "endings",
-    "prompt": "я ___ (вчити)",
+    "prompt": "ich ___ (lernen)",
+    "gloss": "я вчу",
     "answer": "lerne",
     "options": ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     "id": "en-08",
     "muster": "endings",
-    "prompt": "ти ___ (вчити)",
+    "prompt": "du ___ (lernen)",
+    "gloss": "ти вчиш",
     "answer": "lernst",
     "options": ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     "id": "en-09",
     "muster": "endings",
-    "prompt": "він ___ (вчити)",
+    "prompt": "er ___ (lernen)",
+    "gloss": "він вчить",
     "answer": "lernt",
     "options": ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     "id": "en-10",
     "muster": "endings",
-    "prompt": "ми ___ (вчити)",
+    "prompt": "wir ___ (lernen)",
+    "gloss": "ми вчимо",
     "answer": "lernen",
     "options": ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     "id": "en-11",
     "muster": "endings",
-    "prompt": "ви ___ (вчити)",
+    "prompt": "ihr ___ (lernen)",
+    "gloss": "ви вчите",
     "answer": "lernt",
     "options": ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     "id": "en-12",
     "muster": "endings",
-    "prompt": "вони ___ (вчити)",
+    "prompt": "sie ___ (lernen)",
+    "gloss": "вони вчать",
     "answer": "lernen",
     "options": ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     "id": "en-13",
     "muster": "endings",
-    "prompt": "я ___ (жити)",
+    "prompt": "ich ___ (wohnen)",
+    "gloss": "я живу",
     "answer": "wohne",
     "options": ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     "id": "en-14",
     "muster": "endings",
-    "prompt": "ти ___ (жити)",
+    "prompt": "du ___ (wohnen)",
+    "gloss": "ти живеш",
     "answer": "wohnst",
     "options": ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     "id": "en-15",
     "muster": "endings",
-    "prompt": "він ___ (жити)",
+    "prompt": "er ___ (wohnen)",
+    "gloss": "він живе",
     "answer": "wohnt",
     "options": ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     "id": "en-16",
     "muster": "endings",
-    "prompt": "ми ___ (жити)",
+    "prompt": "wir ___ (wohnen)",
+    "gloss": "ми живемо",
     "answer": "wohnen",
     "options": ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     "id": "en-17",
     "muster": "endings",
-    "prompt": "ви ___ (жити)",
+    "prompt": "ihr ___ (wohnen)",
+    "gloss": "ви живете",
     "answer": "wohnt",
     "options": ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     "id": "en-18",
     "muster": "endings",
-    "prompt": "вони ___ (жити)",
+    "prompt": "sie ___ (wohnen)",
+    "gloss": "вони живуть",
     "answer": "wohnen",
     "options": ["wohne", "wohnst", "wohnt", "wohnen"]
   }

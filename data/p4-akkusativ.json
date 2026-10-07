@@ -2,168 +2,192 @@
   {
     "id": "ak-01",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ стіл",
+    "prompt": "ich sehe ___ Tisch",
+    "gloss": "я бачу стіл",
     "answer": "den",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-02",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ лампа",
+    "prompt": "ich sehe ___ Lampe",
+    "gloss": "я бачу лампа",
     "answer": "die",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-03",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ книга",
+    "prompt": "ich sehe ___ Buch",
+    "gloss": "я бачу книга",
     "answer": "das",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-04",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ чоловік",
+    "prompt": "ich sehe ___ Mann",
+    "gloss": "я бачу чоловік",
     "answer": "den",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-05",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ жінка",
+    "prompt": "ich sehe ___ Frau",
+    "gloss": "я бачу жінка",
     "answer": "die",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-06",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ дитина",
+    "prompt": "ich sehe ___ Kind",
+    "gloss": "я бачу дитина",
     "answer": "das",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-07",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ стілець",
+    "prompt": "ich sehe ___ Stuhl",
+    "gloss": "я бачу стілець",
     "answer": "den",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-08",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ двері",
+    "prompt": "ich sehe ___ Tür",
+    "gloss": "я бачу двері",
     "answer": "die",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-09",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ вікно",
+    "prompt": "ich sehe ___ Fenster",
+    "gloss": "я бачу вікно",
     "answer": "das",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-10",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ собака",
+    "prompt": "ich sehe ___ Hund",
+    "gloss": "я бачу собака",
     "answer": "den",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-11",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ кішка",
+    "prompt": "ich sehe ___ Katze",
+    "gloss": "я бачу кішка",
     "answer": "die",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-12",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ будинок",
+    "prompt": "ich sehe ___ Haus",
+    "gloss": "я бачу будинок",
     "answer": "das",
     "options": ["den", "die", "das"]
   },
   {
     "id": "ak-13",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ стіл (неозначений)",
+    "prompt": "ich sehe ___ Tisch, ein",
+    "gloss": "я бачу стіл, неозначений",
     "answer": "einen",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-14",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ лампа (неозначений)",
+    "prompt": "ich sehe ___ Lampe, ein",
+    "gloss": "я бачу лампа, неозначений",
     "answer": "eine",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-15",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ книга (неозначений)",
+    "prompt": "ich sehe ___ Buch, ein",
+    "gloss": "я бачу книга, неозначений",
     "answer": "ein",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-16",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ чоловік (неозначений)",
+    "prompt": "ich sehe ___ Mann, ein",
+    "gloss": "я бачу чоловік, неозначений",
     "answer": "einen",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-17",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ жінка (неозначений)",
+    "prompt": "ich sehe ___ Frau, ein",
+    "gloss": "я бачу жінка, неозначений",
     "answer": "eine",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-18",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ дитина (неозначений)",
+    "prompt": "ich sehe ___ Kind, ein",
+    "gloss": "я бачу дитина, неозначений",
     "answer": "ein",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-19",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ стілець (неозначений)",
+    "prompt": "ich sehe ___ Stuhl, ein",
+    "gloss": "я бачу стілець, неозначений",
     "answer": "einen",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-20",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ двері (неозначений)",
+    "prompt": "ich sehe ___ Tür, ein",
+    "gloss": "я бачу двері, неозначений",
     "answer": "eine",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-21",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ вікно (неозначений)",
+    "prompt": "ich sehe ___ Fenster, ein",
+    "gloss": "я бачу вікно, неозначений",
     "answer": "ein",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-22",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ собака (неозначений)",
+    "prompt": "ich sehe ___ Hund, ein",
+    "gloss": "я бачу собака, неозначений",
     "answer": "einen",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-23",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ кішка (неозначений)",
+    "prompt": "ich sehe ___ Katze, ein",
+    "gloss": "я бачу кішка, неозначений",
     "answer": "eine",
     "options": ["einen", "eine", "ein"]
   },
   {
     "id": "ak-24",
     "muster": "akkusativ",
-    "prompt": "я бачу ___ будинок (неозначений)",
+    "prompt": "ich sehe ___ Haus, ein",
+    "gloss": "я бачу будинок, неозначений",
     "answer": "ein",
     "options": ["einen", "eine", "ein"]
   }

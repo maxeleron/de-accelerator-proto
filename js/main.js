@@ -211,6 +211,7 @@ const showNext = function () {
   state.currentId = upcoming.id;
   state.presented = window.IMPULS.shuffle(card.options);
   document.getElementById("stimulus").textContent = card.prompt;
+  document.getElementById("gloss").textContent = card.gloss || "";
   for (let i = 0; i < 4; i += 1) {
     const btn = document.getElementById("opt-" + (i + 1));
     const label = state.presented[i] || "";
@@ -574,6 +575,11 @@ const bindClicks = function () {
   document.getElementById("btn-base-back").addEventListener("click", function () {
     window.IMPULS.closeBase();
   });
+
+  document.getElementById("btn-theme").addEventListener("click", function () {
+    window.IMPULS.toggleTheme();
+  });
+  window.IMPULS.applyTheme(document.documentElement.getAttribute("data-theme"));
 
   for (let i = 1; i <= 4; i += 1) {
     document.getElementById("opt-" + i).addEventListener("click", function () {

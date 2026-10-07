@@ -5,98 +5,112 @@ window.IMPULS.cards = [
   {
     id: "sh-01",
     muster: "sein-haben",
-    prompt: "я є",
+    prompt: "ich ___",
+    gloss: "я є",
     answer: "bin",
     options: ["bin", "bist", "ist", "sind"]
   },
   {
     id: "sh-02",
     muster: "sein-haben",
-    prompt: "ти є",
+    prompt: "du ___",
+    gloss: "ти є",
     answer: "bist",
     options: ["bin", "bist", "ist", "sind"]
   },
   {
     id: "sh-03",
     muster: "sein-haben",
-    prompt: "він є",
+    prompt: "er ___",
+    gloss: "він є",
     answer: "ist",
     options: ["bin", "bist", "ist", "sind"]
   },
   {
     id: "sh-04",
     muster: "sein-haben",
-    prompt: "ми є",
+    prompt: "wir ___",
+    gloss: "ми є",
     answer: "sind",
     options: ["bin", "bist", "ist", "sind"]
   },
   {
     id: "sh-05",
     muster: "sein-haben",
-    prompt: "ви є",
+    prompt: "ihr ___",
+    gloss: "ви є",
     answer: "seid",
     options: ["bin", "bist", "seid", "sind"]
   },
   {
     id: "sh-06",
     muster: "sein-haben",
-    prompt: "вони є",
+    prompt: "sie ___",
+    gloss: "вони є",
     answer: "sind",
     options: ["bin", "bist", "ist", "sind"]
   },
   {
     id: "sh-07",
     muster: "sein-haben",
-    prompt: "Ви є",
+    prompt: "Sie ___",
+    gloss: "Ви є",
     answer: "sind",
     options: ["bin", "bist", "ist", "sind"]
   },
   {
     id: "sh-08",
     muster: "sein-haben",
-    prompt: "я маю",
+    prompt: "ich ___",
+    gloss: "я маю",
     answer: "habe",
     options: ["habe", "hast", "hat", "haben"]
   },
   {
     id: "sh-09",
     muster: "sein-haben",
-    prompt: "ти маю",
+    prompt: "du ___",
+    gloss: "ти маєш",
     answer: "hast",
     options: ["habe", "hast", "hat", "haben"]
   },
   {
     id: "sh-10",
     muster: "sein-haben",
-    prompt: "він маю",
+    prompt: "er ___",
+    gloss: "він має",
     answer: "hat",
     options: ["habe", "hast", "hat", "haben"]
   },
   {
     id: "sh-11",
     muster: "sein-haben",
-    prompt: "ми маю",
+    prompt: "wir ___",
+    gloss: "ми маємо",
     answer: "haben",
     options: ["habe", "hast", "hat", "haben"]
   },
   {
     id: "sh-12",
     muster: "sein-haben",
-    prompt: "ви маю",
+    prompt: "ihr ___",
+    gloss: "ви маєте",
     answer: "habt",
     options: ["habe", "hast", "habt", "haben"]
   },
   {
     id: "sh-13",
     muster: "sein-haben",
-    prompt: "вони маю",
+    prompt: "sie ___",
+    gloss: "вони мають",
     answer: "haben",
     options: ["habe", "hast", "hat", "haben"]
   },
   {
     id: "sh-14",
     muster: "sein-haben",
-    prompt: "Ви маю",
+    prompt: "Sie ___",
+    gloss: "Ви маєте",
     answer: "haben",
     options: ["habe", "hast", "hat", "haben"]
   }
@@ -113,126 +127,144 @@ window.IMPULS.cardsP2 = [
   {
     id: "en-01",
     muster: "endings",
-    prompt: "я ___ (робити)",
+    prompt: "ich ___ (machen)",
+    gloss: "я роблю",
     answer: "mache",
     options: ["mache", "machst", "macht", "machen"]
   },
   {
     id: "en-02",
     muster: "endings",
-    prompt: "ти ___ (робити)",
+    prompt: "du ___ (machen)",
+    gloss: "ти робиш",
     answer: "machst",
     options: ["mache", "machst", "macht", "machen"]
   },
   {
     id: "en-03",
     muster: "endings",
-    prompt: "він ___ (робити)",
+    prompt: "er ___ (machen)",
+    gloss: "він робить",
     answer: "macht",
     options: ["mache", "machst", "macht", "machen"]
   },
   {
     id: "en-04",
     muster: "endings",
-    prompt: "ми ___ (робити)",
+    prompt: "wir ___ (machen)",
+    gloss: "ми робимо",
     answer: "machen",
     options: ["mache", "machst", "macht", "machen"]
   },
   {
     id: "en-05",
     muster: "endings",
-    prompt: "ви ___ (робити)",
+    prompt: "ihr ___ (machen)",
+    gloss: "ви робите",
     answer: "macht",
     options: ["mache", "machst", "macht", "machen"]
   },
   {
     id: "en-06",
     muster: "endings",
-    prompt: "вони ___ (робити)",
+    prompt: "sie ___ (machen)",
+    gloss: "вони роблять",
     answer: "machen",
     options: ["mache", "machst", "macht", "machen"]
   },
   {
     id: "en-07",
     muster: "endings",
-    prompt: "я ___ (вчити)",
+    prompt: "ich ___ (lernen)",
+    gloss: "я вчу",
     answer: "lerne",
     options: ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     id: "en-08",
     muster: "endings",
-    prompt: "ти ___ (вчити)",
+    prompt: "du ___ (lernen)",
+    gloss: "ти вчиш",
     answer: "lernst",
     options: ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     id: "en-09",
     muster: "endings",
-    prompt: "він ___ (вчити)",
+    prompt: "er ___ (lernen)",
+    gloss: "він вчить",
     answer: "lernt",
     options: ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     id: "en-10",
     muster: "endings",
-    prompt: "ми ___ (вчити)",
+    prompt: "wir ___ (lernen)",
+    gloss: "ми вчимо",
     answer: "lernen",
     options: ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     id: "en-11",
     muster: "endings",
-    prompt: "ви ___ (вчити)",
+    prompt: "ihr ___ (lernen)",
+    gloss: "ви вчите",
     answer: "lernt",
     options: ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     id: "en-12",
     muster: "endings",
-    prompt: "вони ___ (вчити)",
+    prompt: "sie ___ (lernen)",
+    gloss: "вони вчать",
     answer: "lernen",
     options: ["lerne", "lernst", "lernt", "lernen"]
   },
   {
     id: "en-13",
     muster: "endings",
-    prompt: "я ___ (жити)",
+    prompt: "ich ___ (wohnen)",
+    gloss: "я живу",
     answer: "wohne",
     options: ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     id: "en-14",
     muster: "endings",
-    prompt: "ти ___ (жити)",
+    prompt: "du ___ (wohnen)",
+    gloss: "ти живеш",
     answer: "wohnst",
     options: ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     id: "en-15",
     muster: "endings",
-    prompt: "він ___ (жити)",
+    prompt: "er ___ (wohnen)",
+    gloss: "він живе",
     answer: "wohnt",
     options: ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     id: "en-16",
     muster: "endings",
-    prompt: "ми ___ (жити)",
+    prompt: "wir ___ (wohnen)",
+    gloss: "ми живемо",
     answer: "wohnen",
     options: ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     id: "en-17",
     muster: "endings",
-    prompt: "ви ___ (жити)",
+    prompt: "ihr ___ (wohnen)",
+    gloss: "ви живете",
     answer: "wohnt",
     options: ["wohne", "wohnst", "wohnt", "wohnen"]
   },
   {
     id: "en-18",
     muster: "endings",
-    prompt: "вони ___ (жити)",
+    prompt: "sie ___ (wohnen)",
+    gloss: "вони живуть",
     answer: "wohnen",
     options: ["wohne", "wohnst", "wohnt", "wohnen"]
   }
@@ -249,84 +281,96 @@ window.IMPULS.cardsP3 = [
   {
     id: "ar-01",
     muster: "nominativ",
-    prompt: "___ стіл",
+    prompt: "___ Tisch",
+    gloss: "стіл",
     answer: "der",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-02",
     muster: "nominativ",
-    prompt: "___ лампа",
+    prompt: "___ Lampe",
+    gloss: "лампа",
     answer: "die",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-03",
     muster: "nominativ",
-    prompt: "___ книга",
+    prompt: "___ Buch",
+    gloss: "книга",
     answer: "das",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-04",
     muster: "nominativ",
-    prompt: "___ чоловік",
+    prompt: "___ Mann",
+    gloss: "чоловік",
     answer: "der",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-05",
     muster: "nominativ",
-    prompt: "___ жінка",
+    prompt: "___ Frau",
+    gloss: "жінка",
     answer: "die",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-06",
     muster: "nominativ",
-    prompt: "___ дитина",
+    prompt: "___ Kind",
+    gloss: "дитина",
     answer: "das",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-07",
     muster: "nominativ",
-    prompt: "___ стілець",
+    prompt: "___ Stuhl",
+    gloss: "стілець",
     answer: "der",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-08",
     muster: "nominativ",
-    prompt: "___ двері",
+    prompt: "___ Tür",
+    gloss: "двері",
     answer: "die",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-09",
     muster: "nominativ",
-    prompt: "___ вікно",
+    prompt: "___ Fenster",
+    gloss: "вікно",
     answer: "das",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-10",
     muster: "nominativ",
-    prompt: "___ собака",
+    prompt: "___ Hund",
+    gloss: "собака",
     answer: "der",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-11",
     muster: "nominativ",
-    prompt: "___ кішка",
+    prompt: "___ Katze",
+    gloss: "кішка",
     answer: "die",
     options: ["der", "die", "das"]
   },
   {
     id: "ar-12",
     muster: "nominativ",
-    prompt: "___ будинок",
+    prompt: "___ Haus",
+    gloss: "будинок",
     answer: "das",
     options: ["der", "die", "das"]
   }
@@ -343,168 +387,192 @@ window.IMPULS.cardsP4 = [
   {
     id: "ak-01",
     muster: "akkusativ",
-    prompt: "я бачу ___ стіл",
+    prompt: "ich sehe ___ Tisch",
+    gloss: "я бачу стіл",
     answer: "den",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-02",
     muster: "akkusativ",
-    prompt: "я бачу ___ лампа",
+    prompt: "ich sehe ___ Lampe",
+    gloss: "я бачу лампа",
     answer: "die",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-03",
     muster: "akkusativ",
-    prompt: "я бачу ___ книга",
+    prompt: "ich sehe ___ Buch",
+    gloss: "я бачу книга",
     answer: "das",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-04",
     muster: "akkusativ",
-    prompt: "я бачу ___ чоловік",
+    prompt: "ich sehe ___ Mann",
+    gloss: "я бачу чоловік",
     answer: "den",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-05",
     muster: "akkusativ",
-    prompt: "я бачу ___ жінка",
+    prompt: "ich sehe ___ Frau",
+    gloss: "я бачу жінка",
     answer: "die",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-06",
     muster: "akkusativ",
-    prompt: "я бачу ___ дитина",
+    prompt: "ich sehe ___ Kind",
+    gloss: "я бачу дитина",
     answer: "das",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-07",
     muster: "akkusativ",
-    prompt: "я бачу ___ стілець",
+    prompt: "ich sehe ___ Stuhl",
+    gloss: "я бачу стілець",
     answer: "den",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-08",
     muster: "akkusativ",
-    prompt: "я бачу ___ двері",
+    prompt: "ich sehe ___ Tür",
+    gloss: "я бачу двері",
     answer: "die",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-09",
     muster: "akkusativ",
-    prompt: "я бачу ___ вікно",
+    prompt: "ich sehe ___ Fenster",
+    gloss: "я бачу вікно",
     answer: "das",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-10",
     muster: "akkusativ",
-    prompt: "я бачу ___ собака",
+    prompt: "ich sehe ___ Hund",
+    gloss: "я бачу собака",
     answer: "den",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-11",
     muster: "akkusativ",
-    prompt: "я бачу ___ кішка",
+    prompt: "ich sehe ___ Katze",
+    gloss: "я бачу кішка",
     answer: "die",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-12",
     muster: "akkusativ",
-    prompt: "я бачу ___ будинок",
+    prompt: "ich sehe ___ Haus",
+    gloss: "я бачу будинок",
     answer: "das",
     options: ["den", "die", "das"]
   },
   {
     id: "ak-13",
     muster: "akkusativ",
-    prompt: "я бачу ___ стіл (неозначений)",
+    prompt: "ich sehe ___ Tisch, ein",
+    gloss: "я бачу стіл, неозначений",
     answer: "einen",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-14",
     muster: "akkusativ",
-    prompt: "я бачу ___ лампа (неозначений)",
+    prompt: "ich sehe ___ Lampe, ein",
+    gloss: "я бачу лампа, неозначений",
     answer: "eine",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-15",
     muster: "akkusativ",
-    prompt: "я бачу ___ книга (неозначений)",
+    prompt: "ich sehe ___ Buch, ein",
+    gloss: "я бачу книга, неозначений",
     answer: "ein",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-16",
     muster: "akkusativ",
-    prompt: "я бачу ___ чоловік (неозначений)",
+    prompt: "ich sehe ___ Mann, ein",
+    gloss: "я бачу чоловік, неозначений",
     answer: "einen",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-17",
     muster: "akkusativ",
-    prompt: "я бачу ___ жінка (неозначений)",
+    prompt: "ich sehe ___ Frau, ein",
+    gloss: "я бачу жінка, неозначений",
     answer: "eine",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-18",
     muster: "akkusativ",
-    prompt: "я бачу ___ дитина (неозначений)",
+    prompt: "ich sehe ___ Kind, ein",
+    gloss: "я бачу дитина, неозначений",
     answer: "ein",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-19",
     muster: "akkusativ",
-    prompt: "я бачу ___ стілець (неозначений)",
+    prompt: "ich sehe ___ Stuhl, ein",
+    gloss: "я бачу стілець, неозначений",
     answer: "einen",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-20",
     muster: "akkusativ",
-    prompt: "я бачу ___ двері (неозначений)",
+    prompt: "ich sehe ___ Tür, ein",
+    gloss: "я бачу двері, неозначений",
     answer: "eine",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-21",
     muster: "akkusativ",
-    prompt: "я бачу ___ вікно (неозначений)",
+    prompt: "ich sehe ___ Fenster, ein",
+    gloss: "я бачу вікно, неозначений",
     answer: "ein",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-22",
     muster: "akkusativ",
-    prompt: "я бачу ___ собака (неозначений)",
+    prompt: "ich sehe ___ Hund, ein",
+    gloss: "я бачу собака, неозначений",
     answer: "einen",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-23",
     muster: "akkusativ",
-    prompt: "я бачу ___ кішка (неозначений)",
+    prompt: "ich sehe ___ Katze, ein",
+    gloss: "я бачу кішка, неозначений",
     answer: "eine",
     options: ["einen", "eine", "ein"]
   },
   {
     id: "ak-24",
     muster: "akkusativ",
-    prompt: "я бачу ___ будинок (неозначений)",
+    prompt: "ich sehe ___ Haus, ein",
+    gloss: "я бачу будинок, неозначений",
     answer: "ein",
     options: ["einen", "eine", "ein"]
   }
