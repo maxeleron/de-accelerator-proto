@@ -43,7 +43,7 @@ window.IMPULS.setSetting = function (key, value) {
   window.IMPULS.saveSettings();
 };
 
-const emptySeen = function () {
+const blankSeenPacks = function () {
   return { p1: [], p2: [], p3: [], p4: [] };
 };
 
@@ -70,7 +70,7 @@ const resetPackSeenLabels = function () {
 // Скидання даних, не setSetting: theme і settings лишаються.
 window.IMPULS.clearProgress = function () {
   try {
-    window.IMPULS.save("seen", emptySeen());
+    window.IMPULS.save("seen", blankSeenPacks());
   } catch (err) {
     // Сховище інколи недоступне.
   }

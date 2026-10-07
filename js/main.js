@@ -293,6 +293,22 @@ const showMenuView = function () {
   }
 };
 
+const menuIsVisible = function () {
+  const menu = document.getElementById("screen-menu");
+  return menu && !menu.classList.contains("is-hidden");
+};
+
+const ensureMenuPhase = function () {
+  if (window.IMPULS.state.phase === "menu") {
+    return true;
+  }
+  if (!menuIsVisible()) {
+    return false;
+  }
+  window.IMPULS.setPhase("menu");
+  return true;
+};
+
 const showSettingsView = function () {
   window.IMPULS.setPhase("settings");
   showScreen("screen-settings");
@@ -729,11 +745,11 @@ window.IMPULS.showBase = function (id) {
 };
 
 window.IMPULS.openSettings = function () {
-  if (window.IMPULS.state.phase !== "menu") {
+  if (!ensureMenuPhase()) {
     return;
   }
-  pushHistory("settings");
   showSettingsView();
+  pushHistory("settings");
 };
 
 window.IMPULS.closeSettings = function () {
@@ -744,15 +760,15 @@ window.IMPULS.closeSettings = function () {
 };
 
 window.IMPULS.openBase = function () {
-  if (window.IMPULS.state.phase !== "menu") {
+  if (!ensureMenuPhase()) {
     return;
   }
   const sections = window.IMPULS.loadHandbook();
   if (!sections.length) {
     return;
   }
-  pushHistory("base");
   showBaseView();
+  pushHistory("base");
 };
 
 window.IMPULS.closeBase = function () {
@@ -787,10 +803,10 @@ const stepWindow = function (delta) {
 };
 
 window.IMPULS.startRound = function () {
-  const state = window.IMPULS.state;
-  if (state.phase !== "menu") {
+  if (!ensureMenuPhase()) {
     return;
   }
+  const state = window.IMPULS.state;
   window.IMPULS.closeRoundSetup();
   cancelFrame();
   clearFlash();
