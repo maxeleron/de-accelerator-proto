@@ -22,7 +22,7 @@ window.IMPULS.setWindow = function (ms) {
 };
 
 window.IMPULS.setPack = function (id) {
-  if (id !== "p1" && id !== "p2" && id !== "p3" && id !== "p4" && id !== "mix") {
+  if (id !== "p1" && id !== "p2" && id !== "p3" && id !== "p4" && id !== "p5" && id !== "mix") {
     return;
   }
   window.IMPULS.state.pack = id;

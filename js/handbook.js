@@ -236,6 +236,7 @@ window.IMPULS.handbook = [
   {
     "id": "v2",
     "group": "Будова речення",
+    "pack": "p5",
     "title": "Порядок V2",
     "note": "Дієслово в розповіді на другому місці.",
     "examples": [

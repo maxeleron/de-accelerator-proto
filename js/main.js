@@ -161,13 +161,16 @@ const startLabel = function (pack) {
   if (pack === "p4") {
     return "Почати раунд P4";
   }
+  if (pack === "p5") {
+    return "Почати раунд P5";
+  }
   if (pack === "mix") {
     return "Почати раунд PX";
   }
   return "Почати раунд P1";
 };
 
-const PACK_IDS = ["p1", "p2", "p3", "p4"];
+const PACK_IDS = ["p1", "p2", "p3", "p4", "p5"];
 
 const packDeck = function (pack) {
   if (pack === "p2") {
@@ -179,11 +182,15 @@ const packDeck = function (pack) {
   if (pack === "p4") {
     return window.IMPULS.cardsP4 || [];
   }
+  if (pack === "p5") {
+    return window.IMPULS.cardsP5 || [];
+  }
   if (pack === "mix") {
     return (window.IMPULS.cards || []).concat(
       window.IMPULS.cardsP2 || [],
       window.IMPULS.cardsP3 || [],
-      window.IMPULS.cardsP4 || []
+      window.IMPULS.cardsP4 || [],
+      window.IMPULS.cardsP5 || []
     );
   }
   return window.IMPULS.cards || [];
@@ -203,7 +210,7 @@ const packOfCardId = function (id) {
 };
 
 const emptySeen = function () {
-  return { p1: [], p2: [], p3: [], p4: [] };
+  return { p1: [], p2: [], p3: [], p4: [], p5: [] };
 };
 
 const loadSeen = function () {
@@ -360,6 +367,7 @@ const renderMenu = function () {
   document.querySelector('[data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
   document.querySelector('[data-pack="p3"]').setAttribute("aria-pressed", state.pack === "p3" ? "true" : "false");
   document.querySelector('[data-pack="p4"]').setAttribute("aria-pressed", state.pack === "p4" ? "true" : "false");
+  document.querySelector('[data-pack="p5"]').setAttribute("aria-pressed", state.pack === "p5" ? "true" : "false");
   const mixBtn = document.getElementById("btn-mix");
   if (mixBtn) {
     mixBtn.setAttribute("aria-pressed", state.pack === "mix" ? "true" : "false");
@@ -864,7 +872,7 @@ const fillBaseBody = function (section) {
   for (let i = 0; i < examples.length; i += 1) {
     fillBaseExample(body, examples[i]);
   }
-  if (section.pack === "p1" || section.pack === "p2" || section.pack === "p3" || section.pack === "p4") {
+  if (section.pack === "p1" || section.pack === "p2" || section.pack === "p3" || section.pack === "p4" || section.pack === "p5") {
     const drill = addNode(body, "button", "Відпрацювати на швидкість", "base-drill");
     drill.type = "button";
     drill.addEventListener("click", function () {
@@ -1007,7 +1015,7 @@ const restoreRound = function () {
     return false;
   }
   window.IMPULS.setWindow(normalizeWindow(saved.windowMs));
-  if (saved.pack === "p1" || saved.pack === "p2" || saved.pack === "p3" || saved.pack === "p4" || saved.pack === "mix") {
+  if (saved.pack === "p1" || saved.pack === "p2" || saved.pack === "p3" || saved.pack === "p4" || saved.pack === "p5" || saved.pack === "mix") {
     window.IMPULS.setPack(saved.pack);
   }
   if (saved.done === true) {
@@ -1140,6 +1148,11 @@ const bindClicks = function () {
 
   document.querySelector('[data-pack="p4"]').addEventListener("click", function () {
     window.IMPULS.setPack("p4");
+    renderMenu();
+  });
+
+  document.querySelector('[data-pack="p5"]').addEventListener("click", function () {
+    window.IMPULS.setPack("p5");
     renderMenu();
   });
 

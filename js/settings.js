@@ -44,7 +44,7 @@ window.IMPULS.setSetting = function (key, value) {
 };
 
 const blankSeenPacks = function () {
-  return { p1: [], p2: [], p3: [], p4: [] };
+  return { p1: [], p2: [], p3: [], p4: [], p5: [] };
 };
 
 const showClearConfirm = function (on) {

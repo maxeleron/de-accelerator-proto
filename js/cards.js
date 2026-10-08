@@ -1320,6 +1320,160 @@ window.IMPULS.cardsP4.forEach(function (card) {
 });
 Object.freeze(window.IMPULS.cardsP4);
 
+// data/p5-v2.json — джерело правди. Копія тут, бо file:// не дає fetch.
+window.IMPULS.cardsP5 = [
+  {
+    "id": "v2-01",
+    "muster": "v2",
+    "prompt": "heute / nach Hause / gehen",
+    "gloss": "сьогодні я йду додому",
+    "answer": "Heute gehe ich nach Hause.",
+    "options": [
+      "Heute gehe ich nach Hause.",
+      "Gehe ich heute nach Hause.",
+      "Heute ich nach Hause gehe."
+    ]
+  },
+  {
+    "id": "v2-02",
+    "muster": "v2",
+    "prompt": "morgen / Deutsch / lernen",
+    "gloss": "завтра я вчу німецьку",
+    "answer": "Morgen lerne ich Deutsch.",
+    "options": [
+      "Morgen lerne ich Deutsch.",
+      "Lerne ich morgen Deutsch.",
+      "Morgen ich Deutsch lerne."
+    ]
+  },
+  {
+    "id": "v2-03",
+    "muster": "v2",
+    "prompt": "jetzt / hier / wohnen",
+    "gloss": "зараз я живу тут",
+    "answer": "Jetzt wohne ich hier.",
+    "options": [
+      "Jetzt wohne ich hier.",
+      "Wohne ich jetzt hier.",
+      "Jetzt ich hier wohne."
+    ]
+  },
+  {
+    "id": "v2-04",
+    "muster": "v2",
+    "prompt": "ich / den Tisch / sehen",
+    "gloss": "я бачу стіл",
+    "answer": "Ich sehe den Tisch.",
+    "options": [
+      "Ich sehe den Tisch.",
+      "Sehe ich den Tisch.",
+      "Ich den Tisch sehe."
+    ]
+  },
+  {
+    "id": "v2-05",
+    "muster": "v2",
+    "prompt": "ich / Zeit / haben",
+    "gloss": "я маю час",
+    "answer": "Ich habe Zeit.",
+    "options": [
+      "Ich habe Zeit.",
+      "Habe ich Zeit.",
+      "Ich Zeit habe."
+    ]
+  },
+  {
+    "id": "v2-06",
+    "muster": "v2",
+    "prompt": "heute / Deutsch / lernen",
+    "gloss": "сьогодні я вчу німецьку",
+    "answer": "Heute lerne ich Deutsch.",
+    "options": [
+      "Heute lerne ich Deutsch.",
+      "Lerne ich heute Deutsch.",
+      "Heute ich Deutsch lerne."
+    ]
+  },
+  {
+    "id": "v2-07",
+    "muster": "v2",
+    "prompt": "jetzt / nach Hause / gehen",
+    "gloss": "зараз я йду додому",
+    "answer": "Jetzt gehe ich nach Hause.",
+    "options": [
+      "Jetzt gehe ich nach Hause.",
+      "Gehe ich jetzt nach Hause.",
+      "Jetzt ich nach Hause gehe."
+    ]
+  },
+  {
+    "id": "v2-08",
+    "muster": "v2",
+    "prompt": "ich / hier / wohnen",
+    "gloss": "я живу тут",
+    "answer": "Ich wohne hier.",
+    "options": [
+      "Ich wohne hier.",
+      "Wohne ich hier.",
+      "Ich hier wohne."
+    ]
+  },
+  {
+    "id": "v2-09",
+    "muster": "v2",
+    "prompt": "morgen / nach Hause / gehen",
+    "gloss": "завтра я йду додому",
+    "answer": "Morgen gehe ich nach Hause.",
+    "options": [
+      "Morgen gehe ich nach Hause.",
+      "Gehe ich morgen nach Hause.",
+      "Morgen ich nach Hause gehe."
+    ]
+  },
+  {
+    "id": "v2-10",
+    "muster": "v2",
+    "prompt": "ich / Deutsch / lernen",
+    "gloss": "я вчу німецьку",
+    "answer": "Ich lerne Deutsch.",
+    "options": [
+      "Ich lerne Deutsch.",
+      "Lerne ich Deutsch.",
+      "Ich Deutsch lerne."
+    ]
+  },
+  {
+    "id": "v2-11",
+    "muster": "v2",
+    "prompt": "heute / Zeit / haben",
+    "gloss": "сьогодні я маю час",
+    "answer": "Heute habe ich Zeit.",
+    "options": [
+      "Heute habe ich Zeit.",
+      "Habe ich heute Zeit.",
+      "Heute ich Zeit habe."
+    ]
+  },
+  {
+    "id": "v2-12",
+    "muster": "v2",
+    "prompt": "jetzt / den Tisch / sehen",
+    "gloss": "зараз я бачу стіл",
+    "answer": "Jetzt sehe ich den Tisch.",
+    "options": [
+      "Jetzt sehe ich den Tisch.",
+      "Sehe ich jetzt den Tisch.",
+      "Jetzt ich den Tisch sehe."
+    ]
+  }
+];
+
+window.IMPULS.cardsP5.forEach(function (card) {
+  Object.freeze(card.options);
+  Object.freeze(card);
+});
+Object.freeze(window.IMPULS.cardsP5);
+
 window.IMPULS.loadCards = function () {
   const pack = window.IMPULS.state && window.IMPULS.state.pack;
   if (pack === "p2") {
@@ -1331,8 +1485,11 @@ window.IMPULS.loadCards = function () {
   if (pack === "p4") {
     return window.IMPULS.cardsP4;
   }
+  if (pack === "p5") {
+    return window.IMPULS.cardsP5;
+  }
   if (pack === "mix") {
-    return window.IMPULS.cards.concat(window.IMPULS.cardsP2, window.IMPULS.cardsP3, window.IMPULS.cardsP4);
+    return window.IMPULS.cards.concat(window.IMPULS.cardsP2, window.IMPULS.cardsP3, window.IMPULS.cardsP4, window.IMPULS.cardsP5);
   }
   return window.IMPULS.cards;
 };
