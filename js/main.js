@@ -398,6 +398,55 @@ const renderMenu = function () {
     mixBtn.setAttribute("aria-pressed", state.pack === "mix" ? "true" : "false");
   }
   renderPackSeen();
+  renderMedian();
+};
+
+const firstHitTimes = function () {
+  const first = window.IMPULS.state.first;
+  const latency = window.IMPULS.state.latency;
+  const times = [];
+  const ids = Object.keys(first);
+  for (let i = 0; i < ids.length; i += 1) {
+    const id = ids[i];
+    if (first[id] !== "hit") {
+      continue;
+    }
+    const ms = latency[id];
+    if (typeof ms === "number" && Number.isFinite(ms)) {
+      times.push(ms);
+    }
+  }
+  return times;
+};
+
+const medianMs = function (times) {
+  if (!times.length) {
+    return null;
+  }
+  const sorted = times.slice();
+  sorted.sort(function (a, b) {
+    return a - b;
+  });
+  const mid = Math.floor(sorted.length / 2);
+  if (sorted.length % 2 === 1) {
+    return Math.round(sorted[mid]);
+  }
+  return Math.round((sorted[mid - 1] + sorted[mid]) / 2);
+};
+
+const renderMedian = function () {
+  const el = document.getElementById("stat-median");
+  if (!el) {
+    return;
+  }
+  const value = medianMs(firstHitTimes());
+  if (value === null) {
+    el.textContent = "";
+    el.classList.add("is-hidden");
+    return;
+  }
+  el.textContent = "Медіана: " + value + " мс";
+  el.classList.remove("is-hidden");
 };
 
 const showScreen = function (id) {
@@ -917,7 +966,9 @@ const finishRound = function () {
   writeRound({
     done: true,
     windowMs: state.windowMs,
-    pack: state.pack
+    pack: state.pack,
+    first: copyVerdicts(state.first),
+    latency: copyLatency(state.latency)
   });
   showScreen("screen-menu");
   playUi("open");
@@ -966,7 +1017,8 @@ const showNext = function () {
     badge.classList.add("is-hidden");
   }
   focusRound();
-  armTimer(state.windowMs);
+  // Хвіст без межі: смуга повна, timeout і late немає.
+  armTimer(upcoming.repair ? 0 : state.windowMs);
 };
 
 const flash = function (verdict, optionIndex) {
@@ -977,6 +1029,12 @@ const flash = function (verdict, optionIndex) {
   // Стеля спалаху — 200 мс. Під смугою немає правила.
   timer.classList.add(verdict === "hit" ? "is-hit" : "is-miss");
   playUi(verdict === "hit" ? "hit" : "miss");
+  if ((verdict === "hit" || verdict === "miss") && typeof window.IMPULS.speakForm === "function") {
+    const card = findCard(window.IMPULS.state.currentId);
+    if (card && card.answer) {
+      window.IMPULS.speakForm(card.answer);
+    }
+  }
   // Late і timeout не заливають кнопку: вибору немає.
   if (verdict === "hit" || verdict === "miss") {
     const btn = document.getElementById("opt-" + (optionIndex + 1));
@@ -1023,7 +1081,9 @@ const commit = function (verdict, elapsedMs, optionIndex) {
     writeRound({
       done: true,
       windowMs: state.windowMs,
-      pack: state.pack
+      pack: state.pack,
+      first: copyVerdicts(state.first),
+      latency: copyLatency(state.latency)
     });
   } else {
     persistActive();
@@ -1081,8 +1141,9 @@ window.IMPULS.choose = function (index) {
   }
   const elapsed = performance.now() - state.cardStartedAt;
   let verdict = "miss";
-  // Без часових меж late немає: лише hit або miss.
-  if (state.windowMs > 0 && elapsed >= state.windowMs) {
+  // Хвіст і вікно 0: late немає, лише hit або miss.
+  const limit = state.phase === "repair" ? 0 : state.windowMs;
+  if (limit > 0 && elapsed >= limit) {
     verdict = "late";
   } else if (sameAnswer(pick, card.answer)) {
     verdict = "hit";
@@ -1349,6 +1410,8 @@ const restoreRound = function () {
     window.IMPULS.setPack(saved.pack);
   }
   if (saved.done === true) {
+    window.IMPULS.state.first = copyVerdicts(saved.first);
+    window.IMPULS.state.latency = copyLatency(saved.latency);
     renderMenu();
     return true;
   }

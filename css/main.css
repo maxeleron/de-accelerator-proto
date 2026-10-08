@@ -100,6 +100,12 @@ h2 {
   height: 72px;
 }
 
+#stat-median {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
 #btn-start {
   flex: 1;
   min-width: 0;
@@ -417,6 +423,7 @@ html[data-theme="light"] #icon-moon {
 .options button.is-hidden,
 #win-select .win-select-menu.is-hidden,
 #round-setup.is-hidden,
+#stat-median.is-hidden,
 #btn-clear-progress.is-hidden,
 #clear-progress-confirm.is-hidden {
   display: none;
@@ -715,6 +722,7 @@ html[data-option-layout="table"] .options button.is-hidden {
 
 #set-show-keys,
 #set-ui-sound,
+#set-speak-form,
 #set-layout-list,
 #set-layout-table {
   width: 18px;

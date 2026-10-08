@@ -135,3 +135,64 @@ window.IMPULS.playUi = function (kind) {
     }
   }
 };
+
+const speakOn = function () {
+  return window.IMPULS.settings && window.IMPULS.settings.speakForm === true;
+};
+
+const germanVoice = function () {
+  if (!window.speechSynthesis || typeof window.speechSynthesis.getVoices !== "function") {
+    return null;
+  }
+  const voices = window.speechSynthesis.getVoices();
+  for (let i = 0; i < voices.length; i += 1) {
+    const lang = String(voices[i].lang || "").toLowerCase();
+    if (lang.indexOf("de") === 0) {
+      return voices[i];
+    }
+  }
+  return null;
+};
+
+window.IMPULS.stopSpeakForm = function () {
+  try {
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+  } catch (err) {
+    // Немає синтезу — тиша.
+  }
+};
+
+window.IMPULS.speakForm = function (text) {
+  try {
+    if (!speakOn()) {
+      return;
+    }
+    const form = String(text || "").trim();
+    if (!form || !window.speechSynthesis || typeof window.SpeechSynthesisUtterance !== "function") {
+      return;
+    }
+    const voice = germanVoice();
+    if (!voice) {
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(form);
+    utter.lang = "de-DE";
+    utter.voice = voice;
+    window.speechSynthesis.speak(utter);
+  } catch (err) {
+    // Немає німецького голосу або API — тиша.
+  }
+};
+
+if (window.speechSynthesis && typeof window.speechSynthesis.addEventListener === "function") {
+  window.speechSynthesis.addEventListener("voiceschanged", function () {
+    try {
+      window.speechSynthesis.getVoices();
+    } catch (err) {
+      // Список голосів інколи порожній.
+    }
+  });
+}
