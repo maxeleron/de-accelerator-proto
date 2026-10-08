@@ -549,6 +549,12 @@ html[data-theme="light"] #icon-moon {
   border-color: var(--accent);
 }
 
+.options button.is-armed,
+.options button.is-armed:hover {
+  border-color: #1f6f6a;
+  background: var(--surface);
+}
+
 .options button.is-hit,
 .options button.is-hit:hover {
   background: var(--hit);

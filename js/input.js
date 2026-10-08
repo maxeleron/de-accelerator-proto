@@ -110,6 +110,17 @@ const onRoundKey = function (event) {
   if (event.key === "Escape") {
     return;
   }
+  if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+    event.preventDefault();
+    // Лише видимі варіанти, з краю на протилежний.
+    window.IMPULS.moveArmed(event.key === "ArrowDown" ? 1 : -1);
+    return;
+  }
+  if (event.key === "Enter") {
+    event.preventDefault();
+    window.IMPULS.chooseArmed();
+    return;
+  }
   const index = keyIndex(event.key);
   if (index < 0) {
     return;

@@ -19,7 +19,7 @@ let abortPending = false;
 
 const ABORT_CLICKS = 3;
 const ABORT_CLICK_MS = 700;
-const ABORT_HOLD_MS = 3000;
+const ABORT_HOLD_MS = 2000;
 const ABORT_TAP_MS = 400;
 
 const abortGesture = {
@@ -608,8 +608,83 @@ const clearFlash = function () {
 
 const clearPickFill = function () {
   for (let i = 1; i <= 4; i += 1) {
-    document.getElementById("opt-" + i).classList.remove("is-hit", "is-miss");
+    document.getElementById("opt-" + i).classList.remove("is-hit", "is-miss", "is-armed");
   }
+};
+
+const visibleOptIndexes = function () {
+  const ids = [];
+  for (let i = 0; i < 4; i += 1) {
+    const btn = document.getElementById("opt-" + (i + 1));
+    if (btn && !btn.classList.contains("is-hidden")) {
+      ids.push(i);
+    }
+  }
+  return ids;
+};
+
+const armedIndex = function () {
+  const vis = visibleOptIndexes();
+  for (let i = 0; i < vis.length; i += 1) {
+    const btn = document.getElementById("opt-" + (vis[i] + 1));
+    if (btn.classList.contains("is-armed")) {
+      return vis[i];
+    }
+  }
+  return -1;
+};
+
+const setArmed = function (index) {
+  for (let i = 1; i <= 4; i += 1) {
+    document.getElementById("opt-" + i).classList.remove("is-armed");
+  }
+  if (index < 0) {
+    return;
+  }
+  const btn = document.getElementById("opt-" + (index + 1));
+  if (!btn || btn.classList.contains("is-hidden")) {
+    return;
+  }
+  btn.classList.add("is-armed");
+};
+
+window.IMPULS.moveArmed = function (delta) {
+  const phase = window.IMPULS.state.phase;
+  if (phase !== "round" && phase !== "repair") {
+    return;
+  }
+  const vis = visibleOptIndexes();
+  if (!vis.length) {
+    return;
+  }
+  const now = armedIndex();
+  let pos;
+  if (now < 0) {
+    pos = delta > 0 ? 0 : vis.length - 1;
+  } else {
+    let at = -1;
+    for (let i = 0; i < vis.length; i += 1) {
+      if (vis[i] === now) {
+        at = i;
+      }
+    }
+    pos = at + delta;
+    if (pos < 0) {
+      pos = vis.length - 1;
+    }
+    if (pos >= vis.length) {
+      pos = 0;
+    }
+  }
+  setArmed(vis[pos]);
+};
+
+window.IMPULS.chooseArmed = function () {
+  const index = armedIndex();
+  if (index < 0) {
+    return;
+  }
+  window.IMPULS.choose(index);
 };
 
 const setAbortFill = function (ratio) {
@@ -811,6 +886,7 @@ const showNext = function () {
     const label = state.presented[i] || "";
     btn.textContent = label;
     btn.classList.toggle("is-hidden", !label);
+    btn.classList.remove("is-armed", "is-hit", "is-miss");
   }
   const total = Object.keys(state.first).length + state.main.length;
   const badge = document.getElementById("repair-badge");
@@ -1172,13 +1248,16 @@ window.IMPULS.startRound = function () {
 };
 
 window.IMPULS.requestAbort = function () {
-  const phase = window.IMPULS.state.phase;
-  if (phase !== "round" && phase !== "repair") {
+  const state = window.IMPULS.state;
+  if (state.phase !== "round" && state.phase !== "repair") {
     return;
   }
-  // Під час межі картку не обривати: лише намір, вихід після спалаху.
-  if (!window.IMPULS.state.locked) {
-    abortPending = true;
+  abortPending = true;
+  // Картка жива: намір і вихід після спалаху 200 мс. Locked або спалаху немає — одразу.
+  if (!state.locked) {
+    state.locked = true;
+    cancelFrame();
+    flash("timeout");
     return;
   }
   finishRound();
