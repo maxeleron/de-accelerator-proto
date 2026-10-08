@@ -5,7 +5,10 @@ window.IMPULS.defaultSettings = {
   showKeys: true,
   optionLayout: "list",
   uiSound: false,
-  speakForm: false
+  speakForm: false,
+  shuffleOptions: true,
+  uiLang: "uk",
+  glossLang: "uk"
 };
 
 const copySettings = function (source) {
@@ -42,6 +45,15 @@ window.IMPULS.loadSettings = function () {
   }
   if (window.IMPULS.settings.speakForm !== true) {
     window.IMPULS.settings.speakForm = false;
+  }
+  if (window.IMPULS.settings.shuffleOptions !== false) {
+    window.IMPULS.settings.shuffleOptions = true;
+  }
+  if (window.IMPULS.settings.uiLang !== "en" && window.IMPULS.settings.uiLang !== "de") {
+    window.IMPULS.settings.uiLang = "uk";
+  }
+  if (window.IMPULS.settings.glossLang !== "en" && window.IMPULS.settings.glossLang !== "de" && window.IMPULS.settings.glossLang !== "off") {
+    window.IMPULS.settings.glossLang = "uk";
   }
   return window.IMPULS.settings;
 };
@@ -124,6 +136,206 @@ const applySpeakForm = function () {
   if (!on && typeof window.IMPULS.stopSpeakForm === "function") {
     window.IMPULS.stopSpeakForm();
   }
+};
+
+const applyShuffleOptions = function () {
+  const on = window.IMPULS.settings.shuffleOptions !== false;
+  const box = document.getElementById("set-shuffle-options");
+  if (box) {
+    box.checked = on;
+  }
+};
+
+const UI_LANGS = ["uk", "en", "de"];
+const GLOSS_LANGS = ["uk", "en", "de", "off"];
+
+const coerceUiLang = function (value) {
+  return value === "en" || value === "de" ? value : "uk";
+};
+
+const coerceGlossLang = function (value) {
+  return value === "en" || value === "de" || value === "off" ? value : "uk";
+};
+
+const langSelectRoot = function (id) {
+  return document.getElementById(id);
+};
+
+const langSelectFace = function (root) {
+  return root ? root.querySelector(".win-select-face") : null;
+};
+
+const langSelectMenu = function (root) {
+  return root ? root.querySelector(".win-select-menu") : null;
+};
+
+const isLangSelectOpen = function (root) {
+  const menu = langSelectMenu(root);
+  return menu && !menu.classList.contains("is-hidden");
+};
+
+const closeLangSelect = function (root) {
+  const menu = langSelectMenu(root);
+  const face = langSelectFace(root);
+  if (!menu || !face) {
+    return;
+  }
+  menu.classList.add("is-hidden");
+  face.setAttribute("aria-expanded", "false");
+};
+
+const closeAllLangSelects = function () {
+  closeLangSelect(langSelectRoot("set-ui-lang"));
+  closeLangSelect(langSelectRoot("set-gloss-lang"));
+};
+
+const openLangSelect = function (root) {
+  closeAllLangSelects();
+  const menu = langSelectMenu(root);
+  const face = langSelectFace(root);
+  if (!menu || !face) {
+    return;
+  }
+  menu.classList.remove("is-hidden");
+  face.setAttribute("aria-expanded", "true");
+};
+
+const renderLangSelect = function (rootId, value) {
+  const root = langSelectRoot(rootId);
+  if (!root) {
+    return;
+  }
+  const items = root.querySelectorAll("[data-lang]");
+  let label = "";
+  for (let i = 0; i < items.length; i += 1) {
+    const on = items[i].getAttribute("data-lang") === value;
+    items[i].setAttribute("aria-selected", on ? "true" : "false");
+    if (on) {
+      label = String(items[i].textContent || "").replace(/\s+/g, " ").trim();
+    }
+  }
+  const current = document.getElementById(rootId + "-current");
+  if (current && label) {
+    current.textContent = label;
+  }
+};
+
+const applyUiLangSetting = function () {
+  const lang = coerceUiLang(window.IMPULS.settings.uiLang);
+  if (typeof window.IMPULS.applyUiLang === "function") {
+    window.IMPULS.applyUiLang();
+  }
+  renderLangSelect("set-ui-lang", lang);
+  renderLangSelect("set-gloss-lang", coerceGlossLang(window.IMPULS.settings.glossLang));
+};
+
+const applyGlossLangSetting = function () {
+  const value = coerceGlossLang(window.IMPULS.settings.glossLang);
+  if (typeof window.IMPULS.applyUiLang === "function") {
+    window.IMPULS.applyUiLang();
+  }
+  renderLangSelect("set-gloss-lang", value);
+};
+
+const stepLangValue = function (values, current, delta) {
+  let index = 0;
+  for (let i = 0; i < values.length; i += 1) {
+    if (values[i] === current) {
+      index = i;
+      break;
+    }
+  }
+  const next = index + delta;
+  if (next < 0 || next >= values.length) {
+    return current;
+  }
+  return values[next];
+};
+
+const bindLangSelect = function (rootId, values, settingKey, applyFn, coerce) {
+  const root = langSelectRoot(rootId);
+  if (!root) {
+    return;
+  }
+  const face = langSelectFace(root);
+  const menu = langSelectMenu(root);
+  if (face) {
+    face.addEventListener("click", function () {
+      if (isLangSelectOpen(root)) {
+        closeLangSelect(root);
+        return;
+      }
+      openLangSelect(root);
+    });
+  }
+  root.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  });
+  // Колесо гортає лише закритий список; на краях стоп, сторінку не скролити.
+  root.addEventListener("wheel", function (event) {
+    event.preventDefault();
+    if (isLangSelectOpen(root)) {
+      return;
+    }
+    const current = coerce(window.IMPULS.settings[settingKey]);
+    const delta = event.deltaY > 0 ? 1 : event.deltaY < 0 ? -1 : 0;
+    if (!delta) {
+      return;
+    }
+    const next = stepLangValue(values, current, delta);
+    if (next === current) {
+      return;
+    }
+    window.IMPULS.setSetting(settingKey, next);
+    applyFn();
+  }, { passive: false });
+  if (menu) {
+    menu.addEventListener("click", function (event) {
+      const item = event.target.closest("[data-lang]");
+      if (!item) {
+        return;
+      }
+      const value = coerce(item.getAttribute("data-lang"));
+      window.IMPULS.setSetting(settingKey, value);
+      closeLangSelect(root);
+      applyFn();
+    });
+  }
+};
+
+const bindUiLang = function () {
+  bindLangSelect("set-ui-lang", UI_LANGS, "uiLang", applyUiLangSetting, coerceUiLang);
+};
+
+const bindGlossLang = function () {
+  bindLangSelect("set-gloss-lang", GLOSS_LANGS, "glossLang", applyGlossLangSetting, coerceGlossLang);
+};
+
+const bindLangSelectOutside = function () {
+  document.addEventListener("click", function (event) {
+    const ui = langSelectRoot("set-ui-lang");
+    const gloss = langSelectRoot("set-gloss-lang");
+    if (ui && ui.contains(event.target)) {
+      return;
+    }
+    if (gloss && gloss.contains(event.target)) {
+      return;
+    }
+    closeAllLangSelects();
+  });
+};
+
+const bindShuffleOptions = function () {
+  const box = document.getElementById("set-shuffle-options");
+  if (!box) {
+    return;
+  }
+  box.addEventListener("change", function () {
+    window.IMPULS.setSetting("shuffleOptions", box.checked !== false);
+    applyShuffleOptions();
+  });
 };
 
 const bindSpeakForm = function () {
@@ -252,6 +464,13 @@ document.addEventListener("DOMContentLoaded", function () {
     applyUiSound();
     bindSpeakForm();
     applySpeakForm();
+    bindShuffleOptions();
+    applyShuffleOptions();
+    bindUiLang();
+    applyUiLangSetting();
+    bindGlossLang();
+    applyGlossLangSetting();
+    bindLangSelectOutside();
   } catch (err) {
     // Підтвердження стирання не обриває старт.
   }
@@ -262,3 +481,6 @@ applyShowKeys();
 applyOptionLayout();
 applyUiSound();
 applySpeakForm();
+applyShuffleOptions();
+applyUiLangSetting();
+applyGlossLangSetting();

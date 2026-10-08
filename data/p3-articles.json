@@ -4,6 +4,7 @@
     "muster": "nominativ",
     "prompt": "___ Tisch",
     "gloss": "стіл",
+    "glossEn": "table",
     "answer": "der",
     "options": [
       "der",
@@ -16,6 +17,7 @@
     "muster": "nominativ",
     "prompt": "___ Lampe",
     "gloss": "лампа",
+    "glossEn": "lamp",
     "answer": "die",
     "options": [
       "der",
@@ -28,6 +30,7 @@
     "muster": "nominativ",
     "prompt": "___ Buch",
     "gloss": "книга",
+    "glossEn": "book",
     "answer": "das",
     "options": [
       "der",
@@ -40,6 +43,7 @@
     "muster": "nominativ",
     "prompt": "___ Mann",
     "gloss": "чоловік",
+    "glossEn": "man",
     "answer": "der",
     "options": [
       "der",
@@ -52,6 +56,7 @@
     "muster": "nominativ",
     "prompt": "___ Frau",
     "gloss": "жінка",
+    "glossEn": "woman",
     "answer": "die",
     "options": [
       "der",
@@ -64,6 +69,7 @@
     "muster": "nominativ",
     "prompt": "___ Kind",
     "gloss": "дитина",
+    "glossEn": "child",
     "answer": "das",
     "options": [
       "der",
@@ -76,6 +82,7 @@
     "muster": "nominativ",
     "prompt": "___ Stuhl",
     "gloss": "стілець",
+    "glossEn": "chair",
     "answer": "der",
     "options": [
       "der",
@@ -88,6 +95,7 @@
     "muster": "nominativ",
     "prompt": "___ Tür",
     "gloss": "двері",
+    "glossEn": "door",
     "answer": "die",
     "options": [
       "der",
@@ -100,6 +108,7 @@
     "muster": "nominativ",
     "prompt": "___ Fenster",
     "gloss": "вікно",
+    "glossEn": "window",
     "answer": "das",
     "options": [
       "der",
@@ -112,6 +121,7 @@
     "muster": "nominativ",
     "prompt": "___ Hund",
     "gloss": "собака",
+    "glossEn": "dog",
     "answer": "der",
     "options": [
       "der",
@@ -124,6 +134,7 @@
     "muster": "nominativ",
     "prompt": "___ Katze",
     "gloss": "кішка",
+    "glossEn": "cat",
     "answer": "die",
     "options": [
       "der",
@@ -136,6 +147,7 @@
     "muster": "nominativ",
     "prompt": "___ Haus",
     "gloss": "будинок",
+    "glossEn": "house",
     "answer": "das",
     "options": [
       "der",
@@ -148,6 +160,7 @@
     "muster": "nominativ",
     "prompt": "___ Apfel",
     "gloss": "яблуко",
+    "glossEn": "apple",
     "answer": "der",
     "options": [
       "der",
@@ -160,6 +173,7 @@
     "muster": "nominativ",
     "prompt": "___ Kaffee",
     "gloss": "кава",
+    "glossEn": "coffee",
     "answer": "der",
     "options": [
       "der",
@@ -172,6 +186,7 @@
     "muster": "nominativ",
     "prompt": "___ Tasche",
     "gloss": "сумка",
+    "glossEn": "bag",
     "answer": "die",
     "options": [
       "der",
@@ -184,6 +199,7 @@
     "muster": "nominativ",
     "prompt": "___ Auto",
     "gloss": "авто",
+    "glossEn": "car",
     "answer": "das",
     "options": [
       "der",
@@ -196,6 +212,7 @@
     "muster": "nominativ",
     "prompt": "___ Computer",
     "gloss": "комп’ютер",
+    "glossEn": "computer",
     "answer": "der",
     "options": [
       "der",
@@ -208,6 +225,7 @@
     "muster": "nominativ",
     "prompt": "___ Schule",
     "gloss": "школа",
+    "glossEn": "school",
     "answer": "die",
     "options": [
       "der",
@@ -220,6 +238,7 @@
     "muster": "nominativ",
     "prompt": "___ Stift",
     "gloss": "олівець",
+    "glossEn": "pen",
     "answer": "der",
     "options": [
       "der",
@@ -232,6 +251,7 @@
     "muster": "nominativ",
     "prompt": "___ Zeitung",
     "gloss": "газета",
+    "glossEn": "newspaper",
     "answer": "die",
     "options": [
       "der",
@@ -244,6 +264,7 @@
     "muster": "nominativ",
     "prompt": "___ Handy",
     "gloss": "телефон",
+    "glossEn": "phone",
     "answer": "das",
     "options": [
       "der",
@@ -256,6 +277,7 @@
     "muster": "nominativ",
     "prompt": "___ Stadt",
     "gloss": "місто",
+    "glossEn": "city",
     "answer": "die",
     "options": [
       "der",
@@ -268,6 +290,7 @@
     "muster": "nominativ",
     "prompt": "___ Wasser",
     "gloss": "вода",
+    "glossEn": "water",
     "answer": "das",
     "options": [
       "der",
@@ -280,6 +303,7 @@
     "muster": "nominativ",
     "prompt": "___ Freund",
     "gloss": "друг",
+    "glossEn": "friend",
     "answer": "der",
     "options": [
       "der",

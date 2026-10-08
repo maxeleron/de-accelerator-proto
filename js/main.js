@@ -1,11 +1,18 @@
 window.IMPULS = window.IMPULS || {};
 
 const WINDOW_OPTIONS = [
-  { ms: 0, label: "Без часових меж" },
-  { ms: 2500, label: "М’яко 2500 мс" },
-  { ms: 1800, label: "Рівно 1800 мс" },
-  { ms: 1200, label: "Жорстко 1200 мс" }
+  { ms: 0, key: "window.off" },
+  { ms: 2500, key: "window.soft" },
+  { ms: 1800, key: "window.even" },
+  { ms: 1200, key: "window.hard" }
 ];
+
+const t = function (key, vars) {
+  if (typeof window.IMPULS.t === "function") {
+    return window.IMPULS.t(key, vars);
+  }
+  return key;
+};
 
 const VERDICTS = {
   hit: true,
@@ -101,7 +108,7 @@ const hideRoundSetup = function () {
   document.getElementById("round-setup").classList.add("is-hidden");
   const btn = document.getElementById("btn-round-edit");
   btn.setAttribute("aria-expanded", "false");
-  btn.setAttribute("aria-label", "Параметри прогону");
+  btn.setAttribute("aria-label", t("menu.setup"));
   closeWinSelect();
 };
 
@@ -113,7 +120,7 @@ const openRoundSetup = function () {
   document.getElementById("round-setup").classList.remove("is-hidden");
   const btn = document.getElementById("btn-round-edit");
   btn.setAttribute("aria-expanded", "true");
-  btn.setAttribute("aria-label", "Зберегти");
+  btn.setAttribute("aria-label", t("menu.save"));
   renderMenu();
   playUi("open");
 };
@@ -173,26 +180,12 @@ const windowOptionIndex = function (ms) {
 };
 
 const windowOptionLabel = function (ms) {
-  return WINDOW_OPTIONS[windowOptionIndex(ms)].label;
+  return t(WINDOW_OPTIONS[windowOptionIndex(ms)].key);
 };
 
 const startLabel = function (pack) {
-  if (pack === "p2") {
-    return "Почати раунд P2";
-  }
-  if (pack === "p3") {
-    return "Почати раунд P3";
-  }
-  if (pack === "p4") {
-    return "Почати раунд P4";
-  }
-  if (pack === "p5") {
-    return "Почати раунд P5";
-  }
-  if (pack === "mix") {
-    return "Почати раунд PX";
-  }
-  return "Почати раунд P1";
+  const code = pack === "mix" ? "PX" : String(pack || "p1").toUpperCase();
+  return t("menu.start", { pack: code });
 };
 
 const PACK_IDS = ["p1", "p2", "p3", "p4", "p5"];
@@ -445,7 +438,7 @@ const renderMedian = function () {
     el.classList.add("is-hidden");
     return;
   }
-  el.textContent = "Медіана: " + value + " мс";
+  el.textContent = t("stats.median", { n: value });
   el.classList.remove("is-hidden");
 };
 
@@ -725,7 +718,14 @@ window.IMPULS.moveArmed = function (delta) {
   const now = armedIndex();
   let pos;
   if (now < 0) {
-    pos = delta > 0 ? 0 : vis.length - 1;
+    // Перший видимий уже обраний без рамки: стрілка рухає з нього.
+    pos = 0 + delta;
+    if (pos < 0) {
+      pos = vis.length - 1;
+    }
+    if (pos >= vis.length) {
+      pos = 0;
+    }
   } else {
     let at = -1;
     for (let i = 0; i < vis.length; i += 1) {
@@ -755,10 +755,10 @@ const isPrevArrow = function (key) {
 window.IMPULS.moveArmedByArrow = function (key) {
   const table = window.IMPULS.settings && window.IMPULS.settings.optionLayout === "table";
   if (!table) {
-    if (key === "ArrowDown") {
+    if (key === "ArrowDown" || key === "ArrowRight") {
       window.IMPULS.moveArmed(1);
     }
-    if (key === "ArrowUp") {
+    if (key === "ArrowUp" || key === "ArrowLeft") {
       window.IMPULS.moveArmed(-1);
     }
     return;
@@ -778,10 +778,9 @@ window.IMPULS.moveArmedByArrow = function (key) {
   if (phase !== "round" && phase !== "repair") {
     return;
   }
-  const now = armedIndex();
+  let now = armedIndex();
   if (now < 0) {
-    setArmed(isNextArrow(key) ? vis[0] : vis[vis.length - 1]);
-    return;
+    now = vis[0];
   }
   const col = now % 2;
   const row = now < 2 ? 0 : 1;
@@ -795,9 +794,13 @@ window.IMPULS.moveArmedByArrow = function (key) {
 };
 
 window.IMPULS.chooseArmed = function () {
-  const index = armedIndex();
+  let index = armedIndex();
   if (index < 0) {
-    return;
+    const vis = visibleOptIndexes();
+    if (!vis.length) {
+      return;
+    }
+    index = vis[0];
   }
   window.IMPULS.choose(index);
 };
@@ -996,9 +999,17 @@ const showNext = function () {
   }
   state.currentId = upcoming.id;
   markSeen(packOfCardId(card.id), card.id);
-  state.presented = window.IMPULS.shuffle(card.options);
+  if (window.IMPULS.settings && window.IMPULS.settings.shuffleOptions === false) {
+    state.presented = card.options.slice();
+  } else {
+    state.presented = window.IMPULS.shuffle(card.options);
+  }
   document.getElementById("stimulus").textContent = card.prompt;
-  document.getElementById("gloss").textContent = card.gloss || "";
+  if (typeof window.IMPULS.applyCardGloss === "function") {
+    window.IMPULS.applyCardGloss(card);
+  } else {
+    document.getElementById("gloss").textContent = card.gloss || "";
+  }
   for (let i = 0; i < 4; i += 1) {
     const btn = document.getElementById("opt-" + (i + 1));
     const label = state.presented[i] || "";
@@ -1176,7 +1187,8 @@ const addNode = function (parent, tag, text, className) {
 const fillBaseTable = function (parent, table) {
   const el = addNode(parent, "table", "", "base-table");
   if (table.caption) {
-    addNode(el, "caption", table.caption);
+    const caption = window.IMPULS.baseCaption ? window.IMPULS.baseCaption(table.caption) : table.caption;
+    addNode(el, "caption", caption);
   }
   const body = addNode(el, "tbody");
   const rows = table.rows || [];
@@ -1202,11 +1214,11 @@ const fillBaseNav = function (currentId) {
     const section = sections[i];
     if (section.group && section.group !== lastGroup) {
       lastGroup = section.group;
-      addNode(nav, "h2", section.group, "base-nav-group");
+      addNode(nav, "h2", window.IMPULS.baseGroup ? window.IMPULS.baseGroup(section.group) : section.group, "base-nav-group");
     }
     const btn = addNode(nav, "button");
     btn.type = "button";
-    btn.textContent = section.title;
+    btn.textContent = window.IMPULS.baseTitle ? window.IMPULS.baseTitle(section) : section.title;
     btn.setAttribute("aria-pressed", section.id === currentId ? "true" : "false");
     btn.addEventListener("click", function () {
       window.IMPULS.showBase(section.id);
@@ -1219,8 +1231,9 @@ const fillBaseExample = function (parent, item) {
     const wrap = addNode(parent, "div", "", "base-example-block");
     const line = addNode(wrap, "p", item.de, "base-example");
     line.lang = "de";
-    if (item.uk) {
-      addNode(wrap, "p", item.uk, "base-example-uk");
+    const gloss = window.IMPULS.exampleGloss ? window.IMPULS.exampleGloss(item) : (item.uk || "");
+    if (gloss) {
+      addNode(wrap, "p", gloss, "base-example-uk");
     }
     return;
   }
@@ -1231,9 +1244,10 @@ const fillBaseExample = function (parent, item) {
 const fillBaseBody = function (section) {
   const body = document.getElementById("base-body");
   body.textContent = "";
-  addNode(body, "h3", section.title);
-  if (section.note) {
-    addNode(body, "p", section.note, "base-note");
+  addNode(body, "h3", window.IMPULS.baseTitle ? window.IMPULS.baseTitle(section) : section.title);
+  const note = window.IMPULS.baseNote ? window.IMPULS.baseNote(section) : section.note;
+  if (note) {
+    addNode(body, "p", note, "base-note");
   }
   const tables = section.tables || [];
   for (let i = 0; i < tables.length; i += 1) {
@@ -1244,7 +1258,7 @@ const fillBaseBody = function (section) {
     fillBaseExample(body, examples[i]);
   }
   if (section.pack === "p1" || section.pack === "p2" || section.pack === "p3" || section.pack === "p4" || section.pack === "p5") {
-    const drill = addNode(body, "button", "Відпрацювати на швидкість", "base-drill");
+    const drill = addNode(body, "button", t("base.drill"), "base-drill");
     drill.type = "button";
     drill.addEventListener("click", function () {
       window.IMPULS.setPack(section.pack);
@@ -1261,6 +1275,28 @@ window.IMPULS.showBase = function (id) {
   window.IMPULS.state.baseId = section.id;
   fillBaseNav(section.id);
   fillBaseBody(section);
+};
+
+window.IMPULS.refreshChrome = function () {
+  renderMenu();
+  const edit = document.getElementById("btn-round-edit");
+  if (edit) {
+    edit.setAttribute("aria-label", isRoundSetupOpen() ? t("menu.save") : t("menu.setup"));
+  }
+  const abort = document.getElementById("btn-abort");
+  if (abort) {
+    abort.setAttribute("aria-label", t("round.abort"));
+  }
+  const state = window.IMPULS.state;
+  if (state && state.phase === "base" && state.baseId) {
+    window.IMPULS.showBase(state.baseId);
+  }
+  if (state && state.currentId) {
+    const card = findCard(state.currentId);
+    if (card && typeof window.IMPULS.applyCardGloss === "function") {
+      window.IMPULS.applyCardGloss(card);
+    }
+  }
 };
 
 window.IMPULS.openSettings = function () {

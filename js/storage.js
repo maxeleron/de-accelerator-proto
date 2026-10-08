@@ -42,7 +42,11 @@ window.IMPULS.applyTheme = function (theme) {
   if (!btn) {
     return;
   }
-  btn.setAttribute("aria-label", next === "light" ? "Темна тема" : "Світла тема");
+  if (typeof window.IMPULS.t === "function") {
+    btn.setAttribute("aria-label", next === "light" ? window.IMPULS.t("theme.dark") : window.IMPULS.t("theme.light"));
+  } else {
+    btn.setAttribute("aria-label", next === "light" ? "Темна тема" : "Світла тема");
+  }
 };
 
 window.IMPULS.toggleTheme = function () {

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <button type="button" id="btn-theme" aria-label="Світла тема">
+  <button type="button" id="btn-theme" data-i18n-aria="theme.light" aria-label="Світла тема">
     <svg id="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M16 3.5A8.5 8.5 0 1 0 20.5 16 7 7 0 0 1 16 3.5z"></path>
     </svg>
@@ -24,10 +24,10 @@
     </header>
 
     <section class="block" aria-labelledby="label-round">
-      <h2 id="label-round">Раунд</h2>
+      <h2 id="label-round" data-i18n="menu.round">Раунд</h2>
       <div id="start-split">
         <button type="button" id="btn-start">Почати раунд P1</button>
-        <button type="button" id="btn-round-edit" aria-expanded="false" aria-controls="round-setup" aria-label="Параметри прогону">
+        <button type="button" id="btn-round-edit" aria-expanded="false" aria-controls="round-setup" data-i18n-aria="menu.setup" aria-label="Параметри прогону">
           <svg id="icon-round-edit" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
           </svg>
@@ -39,7 +39,7 @@
       <p id="stat-median" class="is-hidden"></p>
       <div id="round-setup" class="is-hidden">
         <section class="block" aria-labelledby="label-window">
-          <h2 id="label-window">Часові межі (мс)</h2>
+          <h2 id="label-window" data-i18n="menu.window">Часові межі (мс)</h2>
           <div id="win-select">
             <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-window win-select-current">
               <span id="win-select-current">Рівно 1800 мс</span>
@@ -49,15 +49,15 @@
               </svg>
             </button>
             <div class="win-select-menu is-hidden">
-              <button type="button" data-ms="0">Без часових меж</button>
-              <button type="button" data-ms="2500">М’яко 2500 мс</button>
-              <button type="button" data-ms="1800">Рівно 1800 мс</button>
-              <button type="button" data-ms="1200">Жорстко 1200 мс</button>
+              <button type="button" data-ms="0" data-i18n="window.off">Без часових меж</button>
+              <button type="button" data-ms="2500" data-i18n="window.soft">М’яко 2500 мс</button>
+              <button type="button" data-ms="1800" data-i18n="window.even">Рівно 1800 мс</button>
+              <button type="button" data-ms="1200" data-i18n="window.hard">Жорстко 1200 мс</button>
             </div>
           </div>
         </section>
         <section class="block" aria-labelledby="label-round-size">
-          <h2 id="label-round-size">Довжина</h2>
+          <h2 id="label-round-size" data-i18n="menu.length">Довжина</h2>
           <div id="round-size-row">
             <input type="range" id="round-size" min="1" max="14" value="14">
             <p id="round-size-label">14 / 14</p>
@@ -68,35 +68,35 @@
         <svg id="icon-base" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M3 5a2 2 0 0 1 2-2h6v16H5a2 2 0 0 0-2 2V5zm10-2h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2h-6V3z"></path>
         </svg>
-        База знань
+        <span data-i18n="menu.base">База знань</span>
       </button>
     </section>
 
     <section class="block" aria-labelledby="label-pack">
-      <h2 id="label-pack">Пакет</h2>
+      <h2 id="label-pack" data-i18n="menu.pack">Пакет</h2>
       <div class="rows">
         <button type="button" data-pack="p1" aria-pressed="true">
-          <span class="pack-name">P1 Дієслово sein / haben</span>
+          <span class="pack-name" data-i18n="pack.p1">P1 Дієслово sein / haben</span>
           <span class="pack-seen">0 / 14</span>
         </button>
         <button type="button" data-pack="p2" aria-pressed="false">
-          <span class="pack-name">P2 Особові закінчення</span>
+          <span class="pack-name" data-i18n="pack.p2">P2 Особові закінчення</span>
           <span class="pack-seen">0 / 18</span>
         </button>
         <button type="button" data-pack="p3" aria-pressed="false">
-          <span class="pack-name">P3 Артикль називний</span>
+          <span class="pack-name" data-i18n="pack.p3">P3 Артикль називний</span>
           <span class="pack-seen">0 / 24</span>
         </button>
         <button type="button" data-pack="p4" aria-pressed="false">
-          <span class="pack-name">P4 Артикль знахідний</span>
+          <span class="pack-name" data-i18n="pack.p4">P4 Артикль знахідний</span>
           <span class="pack-seen">0 / 48</span>
         </button>
         <button type="button" data-pack="p5" aria-pressed="false">
-          <span class="pack-name">P5 Порядок V2</span>
+          <span class="pack-name" data-i18n="pack.p5">P5 Порядок V2</span>
           <span class="pack-seen">0 / 12</span>
         </button>
         <button type="button" id="btn-mix" aria-pressed="false">
-          <span class="pack-name">PX Усі пакети</span>
+          <span class="pack-name" data-i18n="pack.mix">PX Усі пакети</span>
           <span class="pack-seen">116</span>
         </button>
       </div>
@@ -106,13 +106,13 @@
       <svg id="icon-settings" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.04 7.04 0 0 0-1.63-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.55-1.63.94l-2.39-.96a.5.5 0 0 0-.61.22L2.77 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94L2.89 14.52a.5.5 0 0 0-.12.64l1.92 3.32c.14.24.4.34.61.22l2.39-.96c.5.39 1.04.7 1.63.94l.36 2.54c.05.24.26.42.5.42h3.84c.24 0 .45-.18.5-.42l.36-2.54c.59-.24 1.13-.55 1.63-.94l2.39.96c.22.12.47.02.61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"></path>
       </svg>
-      Налаштування
+      <span data-i18n="menu.settings">Налаштування</span>
     </button>
   </main>
 
   <section id="screen-round" class="is-hidden" tabindex="-1">
     <div class="round-meta">
-      <button type="button" id="btn-abort" aria-label="Вийти з раунду">
+      <button type="button" id="btn-abort" data-i18n-aria="round.abort" aria-label="Вийти з раунду">
         <svg id="icon-abort" viewBox="0 0 24 24" aria-hidden="true">
           <defs>
             <clipPath id="abort-clip">
@@ -124,7 +124,7 @@
         </svg>
       </button>
       <p id="counter">1/14</p>
-      <p id="repair-badge" class="is-hidden">Промахи</p>
+      <p id="repair-badge" class="is-hidden" data-i18n="round.repair">Промахи</p>
     </div>
     <div class="stimulus-block">
       <p id="stimulus"></p>
@@ -141,49 +141,94 @@
 
   <section id="screen-settings" class="is-hidden" tabindex="-1">
     <div class="screen-head">
-      <button type="button" id="btn-settings-back" aria-label="До меню">
+      <button type="button" id="btn-settings-back" data-i18n-aria="settings.back" aria-label="До меню">
         <svg id="icon-settings-back" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M19 12H5M12 5l-7 7 7 7" fill="none"></path>
         </svg>
       </button>
-      <h2 id="label-settings">Налаштування</h2>
+      <h2 id="label-settings" data-i18n="settings.title">Налаштування</h2>
     </div>
+    <section class="block" aria-labelledby="label-lang">
+      <h2 id="label-lang" data-i18n="settings.lang">Мова</h2>
+      <div class="setting-select">
+        <span id="label-ui-lang" data-i18n="settings.uiLang">Мова інтерфейсу</span>
+        <div id="set-ui-lang">
+          <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-ui-lang set-ui-lang-current">
+            <span id="set-ui-lang-current">Українська 🇺🇦</span>
+            <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 9l4-4 4 4"></path>
+              <path d="M8 15l4 4 4-4"></path>
+            </svg>
+          </button>
+          <div class="win-select-menu is-hidden">
+            <button type="button" data-lang="uk" aria-selected="true"><span data-i18n="lang.uk">Українська</span> 🇺🇦</button>
+            <button type="button" data-lang="en" aria-selected="false"><span data-i18n="lang.en">English</span> 🇬🇧</button>
+            <button type="button" data-lang="de" aria-selected="false"><span data-i18n="lang.de">Deutsch</span> 🇩🇪</button>
+          </div>
+        </div>
+      </div>
+      <div class="setting-select">
+        <span id="label-gloss-lang" data-i18n="settings.glossLang">Мова перекладу</span>
+        <div id="set-gloss-lang">
+          <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-gloss-lang set-gloss-lang-current">
+            <span id="set-gloss-lang-current">Українська 🇺🇦</span>
+            <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 9l4-4 4 4"></path>
+              <path d="M8 15l4 4 4-4"></path>
+            </svg>
+          </button>
+          <div class="win-select-menu is-hidden">
+            <button type="button" data-lang="uk" aria-selected="true"><span data-i18n="lang.uk">Українська</span> 🇺🇦</button>
+            <button type="button" data-lang="en" aria-selected="false"><span data-i18n="lang.en">English</span> 🇬🇧</button>
+            <button type="button" data-lang="de" aria-selected="false"><span data-i18n="lang.de">Deutsch</span> 🇩🇪</button>
+            <button type="button" data-lang="off" aria-selected="false"><span data-i18n="lang.off">Вимкнено</span> 🚫</button>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="block" aria-labelledby="label-visual">
-      <h2 id="label-visual">Візуал</h2>
-      <div class="setting-radios" role="radiogroup" aria-label="Вигляд варіантів">
+      <h2 id="label-visual" data-i18n="settings.visual">Візуал</h2>
+      <div class="setting-radios" role="radiogroup" data-i18n-aria="settings.layout" aria-label="Вигляд варіантів">
         <label class="setting-check">
           <input type="radio" name="option-layout" id="set-layout-list" value="list" checked>
-          Список
+          <span data-i18n="settings.list">Список</span>
         </label>
         <label class="setting-check">
           <input type="radio" name="option-layout" id="set-layout-table" value="table">
-          Таблиця
+          <span data-i18n="settings.table">Таблиця</span>
         </label>
       </div>
       <label class="setting-check">
         <input type="checkbox" id="set-show-keys" checked>
-        Номери клавіш на варіантах
+        <span data-i18n="settings.showKeys">Номери клавіш на варіантах</span>
       </label>
     </section>
     <section class="block" aria-labelledby="label-audio">
-      <h2 id="label-audio">Аудіо</h2>
+      <h2 id="label-audio" data-i18n="settings.audio">Аудіо</h2>
       <label class="setting-check">
         <input type="checkbox" id="set-ui-sound">
-        Звуки інтерфейсу
+        <span data-i18n="settings.uiSound">Звуки інтерфейсу</span>
       </label>
       <label class="setting-check">
         <input type="checkbox" id="set-speak-form">
-        Озвучувати форму
+        <span data-i18n="settings.speakForm">Озвучувати форму</span>
+      </label>
+    </section>
+    <section class="block" aria-labelledby="label-gameplay">
+      <h2 id="label-gameplay" data-i18n="settings.gameplay">Геймплей</h2>
+      <label class="setting-check">
+        <input type="checkbox" id="set-shuffle-options" checked>
+        <span data-i18n="settings.shuffle">Перемішування варіантів відповідей</span>
       </label>
     </section>
     <section class="block" aria-labelledby="label-data">
-      <h2 id="label-data">Дані</h2>
-      <button type="button" id="btn-clear-progress">Очистити прогрес</button>
+      <h2 id="label-data" data-i18n="settings.data">Дані</h2>
+      <button type="button" id="btn-clear-progress" data-i18n="settings.clear">Очистити прогрес</button>
       <div id="clear-progress-confirm" class="is-hidden">
-        <p id="clear-progress-warn">Прогрес буде стерто</p>
+        <p id="clear-progress-warn" data-i18n="settings.clearWarn">Прогрес буде стерто</p>
         <div class="clear-progress-actions">
-          <button type="button" id="btn-clear-cancel">Скасувати</button>
-          <button type="button" id="btn-clear-wipe">Стерти</button>
+          <button type="button" id="btn-clear-cancel" data-i18n="settings.cancel">Скасувати</button>
+          <button type="button" id="btn-clear-wipe" data-i18n="settings.wipe">Стерти</button>
         </div>
       </div>
     </section>
@@ -191,12 +236,12 @@
 
   <section id="screen-base" class="is-hidden" tabindex="-1">
     <div class="screen-head">
-      <button type="button" id="btn-base-back" aria-label="До меню">
+      <button type="button" id="btn-base-back" data-i18n-aria="settings.back" aria-label="До меню">
         <svg id="icon-base-back" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M19 12H5M12 5l-7 7 7 7" fill="none"></path>
         </svg>
       </button>
-      <h2 id="label-base">База знань</h2>
+      <h2 id="label-base" data-i18n="base.title">База знань</h2>
     </div>
     <div class="base-layout">
       <nav id="base-nav" aria-labelledby="label-base"></nav>
@@ -211,6 +256,7 @@
   <script src="js/input.js" defer></script>
   <script src="js/settings.js" defer></script>
   <script src="js/sound.js" defer></script>
+  <script src="js/i18n.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

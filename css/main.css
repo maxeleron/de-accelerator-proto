@@ -259,11 +259,15 @@ h2 {
   color: var(--text);
 }
 
-#win-select {
+#win-select,
+#set-ui-lang,
+#set-gloss-lang {
   position: relative;
 }
 
-#win-select .win-select-face {
+#win-select .win-select-face,
+#set-ui-lang .win-select-face,
+#set-gloss-lang .win-select-face {
   width: 100%;
   height: 48px;
   padding: 0 16px;
@@ -278,11 +282,15 @@ h2 {
   cursor: pointer;
 }
 
-#win-select .win-select-face[aria-expanded="true"] {
+#win-select .win-select-face[aria-expanded="true"],
+#set-ui-lang .win-select-face[aria-expanded="true"],
+#set-gloss-lang .win-select-face[aria-expanded="true"] {
   border-color: var(--accent);
 }
 
-#win-select .win-select-icon {
+#win-select .win-select-icon,
+#set-ui-lang .win-select-icon,
+#set-gloss-lang .win-select-icon {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
@@ -293,7 +301,9 @@ h2 {
   stroke-linejoin: round;
 }
 
-#win-select .win-select-menu {
+#win-select .win-select-menu,
+#set-ui-lang .win-select-menu,
+#set-gloss-lang .win-select-menu {
   position: absolute;
   z-index: 5;
   left: 0;
@@ -307,11 +317,15 @@ h2 {
   overflow: hidden;
 }
 
-html[data-theme="light"] #win-select .win-select-menu {
+html[data-theme="light"] #win-select .win-select-menu,
+html[data-theme="light"] #set-ui-lang .win-select-menu,
+html[data-theme="light"] #set-gloss-lang .win-select-menu {
   background: var(--surface);
 }
 
-#win-select .win-select-menu button {
+#win-select .win-select-menu button,
+#set-ui-lang .win-select-menu button,
+#set-gloss-lang .win-select-menu button {
   width: 100%;
   height: 48px;
   padding: 0 16px;
@@ -322,11 +336,15 @@ html[data-theme="light"] #win-select .win-select-menu {
   cursor: pointer;
 }
 
-#win-select .win-select-menu button[aria-selected="true"] {
+#win-select .win-select-menu button[aria-selected="true"],
+#set-ui-lang .win-select-menu button[aria-selected="true"],
+#set-gloss-lang .win-select-menu button[aria-selected="true"] {
   box-shadow: inset 3px 0 0 var(--accent);
 }
 
-#win-select .win-select-menu button:hover {
+#win-select .win-select-menu button:hover,
+#set-ui-lang .win-select-menu button:hover,
+#set-gloss-lang .win-select-menu button:hover {
   background: var(--surface);
 }
 
@@ -422,10 +440,13 @@ html[data-theme="light"] #icon-moon {
 #repair-badge.is-hidden,
 .options button.is-hidden,
 #win-select .win-select-menu.is-hidden,
+#set-ui-lang .win-select-menu.is-hidden,
+#set-gloss-lang .win-select-menu.is-hidden,
 #round-setup.is-hidden,
 #stat-median.is-hidden,
 #btn-clear-progress.is-hidden,
-#clear-progress-confirm.is-hidden {
+#clear-progress-confirm.is-hidden,
+#gloss.is-hidden {
   display: none;
 }
 
@@ -456,7 +477,7 @@ html[data-theme="light"] #icon-moon {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #e7eee9;
+  color: var(--text);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -475,7 +496,7 @@ html[data-theme="light"] #icon-moon {
 }
 
 #icon-abort .abort-base {
-  stroke: #e7eee9;
+  stroke: currentColor;
 }
 
 #icon-abort .abort-fill {
@@ -705,6 +726,16 @@ html[data-option-layout="table"] .options button.is-hidden {
   color: var(--gloss);
 }
 
+.setting-select {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+
+
 .setting-check {
   display: flex;
   align-items: center;
@@ -723,6 +754,7 @@ html[data-option-layout="table"] .options button.is-hidden {
 #set-show-keys,
 #set-ui-sound,
 #set-speak-form,
+#set-shuffle-options,
 #set-layout-list,
 #set-layout-table {
   width: 18px;

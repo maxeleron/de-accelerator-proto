@@ -4,6 +4,7 @@
     "muster": "v2",
     "prompt": "heute / nach Hause / gehen",
     "gloss": "сьогодні я йду додому",
+    "glossEn": "today I am going home",
     "answer": "Heute gehe ich nach Hause.",
     "options": [
       "Heute gehe ich nach Hause.",
@@ -16,6 +17,7 @@
     "muster": "v2",
     "prompt": "morgen / Deutsch / lernen",
     "gloss": "завтра я вчу німецьку",
+    "glossEn": "tomorrow I learn German",
     "answer": "Morgen lerne ich Deutsch.",
     "options": [
       "Morgen lerne ich Deutsch.",
@@ -28,6 +30,7 @@
     "muster": "v2",
     "prompt": "jetzt / hier / wohnen",
     "gloss": "зараз я живу тут",
+    "glossEn": "now I live here",
     "answer": "Jetzt wohne ich hier.",
     "options": [
       "Jetzt wohne ich hier.",
@@ -40,6 +43,7 @@
     "muster": "v2",
     "prompt": "ich / den Tisch / sehen",
     "gloss": "я бачу стіл",
+    "glossEn": "I see the table",
     "answer": "Ich sehe den Tisch.",
     "options": [
       "Ich sehe den Tisch.",
@@ -52,6 +56,7 @@
     "muster": "v2",
     "prompt": "ich / Zeit / haben",
     "gloss": "я маю час",
+    "glossEn": "I have time",
     "answer": "Ich habe Zeit.",
     "options": [
       "Ich habe Zeit.",
@@ -64,6 +69,7 @@
     "muster": "v2",
     "prompt": "heute / Deutsch / lernen",
     "gloss": "сьогодні я вчу німецьку",
+    "glossEn": "today I learn German",
     "answer": "Heute lerne ich Deutsch.",
     "options": [
       "Heute lerne ich Deutsch.",
@@ -76,6 +82,7 @@
     "muster": "v2",
     "prompt": "jetzt / nach Hause / gehen",
     "gloss": "зараз я йду додому",
+    "glossEn": "now I am going home",
     "answer": "Jetzt gehe ich nach Hause.",
     "options": [
       "Jetzt gehe ich nach Hause.",
@@ -88,6 +95,7 @@
     "muster": "v2",
     "prompt": "ich / hier / wohnen",
     "gloss": "я живу тут",
+    "glossEn": "I live here",
     "answer": "Ich wohne hier.",
     "options": [
       "Ich wohne hier.",
@@ -100,6 +108,7 @@
     "muster": "v2",
     "prompt": "morgen / nach Hause / gehen",
     "gloss": "завтра я йду додому",
+    "glossEn": "tomorrow I am going home",
     "answer": "Morgen gehe ich nach Hause.",
     "options": [
       "Morgen gehe ich nach Hause.",
@@ -112,6 +121,7 @@
     "muster": "v2",
     "prompt": "ich / Deutsch / lernen",
     "gloss": "я вчу німецьку",
+    "glossEn": "I learn German",
     "answer": "Ich lerne Deutsch.",
     "options": [
       "Ich lerne Deutsch.",
@@ -124,6 +134,7 @@
     "muster": "v2",
     "prompt": "heute / Zeit / haben",
     "gloss": "сьогодні я маю час",
+    "glossEn": "today I have time",
     "answer": "Heute habe ich Zeit.",
     "options": [
       "Heute habe ich Zeit.",
@@ -136,6 +147,7 @@
     "muster": "v2",
     "prompt": "jetzt / den Tisch / sehen",
     "gloss": "зараз я бачу стіл",
+    "glossEn": "now I see the table",
     "answer": "Jetzt sehe ich den Tisch.",
     "options": [
       "Jetzt sehe ich den Tisch.",

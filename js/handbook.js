@@ -12,23 +12,59 @@ window.IMPULS.handbook = [
       {
         "caption": "sein",
         "rows": [
-          ["ich", "bin"],
-          ["du", "bist"],
-          ["er/sie/es", "ist"],
-          ["wir", "sind"],
-          ["ihr", "seid"],
-          ["sie/Sie", "sind"]
+          [
+            "ich",
+            "bin"
+          ],
+          [
+            "du",
+            "bist"
+          ],
+          [
+            "er/sie/es",
+            "ist"
+          ],
+          [
+            "wir",
+            "sind"
+          ],
+          [
+            "ihr",
+            "seid"
+          ],
+          [
+            "sie/Sie",
+            "sind"
+          ]
         ]
       },
       {
         "caption": "haben",
         "rows": [
-          ["ich", "habe"],
-          ["du", "hast"],
-          ["er/sie/es", "hat"],
-          ["wir", "haben"],
-          ["ihr", "habt"],
-          ["sie/Sie", "haben"]
+          [
+            "ich",
+            "habe"
+          ],
+          [
+            "du",
+            "hast"
+          ],
+          [
+            "er/sie/es",
+            "hat"
+          ],
+          [
+            "wir",
+            "haben"
+          ],
+          [
+            "ihr",
+            "habt"
+          ],
+          [
+            "sie/Sie",
+            "haben"
+          ]
         ]
       }
     ]
@@ -44,12 +80,36 @@ window.IMPULS.handbook = [
         "caption": "machen",
         "markCol": 1,
         "rows": [
-          ["ich", "mache", "e"],
-          ["du", "machst", "st"],
-          ["er/sie/es", "macht", "t"],
-          ["wir", "machen", "en"],
-          ["ihr", "macht", "t"],
-          ["sie/Sie", "machen", "en"]
+          [
+            "ich",
+            "mache",
+            "e"
+          ],
+          [
+            "du",
+            "machst",
+            "st"
+          ],
+          [
+            "er/sie/es",
+            "macht",
+            "t"
+          ],
+          [
+            "wir",
+            "machen",
+            "en"
+          ],
+          [
+            "ihr",
+            "macht",
+            "t"
+          ],
+          [
+            "sie/Sie",
+            "machen",
+            "en"
+          ]
         ]
       }
     ]
@@ -64,43 +124,109 @@ window.IMPULS.handbook = [
         "caption": "müssen",
         "markCol": 1,
         "rows": [
-          ["ich", "muss"],
-          ["du", "musst"],
-          ["er/sie/es", "muss"],
-          ["wir", "müssen"],
-          ["ihr", "müsst"],
-          ["sie/Sie", "müssen"]
+          [
+            "ich",
+            "muss"
+          ],
+          [
+            "du",
+            "musst"
+          ],
+          [
+            "er/sie/es",
+            "muss"
+          ],
+          [
+            "wir",
+            "müssen"
+          ],
+          [
+            "ihr",
+            "müsst"
+          ],
+          [
+            "sie/Sie",
+            "müssen"
+          ]
         ]
       },
       {
         "caption": "können",
         "markCol": 1,
         "rows": [
-          ["ich", "kann"],
-          ["du", "kannst"],
-          ["er/sie/es", "kann"],
-          ["wir", "können"],
-          ["ihr", "könnt"],
-          ["sie/Sie", "können"]
+          [
+            "ich",
+            "kann"
+          ],
+          [
+            "du",
+            "kannst"
+          ],
+          [
+            "er/sie/es",
+            "kann"
+          ],
+          [
+            "wir",
+            "können"
+          ],
+          [
+            "ihr",
+            "könnt"
+          ],
+          [
+            "sie/Sie",
+            "können"
+          ]
         ]
       },
       {
         "caption": "wollen",
         "markCol": 1,
         "rows": [
-          ["ich", "will"],
-          ["du", "willst"],
-          ["er/sie/es", "will"],
-          ["wir", "wollen"],
-          ["ihr", "wollt"],
-          ["sie/Sie", "wollen"]
+          [
+            "ich",
+            "will"
+          ],
+          [
+            "du",
+            "willst"
+          ],
+          [
+            "er/sie/es",
+            "will"
+          ],
+          [
+            "wir",
+            "wollen"
+          ],
+          [
+            "ihr",
+            "wollt"
+          ],
+          [
+            "sie/Sie",
+            "wollen"
+          ]
         ]
       }
     ],
     "examples": [
-      { "de": "Ich muss heute arbeiten.", "uk": "Я мушу сьогодні працювати." },
-      { "de": "Kannst du Deutsch?", "uk": "Ти вмієш німецьку?" },
-      { "de": "Wir wollen nach Hause gehen.", "uk": "Ми хочемо йти додому." }
+      {
+        "de": "Ich muss heute arbeiten.",
+        "uk": "Я мушу сьогодні працювати.",
+        "en": "I have to work today."
+      },
+      {
+        "de": "Kannst du Deutsch?",
+        "uk": "Ти вмієш німецьку?",
+        "en": "Can you speak German?"
+      },
+      {
+        "de": "Wir wollen nach Hause gehen.",
+        "uk": "Ми хочемо йти додому.",
+        "en": "We want to go home."
+      }
     ]
   },
   {
@@ -109,11 +235,31 @@ window.IMPULS.handbook = [
     "title": "Відокремлювані",
     "note": "Префікс у теперішньому йде в кінець.",
     "examples": [
-      { "de": "Ich stehe um 7 Uhr auf.", "uk": "Я встаю о 7 годині." },
-      { "de": "Ich kaufe heute ein.", "uk": "Я сьогодні роблю покупки." },
-      { "de": "Ich rufe dich an.", "uk": "Я тобі телефоную." },
-      { "de": "Kommst du mit?", "uk": "Ти йдеш з нами?" },
-      { "de": "Ich muss um 7 Uhr aufstehen.", "uk": "Я мушу встати о 7 годині." }
+      {
+        "de": "Ich stehe um 7 Uhr auf.",
+        "uk": "Я встаю о 7 годині.",
+        "en": "I get up at 7."
+      },
+      {
+        "de": "Ich kaufe heute ein.",
+        "uk": "Я сьогодні роблю покупки.",
+        "en": "I go shopping today."
+      },
+      {
+        "de": "Ich rufe dich an.",
+        "uk": "Я тобі телефоную.",
+        "en": "I call you."
+      },
+      {
+        "de": "Kommst du mit?",
+        "uk": "Ти йдеш з нами?",
+        "en": "Are you coming along?"
+      },
+      {
+        "de": "Ich muss um 7 Uhr aufstehen.",
+        "uk": "Я мушу встати о 7 годині.",
+        "en": "I have to get up at 7."
+      }
     ]
   },
   {
@@ -126,30 +272,102 @@ window.IMPULS.handbook = [
       {
         "caption": "іменники",
         "rows": [
-          ["der", "Tisch"],
-          ["die", "Lampe"],
-          ["das", "Buch"],
-          ["der", "Mann"],
-          ["die", "Frau"],
-          ["das", "Kind"],
-          ["der", "Stuhl"],
-          ["die", "Tür"],
-          ["das", "Fenster"],
-          ["der", "Hund"],
-          ["die", "Katze"],
-          ["das", "Haus"],
-          ["der", "Apfel"],
-          ["der", "Kaffee"],
-          ["die", "Tasche"],
-          ["das", "Auto"],
-          ["der", "Computer"],
-          ["die", "Schule"],
-          ["der", "Stift"],
-          ["die", "Zeitung"],
-          ["das", "Handy"],
-          ["die", "Stadt"],
-          ["das", "Wasser"],
-          ["der", "Freund"]
+          [
+            "der",
+            "Tisch"
+          ],
+          [
+            "die",
+            "Lampe"
+          ],
+          [
+            "das",
+            "Buch"
+          ],
+          [
+            "der",
+            "Mann"
+          ],
+          [
+            "die",
+            "Frau"
+          ],
+          [
+            "das",
+            "Kind"
+          ],
+          [
+            "der",
+            "Stuhl"
+          ],
+          [
+            "die",
+            "Tür"
+          ],
+          [
+            "das",
+            "Fenster"
+          ],
+          [
+            "der",
+            "Hund"
+          ],
+          [
+            "die",
+            "Katze"
+          ],
+          [
+            "das",
+            "Haus"
+          ],
+          [
+            "der",
+            "Apfel"
+          ],
+          [
+            "der",
+            "Kaffee"
+          ],
+          [
+            "die",
+            "Tasche"
+          ],
+          [
+            "das",
+            "Auto"
+          ],
+          [
+            "der",
+            "Computer"
+          ],
+          [
+            "die",
+            "Schule"
+          ],
+          [
+            "der",
+            "Stift"
+          ],
+          [
+            "die",
+            "Zeitung"
+          ],
+          [
+            "das",
+            "Handy"
+          ],
+          [
+            "die",
+            "Stadt"
+          ],
+          [
+            "das",
+            "Wasser"
+          ],
+          [
+            "der",
+            "Freund"
+          ]
         ]
       }
     ]
@@ -164,20 +382,55 @@ window.IMPULS.handbook = [
         "caption": "артикль",
         "markCol": 1,
         "rows": [
-          ["der", "den"],
-          ["die", "die"],
-          ["das", "das"],
-          ["ein", "einen"],
-          ["eine", "eine"]
+          [
+            "der",
+            "den"
+          ],
+          [
+            "die",
+            "die"
+          ],
+          [
+            "das",
+            "das"
+          ],
+          [
+            "ein",
+            "einen"
+          ],
+          [
+            "eine",
+            "eine"
+          ]
         ]
       }
     ],
     "examples": [
-      { "de": "Ich sehe den Tisch.", "uk": "Я бачу стіл." },
-      { "de": "Ich brauche eine Lampe.", "uk": "Мені потрібна лампа." },
-      { "de": "Er hat einen Hund.", "uk": "Він має собаку." },
-      { "de": "Sie kauft die Tasche.", "uk": "Вона купує сумку." },
-      { "de": "Wir suchen ein Auto.", "uk": "Ми шукаємо авто." }
+      {
+        "de": "Ich sehe den Tisch.",
+        "uk": "Я бачу стіл.",
+        "en": "I see the table."
+      },
+      {
+        "de": "Ich brauche eine Lampe.",
+        "uk": "Мені потрібна лампа.",
+        "en": "I need a lamp."
+      },
+      {
+        "de": "Er hat einen Hund.",
+        "uk": "Він має собаку.",
+        "en": "He has a dog."
+      },
+      {
+        "de": "Sie kauft die Tasche.",
+        "uk": "Вона купує сумку.",
+        "en": "She buys the bag."
+      },
+      {
+        "de": "Wir suchen ein Auto.",
+        "uk": "Ми шукаємо авто.",
+        "en": "We are looking for a car."
+      }
     ]
   },
   {
@@ -190,22 +443,64 @@ window.IMPULS.handbook = [
         "caption": "артикль",
         "markCol": 1,
         "rows": [
-          ["der", "dem"],
-          ["die", "der"],
-          ["das", "dem"],
-          ["die", "den"],
-          ["ein", "einem"],
-          ["eine", "einer"]
+          [
+            "der",
+            "dem"
+          ],
+          [
+            "die",
+            "der"
+          ],
+          [
+            "das",
+            "dem"
+          ],
+          [
+            "die",
+            "den"
+          ],
+          [
+            "ein",
+            "einem"
+          ],
+          [
+            "eine",
+            "einer"
+          ]
         ]
       }
     ],
     "examples": [
-      { "de": "mit dem Freund", "uk": "з другом" },
-      { "de": "mit der Frau", "uk": "з жінкою" },
-      { "de": "zu dem Haus", "uk": "до будинку" },
-      { "de": "aus dem Haus", "uk": "з будинку" },
-      { "de": "nach Berlin", "uk": "до Берліна" },
-      { "de": "bei der Frau", "uk": "у жінки" }
+      {
+        "de": "mit dem Freund",
+        "uk": "з другом",
+        "en": "with the friend"
+      },
+      {
+        "de": "mit der Frau",
+        "uk": "з жінкою",
+        "en": "with the woman"
+      },
+      {
+        "de": "zu dem Haus",
+        "uk": "до будинку",
+        "en": "to the house"
+      },
+      {
+        "de": "aus dem Haus",
+        "uk": "з будинку",
+        "en": "out of the house"
+      },
+      {
+        "de": "nach Berlin",
+        "uk": "до Берліна",
+        "en": "to Berlin"
+      },
+      {
+        "de": "bei der Frau",
+        "uk": "у жінки",
+        "en": "at the woman's"
+      }
     ]
   },
   {
@@ -217,18 +512,54 @@ window.IMPULS.handbook = [
       {
         "caption": "die",
         "rows": [
-          ["Tisch", "Tische"],
-          ["Lampe", "Lampen"],
-          ["Buch", "Bücher"],
-          ["Mann", "Männer"],
-          ["Frau", "Frauen"],
-          ["Kind", "Kinder"],
-          ["Stuhl", "Stühle"],
-          ["Tür", "Türen"],
-          ["Fenster", "Fenster"],
-          ["Hund", "Hunde"],
-          ["Katze", "Katzen"],
-          ["Haus", "Häuser"]
+          [
+            "Tisch",
+            "Tische"
+          ],
+          [
+            "Lampe",
+            "Lampen"
+          ],
+          [
+            "Buch",
+            "Bücher"
+          ],
+          [
+            "Mann",
+            "Männer"
+          ],
+          [
+            "Frau",
+            "Frauen"
+          ],
+          [
+            "Kind",
+            "Kinder"
+          ],
+          [
+            "Stuhl",
+            "Stühle"
+          ],
+          [
+            "Tür",
+            "Türen"
+          ],
+          [
+            "Fenster",
+            "Fenster"
+          ],
+          [
+            "Hund",
+            "Hunde"
+          ],
+          [
+            "Katze",
+            "Katzen"
+          ],
+          [
+            "Haus",
+            "Häuser"
+          ]
         ]
       }
     ]
@@ -240,11 +571,31 @@ window.IMPULS.handbook = [
     "title": "Порядок V2",
     "note": "Дієслово в розповіді на другому місці.",
     "examples": [
-      { "de": "Ich gehe heute nach Hause.", "uk": "Я сьогодні йду додому." },
-      { "de": "Heute gehe ich nach Hause.", "uk": "Сьогодні я йду додому." },
-      { "de": "Morgen lerne ich Deutsch.", "uk": "Завтра я вчу німецьку." },
-      { "de": "Jetzt wohne ich hier.", "uk": "Зараз я живу тут." },
-      { "de": "Ich gehe nicht nach Hause.", "uk": "Я не йду додому." }
+      {
+        "de": "Ich gehe heute nach Hause.",
+        "uk": "Я сьогодні йду додому.",
+        "en": "I am going home today."
+      },
+      {
+        "de": "Heute gehe ich nach Hause.",
+        "uk": "Сьогодні я йду додому.",
+        "en": "Today I am going home."
+      },
+      {
+        "de": "Morgen lerne ich Deutsch.",
+        "uk": "Завтра я вчу німецьку.",
+        "en": "Tomorrow I learn German."
+      },
+      {
+        "de": "Jetzt wohne ich hier.",
+        "uk": "Зараз я живу тут.",
+        "en": "Now I live here."
+      },
+      {
+        "de": "Ich gehe nicht nach Hause.",
+        "uk": "Я не йду додому.",
+        "en": "I am not going home."
+      }
     ]
   },
   {
@@ -253,12 +604,36 @@ window.IMPULS.handbook = [
     "title": "Питання",
     "note": "Так/ні — дієслово перше; з питальним словом — дієслово друге.",
     "examples": [
-      { "de": "Gehst du nach Hause?", "uk": "Ти йдеш додому?" },
-      { "de": "Hast du Zeit?", "uk": "У тебе є час?" },
-      { "de": "Wo wohnst du?", "uk": "Де ти живеш?" },
-      { "de": "Was machst du?", "uk": "Що ти робиш?" },
-      { "de": "Wann lernst du?", "uk": "Коли ти вчиш?" },
-      { "de": "wo, was, wer, wann, wie, wohin", "uk": "де, що, хто, коли, як, куди" }
+      {
+        "de": "Gehst du nach Hause?",
+        "uk": "Ти йдеш додому?",
+        "en": "Are you going home?"
+      },
+      {
+        "de": "Hast du Zeit?",
+        "uk": "У тебе є час?",
+        "en": "Do you have time?"
+      },
+      {
+        "de": "Wo wohnst du?",
+        "uk": "Де ти живеш?",
+        "en": "Where do you live?"
+      },
+      {
+        "de": "Was machst du?",
+        "uk": "Що ти робиш?",
+        "en": "What are you doing?"
+      },
+      {
+        "de": "Wann lernst du?",
+        "uk": "Коли ти вчиш?",
+        "en": "When do you study?"
+      },
+      {
+        "de": "wo, was, wer, wann, wie, wohin",
+        "uk": "де, що, хто, коли, як, куди",
+        "en": "where, what, who, when, how, where to"
+      }
     ]
   },
   {
@@ -270,25 +645,55 @@ window.IMPULS.handbook = [
       {
         "caption": "Nominativ",
         "rows": [
-          ["kein", "Tisch"],
-          ["keine", "Lampe"],
-          ["kein", "Buch"]
+          [
+            "kein",
+            "Tisch"
+          ],
+          [
+            "keine",
+            "Lampe"
+          ],
+          [
+            "kein",
+            "Buch"
+          ]
         ]
       },
       {
         "caption": "Akkusativ",
         "markCol": 0,
         "rows": [
-          ["keinen", "Tisch"],
-          ["keine", "Lampe"],
-          ["kein", "Buch"]
+          [
+            "keinen",
+            "Tisch"
+          ],
+          [
+            "keine",
+            "Lampe"
+          ],
+          [
+            "kein",
+            "Buch"
+          ]
         ]
       }
     ],
     "examples": [
-      { "de": "Ich habe kein Buch.", "uk": "У мене немає книги." },
-      { "de": "Ich sehe keinen Tisch.", "uk": "Я не бачу стола." },
-      { "de": "Ich lerne nicht.", "uk": "Я не вчу." }
+      {
+        "de": "Ich habe kein Buch.",
+        "uk": "У мене немає книги.",
+        "en": "I have no book."
+      },
+      {
+        "de": "Ich sehe keinen Tisch.",
+        "uk": "Я не бачу стола.",
+        "en": "I do not see a table."
+      },
+      {
+        "de": "Ich lerne nicht.",
+        "uk": "Я не вчу.",
+        "en": "I am not studying."
+      }
     ]
   },
   {
@@ -301,37 +706,103 @@ window.IMPULS.handbook = [
         "caption": "Akkusativ",
         "markCol": 1,
         "rows": [
-          ["ich", "mich"],
-          ["du", "dich"],
-          ["er", "ihn"],
-          ["sie", "sie"],
-          ["es", "es"],
-          ["wir", "uns"],
-          ["ihr", "euch"],
-          ["sie", "sie"],
-          ["Sie", "Sie"]
+          [
+            "ich",
+            "mich"
+          ],
+          [
+            "du",
+            "dich"
+          ],
+          [
+            "er",
+            "ihn"
+          ],
+          [
+            "sie",
+            "sie"
+          ],
+          [
+            "es",
+            "es"
+          ],
+          [
+            "wir",
+            "uns"
+          ],
+          [
+            "ihr",
+            "euch"
+          ],
+          [
+            "sie",
+            "sie"
+          ],
+          [
+            "Sie",
+            "Sie"
+          ]
         ]
       },
       {
         "caption": "Dativ",
         "markCol": 1,
         "rows": [
-          ["ich", "mir"],
-          ["du", "dir"],
-          ["er", "ihm"],
-          ["sie", "ihr"],
-          ["es", "ihm"],
-          ["wir", "uns"],
-          ["ihr", "euch"],
-          ["sie", "ihnen"],
-          ["Sie", "Ihnen"]
+          [
+            "ich",
+            "mir"
+          ],
+          [
+            "du",
+            "dir"
+          ],
+          [
+            "er",
+            "ihm"
+          ],
+          [
+            "sie",
+            "ihr"
+          ],
+          [
+            "es",
+            "ihm"
+          ],
+          [
+            "wir",
+            "uns"
+          ],
+          [
+            "ihr",
+            "euch"
+          ],
+          [
+            "sie",
+            "ihnen"
+          ],
+          [
+            "Sie",
+            "Ihnen"
+          ]
         ]
       }
     ],
     "examples": [
-      { "de": "Ich sehe ihn.", "uk": "Я його бачу." },
-      { "de": "Er sieht mich.", "uk": "Він мене бачить." },
-      { "de": "Ich helfe dir.", "uk": "Я тобі допомагаю." }
+      {
+        "de": "Ich sehe ihn.",
+        "uk": "Я його бачу.",
+        "en": "I see him."
+      },
+      {
+        "de": "Er sieht mich.",
+        "uk": "Він мене бачить.",
+        "en": "He sees me."
+      },
+      {
+        "de": "Ich helfe dir.",
+        "uk": "Я тобі допомагаю.",
+        "en": "I help you."
+      }
     ]
   },
   {
@@ -340,10 +811,26 @@ window.IMPULS.handbook = [
     "title": "Присвійні",
     "note": "Як ein.",
     "examples": [
-      { "de": "Das ist mein Buch.", "uk": "Це моя книга." },
-      { "de": "Ich sehe deinen Hund.", "uk": "Я бачу твого собаку." },
-      { "de": "meine Lampe", "uk": "моя лампа" },
-      { "de": "meinen Tisch", "uk": "мій стіл" }
+      {
+        "de": "Das ist mein Buch.",
+        "uk": "Це моя книга.",
+        "en": "This is my book."
+      },
+      {
+        "de": "Ich sehe deinen Hund.",
+        "uk": "Я бачу твого собаку.",
+        "en": "I see your dog."
+      },
+      {
+        "de": "meine Lampe",
+        "uk": "моя лампа",
+        "en": "my lamp"
+      },
+      {
+        "de": "meinen Tisch",
+        "uk": "мій стіл",
+        "en": "my table"
+      }
     ]
   },
   {
@@ -352,15 +839,51 @@ window.IMPULS.handbook = [
     "title": "Час",
     "note": "Коли і о котрій.",
     "examples": [
-      { "de": "heute", "uk": "сьогодні" },
-      { "de": "morgen", "uk": "завтра" },
-      { "de": "jetzt", "uk": "зараз" },
-      { "de": "um 7 Uhr", "uk": "о 7 годині" },
-      { "de": "am Montag", "uk": "у понеділок" },
-      { "de": "am Abend", "uk": "увечері" },
-      { "de": "im Januar", "uk": "у січні" },
-      { "de": "Heute lerne ich Deutsch.", "uk": "Сьогодні я вчу німецьку." },
-      { "de": "Ich stehe um 7 Uhr auf.", "uk": "Я встаю о 7 годині." }
+      {
+        "de": "heute",
+        "uk": "сьогодні",
+        "en": "today"
+      },
+      {
+        "de": "morgen",
+        "uk": "завтра",
+        "en": "tomorrow"
+      },
+      {
+        "de": "jetzt",
+        "uk": "зараз",
+        "en": "now"
+      },
+      {
+        "de": "um 7 Uhr",
+        "uk": "о 7 годині",
+        "en": "at 7 o'clock"
+      },
+      {
+        "de": "am Montag",
+        "uk": "у понеділок",
+        "en": "on Monday"
+      },
+      {
+        "de": "am Abend",
+        "uk": "увечері",
+        "en": "in the evening"
+      },
+      {
+        "de": "im Januar",
+        "uk": "у січні",
+        "en": "in January"
+      },
+      {
+        "de": "Heute lerne ich Deutsch.",
+        "uk": "Сьогодні я вчу німецьку.",
+        "en": "Today I learn German."
+      },
+      {
+        "de": "Ich stehe um 7 Uhr auf.",
+        "uk": "Я встаю о 7 годині.",
+        "en": "I get up at 7."
+      }
     ]
   }
 ];
