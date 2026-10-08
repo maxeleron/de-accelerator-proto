@@ -111,9 +111,15 @@
 
   <section id="screen-round" class="is-hidden" tabindex="-1">
     <div class="round-meta">
-      <button type="button" id="btn-abort" aria-label="Вийти">
+      <button type="button" id="btn-abort" aria-label="Вийти з раунду">
         <svg id="icon-abort" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M19 12H5M12 5l-7 7 7 7" fill="none"></path>
+          <defs>
+            <clipPath id="abort-clip">
+              <rect id="abort-clip-rect" x="0" y="24" width="24" height="0"></rect>
+            </clipPath>
+          </defs>
+          <path class="abort-base" d="M6 6l12 12M18 6L6 18"></path>
+          <path class="abort-fill" d="M6 6l12 12M18 6L6 18" clip-path="url(#abort-clip)"></path>
         </svg>
       </button>
       <p id="counter">1/14</p>
@@ -143,7 +149,10 @@
     </div>
     <section class="block" aria-labelledby="label-visual">
       <h2 id="label-visual">Візуал</h2>
-      <p id="visual-empty">Поки порожньо</p>
+      <label class="setting-check">
+        <input type="checkbox" id="set-show-keys" checked>
+        Номери клавіш на варіантах
+      </label>
     </section>
     <section class="block" aria-labelledby="label-data">
       <h2 id="label-data">Дані</h2>

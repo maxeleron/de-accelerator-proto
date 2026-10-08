@@ -1,7 +1,8 @@
 window.IMPULS = window.IMPULS || {};
 
 window.IMPULS.defaultSettings = {
-  version: 1
+  version: 1,
+  showKeys: true
 };
 
 const copySettings = function (source) {
@@ -27,6 +28,9 @@ window.IMPULS.loadSettings = function () {
     return window.IMPULS.settings;
   }
   window.IMPULS.settings = copySettings(saved);
+  if (window.IMPULS.settings.showKeys !== false) {
+    window.IMPULS.settings.showKeys = true;
+  }
   return window.IMPULS.settings;
 };
 
@@ -41,6 +45,27 @@ window.IMPULS.saveSettings = function () {
 window.IMPULS.setSetting = function (key, value) {
   window.IMPULS.settings[key] = value;
   window.IMPULS.saveSettings();
+};
+
+const applyShowKeys = function () {
+  const on = window.IMPULS.settings.showKeys !== false;
+  document.documentElement.setAttribute("data-show-keys", on ? "true" : "false");
+  const box = document.getElementById("set-show-keys");
+  if (box) {
+    box.checked = on;
+  }
+};
+
+const bindShowKeys = function () {
+  const box = document.getElementById("set-show-keys");
+  if (!box) {
+    return;
+  }
+  box.addEventListener("change", function () {
+    // Вимкнений ховає квадрати, клавіші 1–4 лишаються.
+    window.IMPULS.setSetting("showKeys", box.checked);
+    applyShowKeys();
+  });
 };
 
 const blankSeenPacks = function () {
@@ -129,9 +154,12 @@ const bindClearProgress = function () {
 document.addEventListener("DOMContentLoaded", function () {
   try {
     bindClearProgress();
+    bindShowKeys();
+    applyShowKeys();
   } catch (err) {
     // Підтвердження стирання не обриває старт.
   }
 });
 
 window.IMPULS.loadSettings();
+applyShowKeys();

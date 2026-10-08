@@ -17,6 +17,22 @@ const VERDICTS = {
 let flashId = 0;
 let abortPending = false;
 
+const ABORT_CLICKS = 3;
+const ABORT_CLICK_MS = 700;
+const ABORT_HOLD_MS = 3000;
+const ABORT_TAP_MS = 400;
+
+const abortGesture = {
+  clicks: 0,
+  clickTimer: 0,
+  holdRaf: 0,
+  holdDelay: 0,
+  holdStart: 0,
+  holdDone: false,
+  pointerId: null,
+  fromPointer: false
+};
+
 const winSelectRoot = function () {
   return document.getElementById("win-select");
 };
@@ -596,9 +612,159 @@ const clearPickFill = function () {
   }
 };
 
+const setAbortFill = function (ratio) {
+  const rect = document.getElementById("abort-clip-rect");
+  if (!rect) {
+    return;
+  }
+  let p = ratio;
+  if (p < 0) {
+    p = 0;
+  }
+  if (p > 1) {
+    p = 1;
+  }
+  rect.setAttribute("y", String(24 * (1 - p)));
+  rect.setAttribute("height", String(24 * p));
+};
+
+const stopAbortHold = function () {
+  if (abortGesture.holdDelay) {
+    clearTimeout(abortGesture.holdDelay);
+    abortGesture.holdDelay = 0;
+  }
+  if (!abortGesture.holdRaf) {
+    return;
+  }
+  cancelAnimationFrame(abortGesture.holdRaf);
+  abortGesture.holdRaf = 0;
+};
+
+const resetAbortUi = function () {
+  abortGesture.clicks = 0;
+  abortGesture.holdDone = false;
+  abortGesture.pointerId = null;
+  abortGesture.fromPointer = false;
+  if (abortGesture.clickTimer) {
+    clearTimeout(abortGesture.clickTimer);
+    abortGesture.clickTimer = 0;
+  }
+  stopAbortHold();
+  setAbortFill(0);
+};
+
+const registerAbortClick = function () {
+  abortGesture.clicks += 1;
+  if (abortGesture.clickTimer) {
+    clearTimeout(abortGesture.clickTimer);
+    abortGesture.clickTimer = 0;
+  }
+  if (abortGesture.clicks >= ABORT_CLICKS) {
+    abortGesture.clicks = 0;
+    setAbortFill(1);
+    window.IMPULS.requestAbort();
+    return;
+  }
+  setAbortFill(abortGesture.clicks / ABORT_CLICKS);
+  abortGesture.clickTimer = window.setTimeout(function () {
+    abortGesture.clickTimer = 0;
+    abortGesture.clicks = 0;
+    if (!abortGesture.holdRaf && !abortGesture.holdDelay) {
+      setAbortFill(0);
+    }
+  }, ABORT_CLICK_MS);
+};
+
+const tickAbortHold = function (now) {
+  const elapsed = now - abortGesture.holdStart;
+  if (elapsed >= ABORT_HOLD_MS) {
+    abortGesture.holdRaf = 0;
+    abortGesture.holdDone = true;
+    abortGesture.clicks = 0;
+    if (abortGesture.clickTimer) {
+      clearTimeout(abortGesture.clickTimer);
+      abortGesture.clickTimer = 0;
+    }
+    setAbortFill(1);
+    window.IMPULS.requestAbort();
+    return;
+  }
+  const span = ABORT_HOLD_MS - ABORT_TAP_MS;
+  setAbortFill((elapsed - ABORT_TAP_MS) / span);
+  abortGesture.holdRaf = requestAnimationFrame(tickAbortHold);
+};
+
+const startAbortHold = function () {
+  stopAbortHold();
+  abortGesture.holdDone = false;
+  abortGesture.holdStart = performance.now();
+  abortGesture.holdDelay = window.setTimeout(function () {
+    abortGesture.holdDelay = 0;
+    abortGesture.holdRaf = requestAnimationFrame(tickAbortHold);
+  }, ABORT_TAP_MS);
+};
+
+const endAbortPointer = function (event, asClick) {
+  if (abortGesture.pointerId === null || event.pointerId !== abortGesture.pointerId) {
+    return;
+  }
+  abortGesture.pointerId = null;
+  const elapsed = performance.now() - abortGesture.holdStart;
+  const done = abortGesture.holdDone;
+  stopAbortHold();
+  abortGesture.holdDone = false;
+  if (done) {
+    return;
+  }
+  // Коротше за ABORT_TAP_MS — клік; довше — скасоване затискання.
+  if (!asClick || elapsed >= ABORT_TAP_MS) {
+    setAbortFill(abortGesture.clicks / ABORT_CLICKS);
+    return;
+  }
+  registerAbortClick();
+};
+
+const bindAbortButton = function () {
+  const btn = document.getElementById("btn-abort");
+  btn.addEventListener("pointerdown", function (event) {
+    if (event.button !== 0) {
+      return;
+    }
+    if (abortGesture.pointerId !== null) {
+      return;
+    }
+    abortGesture.pointerId = event.pointerId;
+    abortGesture.fromPointer = true;
+    try {
+      btn.setPointerCapture(event.pointerId);
+    } catch (err) {
+      // Capture на file:// інколи недоступний.
+    }
+    startAbortHold();
+  });
+  btn.addEventListener("pointerup", function (event) {
+    endAbortPointer(event, true);
+  });
+  btn.addEventListener("pointercancel", function (event) {
+    endAbortPointer(event, false);
+  });
+  btn.addEventListener("click", function (event) {
+    if (abortGesture.fromPointer) {
+      abortGesture.fromPointer = false;
+      event.preventDefault();
+      return;
+    }
+    registerAbortClick();
+  });
+  btn.addEventListener("contextmenu", function (event) {
+    event.preventDefault();
+  });
+};
+
 const finishRound = function () {
   const state = window.IMPULS.state;
   abortPending = false;
+  resetAbortUi();
   cancelFrame();
   clearFlash();
   state.locked = true;
@@ -926,6 +1092,14 @@ window.IMPULS.closeBase = function () {
   history.back();
 };
 
+window.IMPULS.selectPack = function (id) {
+  if (window.IMPULS.state.phase !== "menu") {
+    return;
+  }
+  window.IMPULS.setPack(id);
+  renderMenu();
+};
+
 window.IMPULS.selectWindow = function (ms) {
   if (window.IMPULS.state.phase !== "menu") {
     return;
@@ -990,6 +1164,7 @@ window.IMPULS.startRound = function () {
   state.presented = [];
   state.locked = false;
   abortPending = false;
+  resetAbortUi();
   window.IMPULS.setPhase("round");
   persistActive();
   showScreen("screen-round");
@@ -1192,9 +1367,7 @@ const bindClicks = function () {
     }
   }, { passive: false });
 
-  document.getElementById("btn-abort").addEventListener("click", function () {
-    window.IMPULS.requestAbort();
-  });
+  bindAbortButton();
 
   document.getElementById("btn-settings-back").addEventListener("click", function () {
     window.IMPULS.closeSettings();

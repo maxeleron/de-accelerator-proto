@@ -449,20 +449,30 @@ html[data-theme="light"] #icon-moon {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #8b978f;
+  color: #e7eee9;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
 }
 
 #icon-abort {
   width: 24px;
   height: 24px;
-  stroke: currentColor;
+  overflow: visible;
+  fill: none;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+#icon-abort .abort-base {
+  stroke: #e7eee9;
+}
+
+#icon-abort .abort-fill {
+  stroke: #ff4d1a;
 }
 
 #counter,
@@ -522,9 +532,10 @@ html[data-theme="light"] #icon-moon {
 }
 
 .options button {
+  position: relative;
   width: 100%;
   min-height: 56px;
-  padding: 0 16px;
+  padding: 0 46px 0 16px;
   text-align: left;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -550,6 +561,47 @@ html[data-theme="light"] #icon-moon {
   background: var(--miss);
   border-color: var(--miss);
   color: var(--on-fill);
+}
+
+.options button::after {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #8b978f;
+  color: #8b978f;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+#opt-1::after {
+  content: "1";
+}
+
+#opt-2::after {
+  content: "2";
+}
+
+#opt-3::after {
+  content: "3";
+}
+
+#opt-4::after {
+  content: "4";
+}
+
+html[data-show-keys="false"] .options button {
+  padding: 0 16px;
+}
+
+html[data-show-keys="false"] .options button::after {
+  display: none;
 }
 
 #screen-settings {
@@ -606,11 +658,27 @@ html[data-theme="light"] #icon-moon {
   color: var(--text);
 }
 
-#visual-empty,
 #clear-progress-warn {
   font-size: 13px;
   font-weight: 500;
   color: var(--gloss);
+}
+
+.setting-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#set-show-keys {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--accent);
 }
 
 #btn-clear-progress,
