@@ -3,7 +3,8 @@ window.IMPULS = window.IMPULS || {};
 window.IMPULS.defaultSettings = {
   version: 1,
   showKeys: true,
-  optionLayout: "list"
+  optionLayout: "list",
+  uiSound: false
 };
 
 const copySettings = function (source) {
@@ -34,6 +35,9 @@ window.IMPULS.loadSettings = function () {
   }
   if (window.IMPULS.settings.optionLayout !== "table") {
     window.IMPULS.settings.optionLayout = "list";
+  }
+  if (window.IMPULS.settings.uiSound !== true) {
+    window.IMPULS.settings.uiSound = false;
   }
   return window.IMPULS.settings;
 };
@@ -83,6 +87,28 @@ const applyOptionLayout = function () {
   if (table) {
     table.checked = layout === "table";
   }
+};
+
+const applyUiSound = function () {
+  const on = window.IMPULS.settings.uiSound === true;
+  const box = document.getElementById("set-ui-sound");
+  if (box) {
+    box.checked = on;
+  }
+  if (!on && typeof window.IMPULS.stopUiSound === "function") {
+    window.IMPULS.stopUiSound();
+  }
+};
+
+const bindUiSound = function () {
+  const box = document.getElementById("set-ui-sound");
+  if (!box) {
+    return;
+  }
+  box.addEventListener("change", function () {
+    window.IMPULS.setSetting("uiSound", box.checked === true);
+    applyUiSound();
+  });
 };
 
 const bindOptionLayout = function () {
@@ -191,6 +217,8 @@ document.addEventListener("DOMContentLoaded", function () {
     applyShowKeys();
     bindOptionLayout();
     applyOptionLayout();
+    bindUiSound();
+    applyUiSound();
   } catch (err) {
     // Підтвердження стирання не обриває старт.
   }
@@ -199,3 +227,4 @@ document.addEventListener("DOMContentLoaded", function () {
 window.IMPULS.loadSettings();
 applyShowKeys();
 applyOptionLayout();
+applyUiSound();

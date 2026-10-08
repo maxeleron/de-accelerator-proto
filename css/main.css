@@ -714,6 +714,7 @@ html[data-option-layout="table"] .options button.is-hidden {
 }
 
 #set-show-keys,
+#set-ui-sound,
 #set-layout-list,
 #set-layout-table {
   width: 18px;

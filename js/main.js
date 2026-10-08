@@ -33,6 +33,14 @@ const abortGesture = {
   fromPointer: false
 };
 
+const playUi = function (kind) {
+  const fn = window.IMPULS.playUi;
+  if (typeof fn !== "function") {
+    return;
+  }
+  fn(kind);
+};
+
 const winSelectRoot = function () {
   return document.getElementById("win-select");
 };
@@ -107,6 +115,7 @@ const openRoundSetup = function () {
   btn.setAttribute("aria-expanded", "true");
   btn.setAttribute("aria-label", "Зберегти");
   renderMenu();
+  playUi("open");
 };
 
 const commitRoundSetup = function () {
@@ -418,6 +427,7 @@ const showMenuView = function () {
   const from = window.IMPULS.state.phase;
   window.IMPULS.setPhase("menu");
   showScreen("screen-menu");
+  playUi("open");
   if (from === "settings") {
     document.getElementById("btn-settings").focus();
     return;
@@ -447,6 +457,7 @@ const showSettingsView = function () {
   window.IMPULS.setPhase("settings");
   showScreen("screen-settings");
   document.getElementById("screen-settings").focus();
+  playUi("open");
 };
 
 const showBaseView = function () {
@@ -459,6 +470,7 @@ const showBaseView = function () {
   showScreen("screen-base");
   window.IMPULS.showBase(window.IMPULS.state.baseId || sections[0].id);
   document.getElementById("screen-base").focus();
+  playUi("open");
 };
 
 const applyHistoryState = function (state) {
@@ -635,6 +647,7 @@ const armedIndex = function () {
 };
 
 const setArmed = function (index) {
+  const before = armedIndex();
   for (let i = 1; i <= 4; i += 1) {
     document.getElementById("opt-" + i).classList.remove("is-armed");
   }
@@ -646,6 +659,9 @@ const setArmed = function (index) {
     return;
   }
   btn.classList.add("is-armed");
+  if (before !== index) {
+    playUi("click");
+  }
 };
 
 window.IMPULS.moveArmed = function (delta) {
@@ -904,6 +920,7 @@ const finishRound = function () {
     pack: state.pack
   });
   showScreen("screen-menu");
+  playUi("open");
   document.getElementById("repair-badge").classList.add("is-hidden");
   document.getElementById("timer").classList.remove("is-hit", "is-miss");
   clearPickFill();
@@ -959,6 +976,7 @@ const flash = function (verdict, optionIndex) {
   clearPickFill();
   // Стеля спалаху — 200 мс. Під смугою немає правила.
   timer.classList.add(verdict === "hit" ? "is-hit" : "is-miss");
+  playUi(verdict === "hit" ? "hit" : "miss");
   // Late і timeout не заливають кнопку: вибору немає.
   if (verdict === "hit" || verdict === "miss") {
     const btn = document.getElementById("opt-" + (optionIndex + 1));
@@ -1222,8 +1240,12 @@ window.IMPULS.selectPack = function (id) {
   if (window.IMPULS.state.phase !== "menu") {
     return;
   }
+  const prev = window.IMPULS.state.pack;
   window.IMPULS.setPack(id);
   renderMenu();
+  if (window.IMPULS.state.pack !== prev) {
+    playUi("click");
+  }
 };
 
 window.IMPULS.selectWindow = function (ms) {
@@ -1233,6 +1255,7 @@ window.IMPULS.selectWindow = function (ms) {
   if (!isWindow(ms)) {
     return;
   }
+  const prev = setupDraft ? setupDraft.windowMs : window.IMPULS.state.windowMs;
   if (setupDraft) {
     setupDraft.windowMs = ms;
   } else {
@@ -1240,6 +1263,9 @@ window.IMPULS.selectWindow = function (ms) {
   }
   renderMenu();
   closeWinSelect();
+  if (prev !== ms) {
+    playUi("click");
+  }
 };
 
 const stepWindow = function (delta) {
@@ -1436,33 +1462,27 @@ const bindClicks = function () {
   });
 
   document.querySelector('[data-pack="p1"]').addEventListener("click", function () {
-    window.IMPULS.setPack("p1");
-    renderMenu();
+    window.IMPULS.selectPack("p1");
   });
 
   document.querySelector('[data-pack="p2"]').addEventListener("click", function () {
-    window.IMPULS.setPack("p2");
-    renderMenu();
+    window.IMPULS.selectPack("p2");
   });
 
   document.querySelector('[data-pack="p3"]').addEventListener("click", function () {
-    window.IMPULS.setPack("p3");
-    renderMenu();
+    window.IMPULS.selectPack("p3");
   });
 
   document.querySelector('[data-pack="p4"]').addEventListener("click", function () {
-    window.IMPULS.setPack("p4");
-    renderMenu();
+    window.IMPULS.selectPack("p4");
   });
 
   document.querySelector('[data-pack="p5"]').addEventListener("click", function () {
-    window.IMPULS.setPack("p5");
-    renderMenu();
+    window.IMPULS.selectPack("p5");
   });
 
   document.getElementById("btn-mix").addEventListener("click", function () {
-    window.IMPULS.setPack("mix");
-    renderMenu();
+    window.IMPULS.selectPack("mix");
   });
 
   document.getElementById("btn-round-edit").addEventListener("click", function () {
