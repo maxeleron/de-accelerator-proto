@@ -610,6 +610,34 @@ html[data-show-keys="false"] .options button::after {
   display: none;
 }
 
+html[data-option-layout="table"] .options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* P5: четверта кнопка hidden — три плитки в один ряд, без дірки. */
+html[data-option-layout="table"] .options:has(#opt-4.is-hidden) {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+html[data-option-layout="table"] .options button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  padding: 0 38px;
+}
+
+html[data-option-layout="table"][data-show-keys="false"] .options button {
+  padding: 0 16px;
+}
+
+html[data-option-layout="table"] .options button.is-hidden {
+  display: none;
+}
+
 #screen-settings {
   width: 100%;
   max-width: 640px;
@@ -679,7 +707,15 @@ html[data-show-keys="false"] .options button::after {
   cursor: pointer;
 }
 
-#set-show-keys {
+.setting-radios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+#set-show-keys,
+#set-layout-list,
+#set-layout-table {
   width: 18px;
   height: 18px;
   margin: 0;

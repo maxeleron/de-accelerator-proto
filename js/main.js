@@ -679,6 +679,56 @@ window.IMPULS.moveArmed = function (delta) {
   setArmed(vis[pos]);
 };
 
+const isNextArrow = function (key) {
+  return key === "ArrowRight" || key === "ArrowDown";
+};
+
+const isPrevArrow = function (key) {
+  return key === "ArrowLeft" || key === "ArrowUp";
+};
+
+window.IMPULS.moveArmedByArrow = function (key) {
+  const table = window.IMPULS.settings && window.IMPULS.settings.optionLayout === "table";
+  if (!table) {
+    if (key === "ArrowDown") {
+      window.IMPULS.moveArmed(1);
+    }
+    if (key === "ArrowUp") {
+      window.IMPULS.moveArmed(-1);
+    }
+    return;
+  }
+  const vis = visibleOptIndexes();
+  // Три плитки в ряд, як P5: усі стрілки ходять по колу, hidden не чіпати.
+  if (vis.length !== 4) {
+    if (isNextArrow(key)) {
+      window.IMPULS.moveArmed(1);
+    }
+    if (isPrevArrow(key)) {
+      window.IMPULS.moveArmed(-1);
+    }
+    return;
+  }
+  const phase = window.IMPULS.state.phase;
+  if (phase !== "round" && phase !== "repair") {
+    return;
+  }
+  const now = armedIndex();
+  if (now < 0) {
+    setArmed(isNextArrow(key) ? vis[0] : vis[vis.length - 1]);
+    return;
+  }
+  const col = now % 2;
+  const row = now < 2 ? 0 : 1;
+  if (key === "ArrowRight" || key === "ArrowLeft") {
+    setArmed(row * 2 + (1 - col));
+    return;
+  }
+  if (key === "ArrowDown" || key === "ArrowUp") {
+    setArmed((1 - row) * 2 + col);
+  }
+};
+
 window.IMPULS.chooseArmed = function () {
   const index = armedIndex();
   if (index < 0) {

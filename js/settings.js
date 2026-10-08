@@ -2,7 +2,8 @@ window.IMPULS = window.IMPULS || {};
 
 window.IMPULS.defaultSettings = {
   version: 1,
-  showKeys: true
+  showKeys: true,
+  optionLayout: "list"
 };
 
 const copySettings = function (source) {
@@ -30,6 +31,9 @@ window.IMPULS.loadSettings = function () {
   window.IMPULS.settings = copySettings(saved);
   if (window.IMPULS.settings.showKeys !== false) {
     window.IMPULS.settings.showKeys = true;
+  }
+  if (window.IMPULS.settings.optionLayout !== "table") {
+    window.IMPULS.settings.optionLayout = "list";
   }
   return window.IMPULS.settings;
 };
@@ -66,6 +70,35 @@ const bindShowKeys = function () {
     window.IMPULS.setSetting("showKeys", box.checked);
     applyShowKeys();
   });
+};
+
+const applyOptionLayout = function () {
+  const layout = window.IMPULS.settings.optionLayout === "table" ? "table" : "list";
+  document.documentElement.setAttribute("data-option-layout", layout);
+  const list = document.getElementById("set-layout-list");
+  const table = document.getElementById("set-layout-table");
+  if (list) {
+    list.checked = layout === "list";
+  }
+  if (table) {
+    table.checked = layout === "table";
+  }
+};
+
+const bindOptionLayout = function () {
+  const list = document.getElementById("set-layout-list");
+  const table = document.getElementById("set-layout-table");
+  const onChange = function (event) {
+    const value = event.target.value === "table" ? "table" : "list";
+    window.IMPULS.setSetting("optionLayout", value);
+    applyOptionLayout();
+  };
+  if (list) {
+    list.addEventListener("change", onChange);
+  }
+  if (table) {
+    table.addEventListener("change", onChange);
+  }
 };
 
 const blankSeenPacks = function () {
@@ -156,6 +189,8 @@ document.addEventListener("DOMContentLoaded", function () {
     bindClearProgress();
     bindShowKeys();
     applyShowKeys();
+    bindOptionLayout();
+    applyOptionLayout();
   } catch (err) {
     // Підтвердження стирання не обриває старт.
   }
@@ -163,3 +198,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 window.IMPULS.loadSettings();
 applyShowKeys();
+applyOptionLayout();
