@@ -56,10 +56,65 @@ const isRoundSetupOpen = function () {
   return !document.getElementById("round-setup").classList.contains("is-hidden");
 };
 
-window.IMPULS.closeRoundSetup = function () {
+// Повзунок і межі до дискети — чорновик.
+let setupDraft = null;
+
+const setupWindowMs = function () {
+  if (setupDraft) {
+    return setupDraft.windowMs;
+  }
+  return window.IMPULS.state.windowMs;
+};
+
+const setupRoundSize = function () {
+  if (setupDraft) {
+    return setupDraft.roundSize;
+  }
+  return window.IMPULS.state.roundSize;
+};
+
+const hideRoundSetup = function () {
   document.getElementById("round-setup").classList.add("is-hidden");
-  document.getElementById("btn-round-edit").setAttribute("aria-expanded", "false");
+  const btn = document.getElementById("btn-round-edit");
+  btn.setAttribute("aria-expanded", "false");
+  btn.setAttribute("aria-label", "Параметри прогону");
   closeWinSelect();
+};
+
+const openRoundSetup = function () {
+  setupDraft = {
+    windowMs: window.IMPULS.state.windowMs,
+    roundSize: window.IMPULS.state.roundSize
+  };
+  document.getElementById("round-setup").classList.remove("is-hidden");
+  const btn = document.getElementById("btn-round-edit");
+  btn.setAttribute("aria-expanded", "true");
+  btn.setAttribute("aria-label", "Зберегти");
+  renderMenu();
+};
+
+const commitRoundSetup = function () {
+  if (setupDraft) {
+    window.IMPULS.setWindow(setupDraft.windowMs);
+    window.IMPULS.state.roundSize = setupDraft.roundSize;
+  }
+  setupDraft = null;
+  hideRoundSetup();
+  renderMenu();
+};
+
+const discardRoundSetup = function () {
+  setupDraft = null;
+  hideRoundSetup();
+  renderMenu();
+};
+
+window.IMPULS.closeRoundSetup = function () {
+  if (!isRoundSetupOpen() && !setupDraft) {
+    closeWinSelect();
+    return;
+  }
+  discardRoundSetup();
 };
 
 window.IMPULS.toggleRoundSetup = function () {
@@ -67,11 +122,10 @@ window.IMPULS.toggleRoundSetup = function () {
     return;
   }
   if (isRoundSetupOpen()) {
-    window.IMPULS.closeRoundSetup();
+    commitRoundSetup();
     return;
   }
-  document.getElementById("round-setup").classList.remove("is-hidden");
-  document.getElementById("btn-round-edit").setAttribute("aria-expanded", "true");
+  openRoundSetup();
 };
 
 const openWinSelect = function () {
@@ -255,28 +309,35 @@ const packCount = function (pack) {
   return n > 0 ? n : 1;
 };
 
+const clampSizeValue = function (n, max) {
+  if (typeof n !== "number" || !Number.isFinite(n) || n < 1) {
+    return max;
+  }
+  n = Math.floor(n);
+  if (n > max) {
+    return max;
+  }
+  if (n < 1) {
+    return 1;
+  }
+  return n;
+};
+
 const clampRoundSize = function () {
   const state = window.IMPULS.state;
   const max = packCount(state.pack);
-  let n = state.roundSize;
-  if (typeof n !== "number" || !Number.isFinite(n) || n < 1) {
-    n = max;
+  const n = clampSizeValue(setupRoundSize(), max);
+  if (setupDraft) {
+    setupDraft.roundSize = n;
   } else {
-    n = Math.floor(n);
-    if (n > max) {
-      n = max;
-    }
-    if (n < 1) {
-      n = 1;
-    }
+    state.roundSize = n;
   }
-  state.roundSize = n;
   return max;
 };
 
 const renderRoundSize = function () {
   const max = clampRoundSize();
-  const n = window.IMPULS.state.roundSize;
+  const n = setupRoundSize();
   const slider = document.getElementById("round-size");
   slider.min = "1";
   slider.max = String(max);
@@ -288,11 +349,12 @@ const renderMenu = function () {
   const state = window.IMPULS.state;
   document.getElementById("btn-start").textContent = startLabel(state.pack);
   renderRoundSize();
-  document.getElementById("win-select-current").textContent = windowOptionLabel(state.windowMs);
+  const windowMs = setupWindowMs();
+  document.getElementById("win-select-current").textContent = windowOptionLabel(windowMs);
   const items = winSelectRoot().querySelectorAll("[data-ms]");
   for (let i = 0; i < items.length; i += 1) {
     const ms = Number(items[i].getAttribute("data-ms"));
-    items[i].setAttribute("aria-selected", ms === state.windowMs ? "true" : "false");
+    items[i].setAttribute("aria-selected", ms === windowMs ? "true" : "false");
   }
   document.querySelector('[data-pack="p1"]').setAttribute("aria-pressed", state.pack === "p1" ? "true" : "false");
   document.querySelector('[data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
@@ -863,7 +925,11 @@ window.IMPULS.selectWindow = function (ms) {
   if (!isWindow(ms)) {
     return;
   }
-  window.IMPULS.setWindow(ms);
+  if (setupDraft) {
+    setupDraft.windowMs = ms;
+  } else {
+    window.IMPULS.setWindow(ms);
+  }
   renderMenu();
   closeWinSelect();
 };
@@ -872,7 +938,7 @@ const stepWindow = function (delta) {
   if (!isRoundSetupOpen()) {
     return;
   }
-  const index = windowOptionIndex(window.IMPULS.state.windowMs);
+  const index = windowOptionIndex(setupWindowMs());
   const next = index + delta;
   if (next < 0 || next >= WINDOW_OPTIONS.length) {
     return;
@@ -880,12 +946,27 @@ const stepWindow = function (delta) {
   window.IMPULS.selectWindow(WINDOW_OPTIONS[next].ms);
 };
 
+const stepRoundSize = function (delta) {
+  if (!isRoundSetupOpen() || !setupDraft) {
+    return;
+  }
+  const max = packCount(window.IMPULS.state.pack);
+  const next = setupRoundSize() + delta;
+  if (next < 1 || next > max) {
+    return;
+  }
+  setupDraft.roundSize = next;
+  renderRoundSize();
+};
+
 window.IMPULS.startRound = function () {
   if (window.IMPULS.state.phase !== "base" && !ensureMenuPhase()) {
     return;
   }
   const state = window.IMPULS.state;
-  window.IMPULS.closeRoundSetup();
+  if (isRoundSetupOpen()) {
+    commitRoundSetup();
+  }
   cancelFrame();
   clearFlash();
   const cards = window.IMPULS.loadCards();
@@ -1030,6 +1111,16 @@ const bindClicks = function () {
       return;
     }
     closeWinSelect();
+    if (!isRoundSetupOpen()) {
+      return;
+    }
+    const panel = document.getElementById("round-setup");
+    const editBtn = document.getElementById("btn-round-edit");
+    const startBtn = document.getElementById("btn-start");
+    if (panel.contains(event.target) || editBtn.contains(event.target) || startBtn.contains(event.target)) {
+      return;
+    }
+    discardRoundSetup();
   });
 
   document.querySelector('[data-pack="p1"]').addEventListener("click", function () {
@@ -1061,22 +1152,32 @@ const bindClicks = function () {
     window.IMPULS.toggleRoundSetup();
   });
 
-  document.getElementById("round-size").addEventListener("input", function (event) {
+  const sizeSlider = document.getElementById("round-size");
+  sizeSlider.addEventListener("input", function (event) {
     const max = packCount(window.IMPULS.state.pack);
-    let n = Number(event.target.value);
-    if (!Number.isFinite(n)) {
-      n = max;
+    const n = clampSizeValue(Number(event.target.value), max);
+    if (setupDraft) {
+      setupDraft.roundSize = n;
+    } else {
+      window.IMPULS.state.roundSize = n;
     }
-    n = Math.floor(n);
-    if (n < 1) {
-      n = 1;
-    }
-    if (n > max) {
-      n = max;
-    }
-    window.IMPULS.state.roundSize = n;
     renderRoundSize();
   });
+
+  // Над повзунком: крок у чорновик, на краях стоп, сторінку не скролити.
+  sizeSlider.addEventListener("wheel", function (event) {
+    event.preventDefault();
+    if (!isRoundSetupOpen()) {
+      return;
+    }
+    if (event.deltaY > 0) {
+      stepRoundSize(-1);
+      return;
+    }
+    if (event.deltaY < 0) {
+      stepRoundSize(1);
+    }
+  }, { passive: false });
 
   document.getElementById("btn-abort").addEventListener("click", function () {
     window.IMPULS.requestAbort();

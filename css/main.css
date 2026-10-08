@@ -135,16 +135,25 @@ h2 {
   background: var(--accent-hover);
 }
 
-#icon-round-edit {
+#icon-round-edit,
+#icon-round-save {
   width: 20px;
   height: 20px;
   fill: currentColor;
+}
+
+#btn-round-edit[aria-expanded="true"] #icon-round-edit,
+#btn-round-edit[aria-expanded="false"] #icon-round-save {
+  display: none;
 }
 
 #round-setup {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: calc((100% - 56px) * 0.8);
+  margin-inline-start: calc((100% - 56px) * 0.1);
+  align-self: flex-start;
 }
 
 #round-size-row {
