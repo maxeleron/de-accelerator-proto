@@ -747,6 +747,80 @@ html[data-option-layout="table"] .options button.is-hidden {
   display: none;
 }
 
+#answer-panel {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+}
+
+html[data-option-layout="keys"] .options {
+  display: none;
+}
+
+html[data-option-layout="keys"] #answer-panel {
+  display: flex;
+}
+
+#answer-input {
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  font-size: 28px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+#answer-input:focus {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+  border-color: var(--accent);
+}
+
+#answer-input.is-hit {
+  background: var(--hit);
+  border-color: var(--hit);
+  color: var(--on-fill);
+}
+
+#answer-input.is-miss {
+  background: var(--miss);
+  border-color: var(--miss);
+  color: var(--on-fill);
+}
+
+#umlaut-row {
+  display: flex;
+  gap: 8px;
+}
+
+#umlaut-row button {
+  flex: 1;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  font-size: 22px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+#umlaut-row button:hover {
+  border-color: var(--accent);
+}
+
+#win-select.is-disabled .win-select-face,
+#win-select[aria-disabled="true"] .win-select-face {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: default;
+}
+
 #screen-settings {
   width: 100%;
   max-width: 640px;
@@ -837,7 +911,8 @@ html[data-option-layout="table"] .options button.is-hidden {
 #set-speak-form,
 #set-shuffle-options,
 #set-layout-list,
-#set-layout-table {
+#set-layout-table,
+#set-layout-keys {
   width: 18px;
   height: 18px;
   margin: 0;

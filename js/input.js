@@ -92,10 +92,16 @@ const onMenuKey = function (event) {
   if (event.key < "1" || event.key > "9") {
     return;
   }
-  // 1–4 — межі лише коли панель прогону відкрита.
-  if (roundSetupOpen() && selectWindowKey(event.key)) {
-    event.preventDefault();
-    return;
+  // 1–4 — межі лише коли панель прогону відкрита; у keys клавіші меж не діють.
+  if (roundSetupOpen() && event.key >= "1" && event.key <= "4") {
+    if (window.IMPULS.settings && window.IMPULS.settings.optionLayout === "keys") {
+      event.preventDefault();
+      return;
+    }
+    if (selectWindowKey(event.key)) {
+      event.preventDefault();
+      return;
+    }
   }
   const n = Number(event.key);
   const buttons = packRowButtons();
@@ -108,6 +114,13 @@ const onMenuKey = function (event) {
 
 const onRoundKey = function (event) {
   if (event.key === "Escape") {
+    return;
+  }
+  if (window.IMPULS.settings && window.IMPULS.settings.optionLayout === "keys") {
+    if (event.key === "Enter" && !event.isComposing) {
+      event.preventDefault();
+      window.IMPULS.submitTyped();
+    }
     return;
   }
   if (

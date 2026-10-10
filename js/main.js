@@ -14,6 +14,10 @@ const t = function (key, vars) {
   return key;
 };
 
+const isKeysLayout = function () {
+  return window.IMPULS.settings && window.IMPULS.settings.optionLayout === "keys";
+};
+
 const VERDICTS = {
   hit: true,
   miss: true,
@@ -161,6 +165,9 @@ window.IMPULS.toggleRoundSetup = function () {
 };
 
 const openWinSelect = function () {
+  if (isKeysLayout()) {
+    return;
+  }
   const menu = winSelectMenu();
   const face = winSelectFace();
   if (!menu || !face) {
@@ -579,12 +586,25 @@ const renderMenu = function () {
   const state = window.IMPULS.state;
   document.getElementById("btn-start").textContent = startLabel();
   renderRoundSize();
-  const windowMs = setupWindowMs();
+  const keys = isKeysLayout();
+  const windowMs = keys ? 0 : setupWindowMs();
   document.getElementById("win-select-current").textContent = windowOptionLabel(windowMs);
   const items = winSelectRoot().querySelectorAll("[data-ms]");
   for (let i = 0; i < items.length; i += 1) {
     const ms = Number(items[i].getAttribute("data-ms"));
     items[i].setAttribute("aria-selected", ms === windowMs ? "true" : "false");
+  }
+  const winRoot = winSelectRoot();
+  if (winRoot) {
+    winRoot.setAttribute("aria-disabled", keys ? "true" : "false");
+    winRoot.classList.toggle("is-disabled", keys);
+  }
+  const winFace = winSelectFace();
+  if (winFace) {
+    winFace.disabled = keys;
+  }
+  if (keys) {
+    closeWinSelect();
   }
   const packOn = menuChoice === "pack";
   document.querySelector('#pack-rows [data-pack="p1"]').setAttribute("aria-pressed", packOn && state.pack === "p1" ? "true" : "false");
@@ -756,6 +776,13 @@ const bindHistory = function () {
 };
 
 const focusRound = function () {
+  if (isKeysLayout()) {
+    const input = document.getElementById("answer-input");
+    if (input) {
+      input.focus();
+      return;
+    }
+  }
   document.getElementById("screen-round").focus();
 };
 
@@ -829,8 +856,16 @@ const copyLatency = function (source) {
   return next;
 };
 
+const foldAnswer = function (value) {
+  let text = String(value).trim().toLowerCase();
+  text = text.replace(/ß/g, "ss");
+  text = text.replace(/ä/g, "a").replace(/ö/g, "o").replace(/ü/g, "u");
+  text = text.replace(/ae/g, "a").replace(/oe/g, "o").replace(/ue/g, "u");
+  return text;
+};
+
 const sameAnswer = function (pick, answer) {
-  return String(pick).trim().toLowerCase() === String(answer).trim().toLowerCase();
+  return foldAnswer(pick) === foldAnswer(answer);
 };
 
 const readRound = function () {
@@ -885,6 +920,10 @@ const clearFlash = function () {
 const clearPickFill = function () {
   for (let i = 1; i <= 4; i += 1) {
     document.getElementById("opt-" + i).classList.remove("is-hit", "is-miss", "is-armed");
+  }
+  const input = document.getElementById("answer-input");
+  if (input) {
+    input.classList.remove("is-hit", "is-miss");
   }
 };
 
@@ -975,6 +1014,9 @@ const isPrevArrow = function (key) {
 };
 
 window.IMPULS.moveArmedByArrow = function (key) {
+  if (isKeysLayout()) {
+    return;
+  }
   const table = window.IMPULS.settings && window.IMPULS.settings.optionLayout === "table";
   if (!table) {
     if (key === "ArrowDown" || key === "ArrowRight") {
@@ -1245,6 +1287,12 @@ const showNext = function () {
     btn.classList.toggle("is-hidden", !label);
     btn.classList.remove("is-armed", "is-hit", "is-miss");
   }
+  const input = document.getElementById("answer-input");
+  if (input) {
+    input.value = "";
+    input.classList.remove("is-hit", "is-miss");
+    input.readOnly = false;
+  }
   const total = Object.keys(state.first).length + state.main.length;
   const badge = document.getElementById("repair-badge");
   if (upcoming.repair) {
@@ -1256,8 +1304,8 @@ const showNext = function () {
     badge.classList.add("is-hidden");
   }
   focusRound();
-  // Хвіст без межі: смуга повна, timeout і late немає.
-  armTimer(upcoming.repair ? 0 : state.windowMs);
+  // Хвіст і режим keys: смуга повна, timeout і late немає.
+  armTimer(upcoming.repair || isKeysLayout() ? 0 : state.windowMs);
 };
 
 const flash = function (verdict, optionIndex) {
@@ -1276,9 +1324,17 @@ const flash = function (verdict, optionIndex) {
   }
   // Late і timeout не заливають кнопку: вибору немає.
   if (verdict === "hit" || verdict === "miss") {
-    const btn = document.getElementById("opt-" + (optionIndex + 1));
-    if (btn) {
-      btn.classList.add(verdict === "hit" ? "is-hit" : "is-miss");
+    if (isKeysLayout()) {
+      const input = document.getElementById("answer-input");
+      if (input) {
+        input.classList.add(verdict === "hit" ? "is-hit" : "is-miss");
+        input.readOnly = true;
+      }
+    } else {
+      const btn = document.getElementById("opt-" + (optionIndex + 1));
+      if (btn) {
+        btn.classList.add(verdict === "hit" ? "is-hit" : "is-miss");
+      }
     }
   }
   focusRound();
@@ -1380,14 +1436,49 @@ window.IMPULS.choose = function (index) {
   }
   const elapsed = performance.now() - state.cardStartedAt;
   let verdict = "miss";
-  // Хвіст і вікно 0: late немає, лише hit або miss.
-  const limit = state.phase === "repair" ? 0 : state.windowMs;
+  // Хвіст, keys і вікно 0: late немає, лише hit або miss.
+  const limit = state.phase === "repair" || isKeysLayout() ? 0 : state.windowMs;
   if (limit > 0 && elapsed >= limit) {
     verdict = "late";
   } else if (sameAnswer(pick, card.answer)) {
     verdict = "hit";
   }
   commit(verdict, elapsed, index);
+};
+
+window.IMPULS.submitTyped = function () {
+  const state = window.IMPULS.state;
+  if (state.phase !== "round" && state.phase !== "repair") {
+    return;
+  }
+  if (state.locked) {
+    return;
+  }
+  if (!isKeysLayout()) {
+    return;
+  }
+  const card = findCard(state.currentId);
+  if (!card) {
+    return;
+  }
+  const input = document.getElementById("answer-input");
+  const pick = input ? input.value : "";
+  const elapsed = performance.now() - state.cardStartedAt;
+  const verdict = sameAnswer(pick, card.answer) ? "hit" : "miss";
+  commit(verdict, elapsed, -1);
+};
+
+const insertUmlaut = function (letter) {
+  const input = document.getElementById("answer-input");
+  if (!input || input.readOnly) {
+    return;
+  }
+  const start = typeof input.selectionStart === "number" ? input.selectionStart : input.value.length;
+  const end = typeof input.selectionEnd === "number" ? input.selectionEnd : input.value.length;
+  input.value = input.value.slice(0, start) + letter + input.value.slice(end);
+  const pos = start + letter.length;
+  input.setSelectionRange(pos, pos);
+  input.focus();
 };
 
 const findSection = function (id) {
@@ -1595,6 +1686,9 @@ window.IMPULS.selectWindow = function (ms) {
   if (window.IMPULS.state.phase !== "menu") {
     return;
   }
+  if (isKeysLayout()) {
+    return;
+  }
   if (!isWindow(ms)) {
     return;
   }
@@ -1612,7 +1706,7 @@ window.IMPULS.selectWindow = function (ms) {
 };
 
 const stepWindow = function (delta) {
-  if (!isRoundSetupOpen()) {
+  if (!isRoundSetupOpen() || isKeysLayout()) {
     return;
   }
   const index = windowOptionIndex(setupWindowMs());
@@ -1787,6 +1881,9 @@ const bindClicks = function () {
 
   if (face) {
     face.addEventListener("click", function () {
+      if (isKeysLayout()) {
+        return;
+      }
       if (isWinSelectOpen()) {
         closeWinSelect();
         return;
@@ -2004,6 +2101,28 @@ const bindClicks = function () {
   for (let i = 1; i <= 4; i += 1) {
     document.getElementById("opt-" + i).addEventListener("click", function () {
       window.IMPULS.choose(i - 1);
+    });
+  }
+
+  const umlautRow = document.getElementById("umlaut-row");
+  if (umlautRow) {
+    umlautRow.addEventListener("click", function (event) {
+      const btn = event.target.closest("[data-letter]");
+      if (!btn || !umlautRow.contains(btn)) {
+        return;
+      }
+      insertUmlaut(btn.getAttribute("data-letter") || "");
+    });
+  }
+
+  const answerInput = document.getElementById("answer-input");
+  if (answerInput) {
+    answerInput.addEventListener("keydown", function (event) {
+      if (event.key !== "Enter" || event.isComposing) {
+        return;
+      }
+      event.preventDefault();
+      window.IMPULS.submitTyped();
     });
   }
 };

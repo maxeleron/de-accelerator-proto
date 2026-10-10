@@ -40,7 +40,7 @@ window.IMPULS.loadSettings = function () {
   if (window.IMPULS.settings.showKeys !== false) {
     window.IMPULS.settings.showKeys = true;
   }
-  if (window.IMPULS.settings.optionLayout !== "table") {
+  if (window.IMPULS.settings.optionLayout !== "table" && window.IMPULS.settings.optionLayout !== "keys") {
     window.IMPULS.settings.optionLayout = "list";
   }
   if (window.IMPULS.settings.uiSound !== true) {
@@ -127,15 +127,23 @@ const bindShowMedian = function () {
 };
 
 const applyOptionLayout = function () {
-  const layout = window.IMPULS.settings.optionLayout === "table" ? "table" : "list";
+  const raw = window.IMPULS.settings.optionLayout;
+  const layout = raw === "table" || raw === "keys" ? raw : "list";
   document.documentElement.setAttribute("data-option-layout", layout);
   const list = document.getElementById("set-layout-list");
   const table = document.getElementById("set-layout-table");
+  const keys = document.getElementById("set-layout-keys");
   if (list) {
     list.checked = layout === "list";
   }
   if (table) {
     table.checked = layout === "table";
+  }
+  if (keys) {
+    keys.checked = layout === "keys";
+  }
+  if (typeof window.IMPULS.refreshChrome === "function") {
+    window.IMPULS.refreshChrome();
   }
 };
 
@@ -386,8 +394,10 @@ const bindSpeakForm = function () {
 const bindOptionLayout = function () {
   const list = document.getElementById("set-layout-list");
   const table = document.getElementById("set-layout-table");
+  const keys = document.getElementById("set-layout-keys");
   const onChange = function (event) {
-    const value = event.target.value === "table" ? "table" : "list";
+    const raw = event.target.value;
+    const value = raw === "table" || raw === "keys" ? raw : "list";
     window.IMPULS.setSetting("optionLayout", value);
     applyOptionLayout();
   };
@@ -396,6 +406,9 @@ const bindOptionLayout = function () {
   }
   if (table) {
     table.addEventListener("change", onChange);
+  }
+  if (keys) {
+    keys.addEventListener("change", onChange);
   }
 };
 

@@ -192,6 +192,15 @@
       <button type="button" id="opt-3"></button>
       <button type="button" id="opt-4"></button>
     </div>
+    <div id="answer-panel">
+      <input type="text" id="answer-input" autocomplete="off" autocapitalize="off" spellcheck="false" data-i18n-aria="round.answer" aria-label="Відповідь">
+      <div id="umlaut-row">
+        <button type="button" data-letter="ä">ä</button>
+        <button type="button" data-letter="ö">ö</button>
+        <button type="button" data-letter="ü">ü</button>
+        <button type="button" data-letter="ß">ß</button>
+      </div>
+    </div>
   </section>
 
   <section id="screen-settings" class="is-hidden" tabindex="-1">
@@ -251,6 +260,10 @@
         <label class="setting-check">
           <input type="radio" name="option-layout" id="set-layout-table" value="table">
           <span data-i18n="settings.table">Таблиця</span>
+        </label>
+        <label class="setting-check">
+          <input type="radio" name="option-layout" id="set-layout-keys" value="keys">
+          <span data-i18n="settings.keys">Клавіатура</span>
         </label>
       </div>
       <label class="setting-check">
