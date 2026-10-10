@@ -189,6 +189,9 @@ const startLabel = function (pack) {
 };
 
 const PACK_IDS = ["p1", "p2", "p3", "p4", "p5"];
+const PACK_ORDER = ["p1", "p2", "p3", "p4", "p5", "mix"];
+const WORKSHOP_ORDER = ["verbs", "ear", "text"];
+let workshopPick = "verbs";
 
 const packDeck = function (pack) {
   if (pack === "p2") {
@@ -316,7 +319,7 @@ const renderPackSeen = function () {
   const seen = loadSeen();
   for (let i = 0; i < PACK_IDS.length; i += 1) {
     const pack = PACK_IDS[i];
-    const label = document.querySelector('[data-pack="' + pack + '"] .pack-seen');
+    const label = document.querySelector('#pack-rows [data-pack="' + pack + '"] .pack-seen');
     if (!label) {
       continue;
     }
@@ -370,6 +373,203 @@ const renderRoundSize = function () {
   document.getElementById("round-size-label").textContent = n + " / " + max;
 };
 
+const packI18nKey = function (id) {
+  return id === "mix" ? "pack.mix" : "pack." + id;
+};
+
+const workshopI18nKey = function (id) {
+  return "workshop." + id;
+};
+
+const isPackFolded = function () {
+  return window.IMPULS.settings && window.IMPULS.settings.packFolded === true;
+};
+
+const isWorkshopFolded = function () {
+  return window.IMPULS.settings && window.IMPULS.settings.workshopFolded === true;
+};
+
+const foldSelectRoot = function (id) {
+  return document.getElementById(id);
+};
+
+const foldSelectFace = function (root) {
+  return root ? root.querySelector(".win-select-face") : null;
+};
+
+const foldSelectMenu = function (root) {
+  return root ? root.querySelector(".win-select-menu") : null;
+};
+
+const isFoldSelectOpen = function (root) {
+  const menu = foldSelectMenu(root);
+  return menu && !menu.classList.contains("is-hidden");
+};
+
+const closeFoldSelect = function (root) {
+  const menu = foldSelectMenu(root);
+  const face = foldSelectFace(root);
+  if (!menu || !face) {
+    return;
+  }
+  menu.classList.add("is-hidden");
+  face.setAttribute("aria-expanded", "false");
+};
+
+const closeFoldSelects = function () {
+  closeFoldSelect(foldSelectRoot("pack-select"));
+  closeFoldSelect(foldSelectRoot("workshop-select"));
+};
+
+const openFoldSelect = function (root) {
+  closeWinSelect();
+  closeFoldSelects();
+  const menu = foldSelectMenu(root);
+  const face = foldSelectFace(root);
+  if (!menu || !face) {
+    return;
+  }
+  menu.classList.remove("is-hidden");
+  face.setAttribute("aria-expanded", "true");
+};
+
+const renderFoldButton = function (btnId, folded) {
+  const btn = document.getElementById(btnId);
+  if (!btn) {
+    return;
+  }
+  btn.setAttribute("aria-expanded", folded ? "false" : "true");
+  btn.setAttribute("aria-label", folded ? t("menu.expand") : t("menu.collapse"));
+};
+
+const renderSectionFold = function (folded, rowsId, selectId, btnId) {
+  const rows = document.getElementById(rowsId);
+  const select = document.getElementById(selectId);
+  if (rows) {
+    rows.classList.toggle("is-hidden", folded);
+  }
+  if (select) {
+    select.classList.toggle("is-hidden", !folded);
+    if (!folded) {
+      closeFoldSelect(select);
+    }
+  }
+  renderFoldButton(btnId, folded);
+};
+
+const renderPackSelect = function () {
+  const root = foldSelectRoot("pack-select");
+  if (!root) {
+    return;
+  }
+  const pack = window.IMPULS.state.pack;
+  const current = document.getElementById("pack-select-current");
+  if (current) {
+    current.textContent = t(packI18nKey(pack));
+  }
+  const items = root.querySelectorAll("[data-pack]");
+  for (let i = 0; i < items.length; i += 1) {
+    const id = items[i].getAttribute("data-pack");
+    items[i].setAttribute("aria-selected", id === pack ? "true" : "false");
+  }
+};
+
+const renderWorkshopSelect = function () {
+  const root = foldSelectRoot("workshop-select");
+  if (!root) {
+    return;
+  }
+  const current = document.getElementById("workshop-select-current");
+  if (current) {
+    current.textContent = t(workshopI18nKey(workshopPick));
+  }
+  const items = root.querySelectorAll("[data-workshop]");
+  for (let i = 0; i < items.length; i += 1) {
+    const id = items[i].getAttribute("data-workshop");
+    items[i].setAttribute("aria-selected", id === workshopPick ? "true" : "false");
+  }
+};
+
+const renderFolds = function () {
+  renderSectionFold(isPackFolded(), "pack-rows", "pack-select", "btn-pack-fold");
+  renderSectionFold(isWorkshopFolded(), "workshop-rows", "workshop-select", "btn-workshop-fold");
+  renderPackSelect();
+  renderWorkshopSelect();
+};
+
+const toggleFoldSetting = function (key) {
+  const next = window.IMPULS.settings[key] !== true;
+  window.IMPULS.setSetting(key, next);
+  renderFolds();
+};
+
+const stepPackFold = function (delta) {
+  let index = PACK_ORDER.indexOf(window.IMPULS.state.pack);
+  if (index < 0) {
+    index = 0;
+  }
+  const next = index + delta;
+  if (next < 0 || next >= PACK_ORDER.length) {
+    return;
+  }
+  window.IMPULS.selectPack(PACK_ORDER[next]);
+};
+
+const stepWorkshopFold = function (delta) {
+  let index = WORKSHOP_ORDER.indexOf(workshopPick);
+  if (index < 0) {
+    index = 0;
+  }
+  const next = index + delta;
+  if (next < 0 || next >= WORKSHOP_ORDER.length) {
+    return;
+  }
+  workshopPick = WORKSHOP_ORDER[next];
+  renderWorkshopSelect();
+};
+
+const bindFoldSelect = function (rootId, onPick, onStep) {
+  const root = foldSelectRoot(rootId);
+  if (!root) {
+    return;
+  }
+  const face = foldSelectFace(root);
+  const menu = foldSelectMenu(root);
+  if (face) {
+    face.addEventListener("click", function () {
+      if (isFoldSelectOpen(root)) {
+        closeFoldSelect(root);
+        return;
+      }
+      openFoldSelect(root);
+    });
+  }
+  root.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  });
+  // Колесо гортає лише закритий список; на краях стоп, сторінку не скролити.
+  root.addEventListener("wheel", function (event) {
+    event.preventDefault();
+    if (isFoldSelectOpen(root)) {
+      return;
+    }
+    if (event.deltaY > 0) {
+      onStep(1);
+      return;
+    }
+    if (event.deltaY < 0) {
+      onStep(-1);
+    }
+  }, { passive: false });
+  if (menu) {
+    menu.addEventListener("click", function (event) {
+      onPick(event, root);
+    });
+  }
+};
+
 const renderMenu = function () {
   const state = window.IMPULS.state;
   document.getElementById("btn-start").textContent = startLabel(state.pack);
@@ -381,17 +581,18 @@ const renderMenu = function () {
     const ms = Number(items[i].getAttribute("data-ms"));
     items[i].setAttribute("aria-selected", ms === windowMs ? "true" : "false");
   }
-  document.querySelector('[data-pack="p1"]').setAttribute("aria-pressed", state.pack === "p1" ? "true" : "false");
-  document.querySelector('[data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
-  document.querySelector('[data-pack="p3"]').setAttribute("aria-pressed", state.pack === "p3" ? "true" : "false");
-  document.querySelector('[data-pack="p4"]').setAttribute("aria-pressed", state.pack === "p4" ? "true" : "false");
-  document.querySelector('[data-pack="p5"]').setAttribute("aria-pressed", state.pack === "p5" ? "true" : "false");
+  document.querySelector('#pack-rows [data-pack="p1"]').setAttribute("aria-pressed", state.pack === "p1" ? "true" : "false");
+  document.querySelector('#pack-rows [data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
+  document.querySelector('#pack-rows [data-pack="p3"]').setAttribute("aria-pressed", state.pack === "p3" ? "true" : "false");
+  document.querySelector('#pack-rows [data-pack="p4"]').setAttribute("aria-pressed", state.pack === "p4" ? "true" : "false");
+  document.querySelector('#pack-rows [data-pack="p5"]').setAttribute("aria-pressed", state.pack === "p5" ? "true" : "false");
   const mixBtn = document.getElementById("btn-mix");
   if (mixBtn) {
     mixBtn.setAttribute("aria-pressed", state.pack === "mix" ? "true" : "false");
   }
   renderPackSeen();
   renderMedian();
+  renderFolds();
 };
 
 const firstHitTimes = function () {
@@ -548,6 +749,14 @@ const focusRound = function () {
 };
 
 const findCard = function (id) {
+  const extra = window.IMPULS.state && window.IMPULS.state.workshopCards;
+  if (extra) {
+    for (let i = 0; i < extra.length; i += 1) {
+      if (extra[i].id === id) {
+        return extra[i];
+      }
+    }
+  }
   const cards = window.IMPULS.loadCards();
   for (let i = 0; i < cards.length; i += 1) {
     if (cards[i].id === id) {
@@ -566,7 +775,7 @@ const copyVerdicts = function (source) {
   for (let i = 0; i < ids.length; i += 1) {
     const id = ids[i];
     const verdict = source[id];
-    if (findCard(id) && VERDICTS[verdict]) {
+    if (VERDICTS[verdict] && (findCard(id) || (typeof id === "string" && id.indexOf("wv-") === 0))) {
       next[id] = verdict;
     }
   }
@@ -602,7 +811,7 @@ const copyLatency = function (source) {
   for (let i = 0; i < ids.length; i += 1) {
     const id = ids[i];
     const ms = source[id];
-    if (findCard(id) && typeof ms === "number" && Number.isFinite(ms)) {
+    if ((findCard(id) || (typeof id === "string" && id.indexOf("wv-") === 0)) && typeof ms === "number" && Number.isFinite(ms)) {
       next[id] = ms;
     }
   }
@@ -634,6 +843,8 @@ const persistActive = function () {
   writeRound({
     done: false,
     pack: state.pack,
+    workshop: state.workshop || null,
+    workshopCards: state.workshopCards ? state.workshopCards.slice() : null,
     windowMs: state.windowMs,
     phase: state.phase,
     main: state.main.slice(),
@@ -966,12 +1177,16 @@ const finishRound = function () {
   state.main = [];
   state.repair = [];
   window.IMPULS.setPhase("menu");
+  const first = copyVerdicts(state.first);
+  const latency = copyLatency(state.latency);
+  state.workshop = null;
+  state.workshopCards = null;
   writeRound({
     done: true,
     windowMs: state.windowMs,
     pack: state.pack,
-    first: copyVerdicts(state.first),
-    latency: copyLatency(state.latency)
+    first: first,
+    latency: latency
   });
   showScreen("screen-menu");
   playUi("open");
@@ -998,7 +1213,9 @@ const showNext = function () {
     return;
   }
   state.currentId = upcoming.id;
-  markSeen(packOfCardId(card.id), card.id);
+  if (!state.workshop) {
+    markSeen(packOfCardId(card.id), card.id);
+  }
   if (window.IMPULS.settings && window.IMPULS.settings.shuffleOptions === false) {
     state.presented = card.options.slice();
   } else {
@@ -1400,12 +1617,46 @@ window.IMPULS.startRound = function () {
   }
   cancelFrame();
   clearFlash();
+  state.workshop = null;
+  state.workshopCards = null;
   const cards = window.IMPULS.loadCards();
   if (!cards.length) {
     return;
   }
   clampRoundSize();
   state.main = window.IMPULS.buildQueue(cards, state.roundSize);
+  state.repair = [];
+  state.first = {};
+  state.latency = {};
+  state.currentId = null;
+  state.presented = [];
+  state.locked = false;
+  abortPending = false;
+  resetAbortUi();
+  window.IMPULS.setPhase("round");
+  persistActive();
+  showScreen("screen-round");
+  showNext();
+};
+
+window.IMPULS.startWorkshopVerbs = function () {
+  if (!ensureMenuPhase()) {
+    return;
+  }
+  const state = window.IMPULS.state;
+  if (isRoundSetupOpen()) {
+    commitRoundSetup();
+  }
+  cancelFrame();
+  clearFlash();
+  clampRoundSize();
+  const cards = window.IMPULS.buildVerbCards(state.roundSize);
+  if (!cards.length) {
+    return;
+  }
+  state.workshop = "verbs";
+  state.workshopCards = cards;
+  state.main = window.IMPULS.buildQueue(cards, cards.length);
   state.repair = [];
   state.first = {};
   state.latency = {};
@@ -1444,6 +1695,13 @@ const restoreRound = function () {
   window.IMPULS.setWindow(normalizeWindow(saved.windowMs));
   if (saved.pack === "p1" || saved.pack === "p2" || saved.pack === "p3" || saved.pack === "p4" || saved.pack === "p5" || saved.pack === "mix") {
     window.IMPULS.setPack(saved.pack);
+  }
+  if (saved.workshop === "verbs" && Array.isArray(saved.workshopCards) && saved.workshopCards.length) {
+    window.IMPULS.state.workshop = "verbs";
+    window.IMPULS.state.workshopCards = saved.workshopCards.slice();
+  } else {
+    window.IMPULS.state.workshop = null;
+    window.IMPULS.state.workshopCards = null;
   }
   if (saved.done === true) {
     window.IMPULS.state.first = copyVerdicts(saved.first);
@@ -1544,6 +1802,14 @@ const bindClicks = function () {
   }
 
   document.addEventListener("click", function (event) {
+    const packSel = foldSelectRoot("pack-select");
+    const shopSel = foldSelectRoot("workshop-select");
+    if (!packSel || !packSel.contains(event.target)) {
+      closeFoldSelect(packSel);
+    }
+    if (!shopSel || !shopSel.contains(event.target)) {
+      closeFoldSelect(shopSel);
+    }
     if (root && root.contains(event.target)) {
       return;
     }
@@ -1560,29 +1826,71 @@ const bindClicks = function () {
     discardRoundSetup();
   });
 
-  document.querySelector('[data-pack="p1"]').addEventListener("click", function () {
+  document.querySelector('#pack-rows [data-pack="p1"]').addEventListener("click", function () {
     window.IMPULS.selectPack("p1");
   });
 
-  document.querySelector('[data-pack="p2"]').addEventListener("click", function () {
+  document.querySelector('#pack-rows [data-pack="p2"]').addEventListener("click", function () {
     window.IMPULS.selectPack("p2");
   });
 
-  document.querySelector('[data-pack="p3"]').addEventListener("click", function () {
+  document.querySelector('#pack-rows [data-pack="p3"]').addEventListener("click", function () {
     window.IMPULS.selectPack("p3");
   });
 
-  document.querySelector('[data-pack="p4"]').addEventListener("click", function () {
+  document.querySelector('#pack-rows [data-pack="p4"]').addEventListener("click", function () {
     window.IMPULS.selectPack("p4");
   });
 
-  document.querySelector('[data-pack="p5"]').addEventListener("click", function () {
+  document.querySelector('#pack-rows [data-pack="p5"]').addEventListener("click", function () {
     window.IMPULS.selectPack("p5");
   });
 
   document.getElementById("btn-mix").addEventListener("click", function () {
     window.IMPULS.selectPack("mix");
   });
+
+  document.getElementById("btn-pack-fold").addEventListener("click", function () {
+    toggleFoldSetting("packFolded");
+  });
+
+  document.getElementById("btn-workshop-fold").addEventListener("click", function () {
+    toggleFoldSetting("workshopFolded");
+  });
+
+  bindFoldSelect("pack-select", function (event, root) {
+    const item = event.target.closest("[data-pack]");
+    if (!item || !root.contains(item)) {
+      return;
+    }
+    window.IMPULS.selectPack(item.getAttribute("data-pack"));
+    closeFoldSelect(root);
+  }, stepPackFold);
+
+  bindFoldSelect("workshop-select", function (event, root) {
+    const item = event.target.closest("[data-workshop]");
+    if (!item || !root.contains(item)) {
+      return;
+    }
+    const id = item.getAttribute("data-workshop") || "verbs";
+    workshopPick = id;
+    renderWorkshopSelect();
+    closeFoldSelect(root);
+    if (id === "verbs") {
+      window.IMPULS.startWorkshopVerbs();
+      return;
+    }
+    // stub
+  }, stepWorkshopFold);
+
+  const verbsBtn = document.querySelector('#workshop-rows [data-workshop="verbs"]');
+  if (verbsBtn) {
+    verbsBtn.addEventListener("click", function () {
+      workshopPick = "verbs";
+      renderWorkshopSelect();
+      window.IMPULS.startWorkshopVerbs();
+    });
+  }
 
   document.getElementById("btn-round-edit").addEventListener("click", function () {
     window.IMPULS.toggleRoundSetup();

@@ -12,6 +12,8 @@ window.IMPULS.state = {
   first: {},
   latency: {},
   baseId: null,
+  workshop: null,
+  workshopCards: null,
   cardStartedAt: 0,
   locked: false,
   rafId: 0

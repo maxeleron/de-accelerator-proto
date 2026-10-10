@@ -8,7 +8,9 @@ window.IMPULS.defaultSettings = {
   speakForm: false,
   shuffleOptions: true,
   uiLang: "uk",
-  glossLang: "uk"
+  glossLang: "uk",
+  packFolded: false,
+  workshopFolded: false
 };
 
 const copySettings = function (source) {
@@ -54,6 +56,12 @@ window.IMPULS.loadSettings = function () {
   }
   if (window.IMPULS.settings.glossLang !== "en" && window.IMPULS.settings.glossLang !== "de" && window.IMPULS.settings.glossLang !== "off") {
     window.IMPULS.settings.glossLang = "uk";
+  }
+  if (window.IMPULS.settings.packFolded !== true) {
+    window.IMPULS.settings.packFolded = false;
+  }
+  if (window.IMPULS.settings.workshopFolded !== true) {
+    window.IMPULS.settings.workshopFolded = false;
   }
   return window.IMPULS.settings;
 };

@@ -73,8 +73,15 @@
     </section>
 
     <section class="block" aria-labelledby="label-pack">
-      <h2 id="label-pack" data-i18n="menu.pack">Пакет</h2>
-      <div class="rows">
+      <div class="block-head">
+        <h2 id="label-pack" data-i18n="menu.pack">Пакет</h2>
+        <button type="button" id="btn-pack-fold" aria-expanded="true" aria-controls="pack-rows" aria-label="Згорнути">
+          <svg class="fold-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 14l4-4 4 4"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="rows" id="pack-rows">
         <button type="button" data-pack="p1" aria-pressed="true">
           <span class="pack-name" data-i18n="pack.p1">P1 Дієслово sein / haben</span>
           <span class="pack-seen">0 / 14</span>
@@ -99,6 +106,53 @@
           <span class="pack-name" data-i18n="pack.mix">PX Усі пакети</span>
           <span class="pack-seen">116</span>
         </button>
+      </div>
+      <div id="pack-select" class="is-hidden">
+        <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-pack pack-select-current">
+          <span id="pack-select-current">P1 Дієслово sein / haben</span>
+          <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 9l4-4 4 4"></path>
+            <path d="M8 15l4 4 4-4"></path>
+          </svg>
+        </button>
+        <div class="win-select-menu is-hidden">
+          <button type="button" data-pack="p1" data-i18n="pack.p1">P1 Дієслово sein / haben</button>
+          <button type="button" data-pack="p2" data-i18n="pack.p2">P2 Особові закінчення</button>
+          <button type="button" data-pack="p3" data-i18n="pack.p3">P3 Артикль називний</button>
+          <button type="button" data-pack="p4" data-i18n="pack.p4">P4 Артикль знахідний</button>
+          <button type="button" data-pack="p5" data-i18n="pack.p5">P5 Порядок V2</button>
+          <button type="button" data-pack="mix" data-i18n="pack.mix">PX Усі пакети</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="label-workshop">
+      <div class="block-head">
+        <h2 id="label-workshop" data-i18n="menu.workshop">Майстерня</h2>
+        <button type="button" id="btn-workshop-fold" aria-expanded="true" aria-controls="workshop-rows" aria-label="Згорнути">
+          <svg class="fold-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 14l4-4 4 4"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="workshop-rows" id="workshop-rows">
+        <button type="button" data-workshop="verbs" data-i18n="workshop.verbs">Дієслова</button>
+        <button type="button" aria-disabled="true" data-i18n="workshop.ear">Слух</button>
+        <button type="button" aria-disabled="true" data-i18n="workshop.text">Текст</button>
+      </div>
+      <div id="workshop-select" class="is-hidden">
+        <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-workshop workshop-select-current">
+          <span id="workshop-select-current">Дієслова</span>
+          <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 9l4-4 4 4"></path>
+            <path d="M8 15l4 4 4-4"></path>
+          </svg>
+        </button>
+        <div class="win-select-menu is-hidden">
+          <button type="button" data-workshop="verbs" data-i18n="workshop.verbs" aria-selected="true">Дієслова</button>
+          <button type="button" data-workshop="ear" data-i18n="workshop.ear" aria-selected="false">Слух</button>
+          <button type="button" data-workshop="text" data-i18n="workshop.text" aria-selected="false">Текст</button>
+        </div>
       </div>
     </section>
 

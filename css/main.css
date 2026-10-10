@@ -94,6 +94,48 @@ h2 {
   color: var(--muted);
 }
 
+.block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#btn-pack-fold,
+#btn-workshop-fold {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+#btn-pack-fold:hover,
+#btn-workshop-fold:hover {
+  color: var(--text);
+}
+
+.fold-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#btn-pack-fold[aria-expanded="false"] .fold-icon,
+#btn-workshop-fold[aria-expanded="false"] .fold-icon {
+  transform: rotate(180deg);
+}
+
 #start-split {
   display: flex;
   width: 100%;
@@ -216,13 +258,15 @@ h2 {
   fill: currentColor;
 }
 
-.rows {
+.rows,
+.workshop-rows {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.rows button {
+.rows button,
+.workshop-rows button {
   width: 100%;
   height: 48px;
   padding: 0 16px;
@@ -234,6 +278,17 @@ h2 {
   border: 1px solid var(--border);
   border-radius: 4px;
   background: var(--surface);
+}
+
+.rows button {
+  cursor: pointer;
+}
+
+.workshop-rows button {
+  cursor: default;
+}
+
+.workshop-rows button[data-workshop="verbs"] {
   cursor: pointer;
 }
 
@@ -261,13 +316,17 @@ h2 {
 
 #win-select,
 #set-ui-lang,
-#set-gloss-lang {
+#set-gloss-lang,
+#pack-select,
+#workshop-select {
   position: relative;
 }
 
 #win-select .win-select-face,
 #set-ui-lang .win-select-face,
-#set-gloss-lang .win-select-face {
+#set-gloss-lang .win-select-face,
+#pack-select .win-select-face,
+#workshop-select .win-select-face {
   width: 100%;
   height: 48px;
   padding: 0 16px;
@@ -284,13 +343,17 @@ h2 {
 
 #win-select .win-select-face[aria-expanded="true"],
 #set-ui-lang .win-select-face[aria-expanded="true"],
-#set-gloss-lang .win-select-face[aria-expanded="true"] {
+#set-gloss-lang .win-select-face[aria-expanded="true"],
+#pack-select .win-select-face[aria-expanded="true"],
+#workshop-select .win-select-face[aria-expanded="true"] {
   border-color: var(--accent);
 }
 
 #win-select .win-select-icon,
 #set-ui-lang .win-select-icon,
-#set-gloss-lang .win-select-icon {
+#set-gloss-lang .win-select-icon,
+#pack-select .win-select-icon,
+#workshop-select .win-select-icon {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
@@ -303,7 +366,9 @@ h2 {
 
 #win-select .win-select-menu,
 #set-ui-lang .win-select-menu,
-#set-gloss-lang .win-select-menu {
+#set-gloss-lang .win-select-menu,
+#pack-select .win-select-menu,
+#workshop-select .win-select-menu {
   position: absolute;
   z-index: 5;
   left: 0;
@@ -319,13 +384,17 @@ h2 {
 
 html[data-theme="light"] #win-select .win-select-menu,
 html[data-theme="light"] #set-ui-lang .win-select-menu,
-html[data-theme="light"] #set-gloss-lang .win-select-menu {
+html[data-theme="light"] #set-gloss-lang .win-select-menu,
+html[data-theme="light"] #pack-select .win-select-menu,
+html[data-theme="light"] #workshop-select .win-select-menu {
   background: var(--surface);
 }
 
 #win-select .win-select-menu button,
 #set-ui-lang .win-select-menu button,
-#set-gloss-lang .win-select-menu button {
+#set-gloss-lang .win-select-menu button,
+#pack-select .win-select-menu button,
+#workshop-select .win-select-menu button {
   width: 100%;
   height: 48px;
   padding: 0 16px;
@@ -338,13 +407,17 @@ html[data-theme="light"] #set-gloss-lang .win-select-menu {
 
 #win-select .win-select-menu button[aria-selected="true"],
 #set-ui-lang .win-select-menu button[aria-selected="true"],
-#set-gloss-lang .win-select-menu button[aria-selected="true"] {
+#set-gloss-lang .win-select-menu button[aria-selected="true"],
+#pack-select .win-select-menu button[aria-selected="true"],
+#workshop-select .win-select-menu button[aria-selected="true"] {
   box-shadow: inset 3px 0 0 var(--accent);
 }
 
 #win-select .win-select-menu button:hover,
 #set-ui-lang .win-select-menu button:hover,
-#set-gloss-lang .win-select-menu button:hover {
+#set-gloss-lang .win-select-menu button:hover,
+#pack-select .win-select-menu button:hover,
+#workshop-select .win-select-menu button:hover {
   background: var(--surface);
 }
 
@@ -442,6 +515,12 @@ html[data-theme="light"] #icon-moon {
 #win-select .win-select-menu.is-hidden,
 #set-ui-lang .win-select-menu.is-hidden,
 #set-gloss-lang .win-select-menu.is-hidden,
+#pack-select .win-select-menu.is-hidden,
+#workshop-select .win-select-menu.is-hidden,
+.rows.is-hidden,
+.workshop-rows.is-hidden,
+#pack-select.is-hidden,
+#workshop-select.is-hidden,
 #round-setup.is-hidden,
 #stat-median.is-hidden,
 #btn-clear-progress.is-hidden,

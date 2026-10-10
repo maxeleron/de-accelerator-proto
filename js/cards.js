@@ -1609,3 +1609,556 @@ window.IMPULS.loadCards = function () {
   }
   return window.IMPULS.cards;
 };
+
+// data/verbs-regular.json — джерело правди. Копія тут, бо file:// не дає fetch.
+window.IMPULS.verbsRegular = [
+  {
+    "infinitive": "machen",
+    "gloss": "робити",
+    "glossEn": "to do",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "lernen",
+    "gloss": "вчити",
+    "glossEn": "to learn",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "wohnen",
+    "gloss": "мешкати",
+    "glossEn": "to live",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "arbeiten",
+    "gloss": "працювати",
+    "glossEn": "to work",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "spielen",
+    "gloss": "грати",
+    "glossEn": "to play",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "kaufen",
+    "gloss": "купувати",
+    "glossEn": "to buy",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "brauchen",
+    "gloss": "потребувати",
+    "glossEn": "to need",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "suchen",
+    "gloss": "шукати",
+    "glossEn": "to look for",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "hören",
+    "gloss": "чути",
+    "glossEn": "to hear",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "fragen",
+    "gloss": "питати",
+    "glossEn": "to ask",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "sagen",
+    "gloss": "казати",
+    "glossEn": "to say",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "antworten",
+    "gloss": "відповідати",
+    "glossEn": "to answer",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "leben",
+    "gloss": "жити",
+    "glossEn": "to live",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "lieben",
+    "gloss": "любити",
+    "glossEn": "to love",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "kochen",
+    "gloss": "готувати",
+    "glossEn": "to cook",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "öffnen",
+    "gloss": "відкривати",
+    "glossEn": "to open",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "stellen",
+    "gloss": "ставити",
+    "glossEn": "to put",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "legen",
+    "gloss": "класти",
+    "glossEn": "to lay",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "holen",
+    "gloss": "приносити",
+    "glossEn": "to fetch",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "warten",
+    "gloss": "чекати",
+    "glossEn": "to wait",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "zeigen",
+    "gloss": "показувати",
+    "glossEn": "to show",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "erzählen",
+    "gloss": "розповідати",
+    "glossEn": "to tell",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "erklären",
+    "gloss": "пояснювати",
+    "glossEn": "to explain",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "wiederholen",
+    "gloss": "повторювати",
+    "glossEn": "to repeat",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "üben",
+    "gloss": "практикувати",
+    "glossEn": "to practice",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "besuchen",
+    "gloss": "відвідувати",
+    "glossEn": "to visit",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "benutzen",
+    "gloss": "використовувати",
+    "glossEn": "to use",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "bestellen",
+    "gloss": "замовляти",
+    "glossEn": "to order",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "reservieren",
+    "gloss": "бронювати",
+    "glossEn": "to reserve",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "studieren",
+    "gloss": "навчатися",
+    "glossEn": "to study",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "tanzen",
+    "gloss": "танцювати",
+    "glossEn": "to dance",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "lachen",
+    "gloss": "сміятися",
+    "glossEn": "to laugh",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "reisen",
+    "gloss": "подорожувати",
+    "glossEn": "to travel",
+    "aux": "sein"
+  },
+  {
+    "infinitive": "packen",
+    "gloss": "пакувати",
+    "glossEn": "to pack",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "putzen",
+    "gloss": "прибирати",
+    "glossEn": "to clean",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "frühstücken",
+    "gloss": "снідати",
+    "glossEn": "to have breakfast",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "feiern",
+    "gloss": "святкувати",
+    "glossEn": "to celebrate",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "danken",
+    "gloss": "дякувати",
+    "glossEn": "to thank",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "glauben",
+    "gloss": "вірити",
+    "glossEn": "to believe",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "meinen",
+    "gloss": "вважати",
+    "glossEn": "to mean",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "planen",
+    "gloss": "планувати",
+    "glossEn": "to plan",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "buchen",
+    "gloss": "бронювати",
+    "glossEn": "to book",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "mieten",
+    "gloss": "орендувати",
+    "glossEn": "to rent",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "schicken",
+    "gloss": "надсилати",
+    "glossEn": "to send",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "klingeln",
+    "gloss": "дзвонити",
+    "glossEn": "to ring",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "fehlen",
+    "gloss": "бракувати",
+    "glossEn": "to be missing",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "gehören",
+    "gloss": "належати",
+    "glossEn": "to belong",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "schmecken",
+    "gloss": "смакувати",
+    "glossEn": "to taste",
+    "aux": "haben"
+  },
+  {
+    "infinitive": "passieren",
+    "gloss": "траплятися",
+    "glossEn": "to happen",
+    "aux": "sein"
+  },
+  {
+    "infinitive": "dauern",
+    "gloss": "тривати",
+    "glossEn": "to last",
+    "aux": "haben"
+  }
+];
+
+const VERB_PERSONS = ["ich", "du", "er", "wir", "ihr", "sie"];
+const VERB_TENSES = ["präsens", "präteritum", "perfekt", "futur"];
+const VERB_TENSE_LABEL = {
+  "präsens": "Präsens",
+  "präteritum": "Präteritum",
+  "perfekt": "Perfekt",
+  "futur": "Futur"
+};
+const VERB_HABEN = {
+  ich: "habe",
+  du: "hast",
+  er: "hat",
+  wir: "haben",
+  ihr: "habt",
+  sie: "haben"
+};
+const VERB_SEIN = {
+  ich: "bin",
+  du: "bist",
+  er: "ist",
+  wir: "sind",
+  ihr: "seid",
+  sie: "sind"
+};
+const VERB_WERDEN = {
+  ich: "werde",
+  du: "wirst",
+  er: "wird",
+  wir: "werden",
+  ihr: "werdet",
+  sie: "werden"
+};
+const VERB_NO_GE = {
+  besuchen: true,
+  benutzen: true,
+  bestellen: true,
+  "erklären": true,
+  "erzählen": true,
+  wiederholen: true,
+  "gehören": true,
+  reservieren: true,
+  studieren: true,
+  passieren: true
+};
+
+const verbStem = function (inf) {
+  if (inf.slice(-3) === "eln" || inf.slice(-3) === "ern") {
+    return inf.slice(0, -1);
+  }
+  if (inf.slice(-2) === "en") {
+    return inf.slice(0, -2);
+  }
+  return inf.slice(0, -1);
+};
+
+const verbNeedsE = function (stem) {
+  if (/[dt]$/.test(stem)) {
+    return true;
+  }
+  if (/[^aeiouäöülr][mn]$/.test(stem)) {
+    return true;
+  }
+  return false;
+};
+
+const verbSibilant = function (stem) {
+  return /(?:tz|ss|[sxzß])$/.test(stem);
+};
+
+const verbPresent = function (inf, person) {
+  const stem = verbStem(inf);
+  const e = verbNeedsE(stem);
+  if (person === "ich") {
+    return stem + "e";
+  }
+  if (person === "du") {
+    if (verbSibilant(stem)) {
+      return stem + "t";
+    }
+    return stem + (e ? "est" : "st");
+  }
+  if (person === "er") {
+    return stem + (e ? "et" : "t");
+  }
+  if (person === "wir" || person === "sie") {
+    return inf;
+  }
+  return stem + (e ? "et" : "t");
+};
+
+const verbPreterite = function (inf, person) {
+  const stem = verbStem(inf);
+  const te = (verbNeedsE(stem) ? "e" : "") + "te";
+  if (person === "ich" || person === "er") {
+    return stem + te;
+  }
+  if (person === "du") {
+    return stem + te + "st";
+  }
+  if (person === "wir" || person === "sie") {
+    return stem + te + "n";
+  }
+  return stem + te + "t";
+};
+
+const verbParticiple = function (inf) {
+  const stem = verbStem(inf);
+  const end = (verbNeedsE(stem) ? "e" : "") + "t";
+  if (VERB_NO_GE[inf]) {
+    return stem + end;
+  }
+  return "ge" + stem + end;
+};
+
+const verbAuxMap = function (aux) {
+  return aux === "sein" ? VERB_SEIN : VERB_HABEN;
+};
+
+const verbFinite = function (verb, person, tense) {
+  const inf = verb.infinitive;
+  if (tense === "präsens") {
+    return verbPresent(inf, person);
+  }
+  if (tense === "präteritum") {
+    return verbPreterite(inf, person);
+  }
+  if (tense === "perfekt") {
+    return verbAuxMap(verb.aux)[person];
+  }
+  return VERB_WERDEN[person];
+};
+
+const verbComplement = function (inf) {
+  if (inf === "lernen" || inf === "üben" || inf === "studieren") {
+    return "Deutsch";
+  }
+  return "hier";
+};
+
+const verbTail = function (verb, tense) {
+  if (tense === "perfekt") {
+    return verbParticiple(verb.infinitive);
+  }
+  if (tense === "futur") {
+    return verb.infinitive;
+  }
+  return "";
+};
+
+const uniquePush = function (list, item, ban) {
+  if (!item || item === ban) {
+    return;
+  }
+  for (let i = 0; i < list.length; i += 1) {
+    if (list[i] === item) {
+      return;
+    }
+  }
+  list.push(item);
+};
+
+const verbDistractors = function (verb, person, tense, answer) {
+  const picked = [];
+  if (tense === "perfekt" && verb.aux === "sein") {
+    uniquePush(picked, VERB_HABEN[person], answer);
+  }
+  const pool = [];
+  for (let i = 0; i < VERB_PERSONS.length; i += 1) {
+    uniquePush(pool, verbFinite(verb, VERB_PERSONS[i], tense), answer);
+  }
+  for (let i = 0; i < VERB_TENSES.length; i += 1) {
+    uniquePush(pool, verbFinite(verb, person, VERB_TENSES[i]), answer);
+  }
+  const shuffled = typeof window.IMPULS.shuffle === "function" ? window.IMPULS.shuffle(pool) : pool.slice();
+  for (let i = 0; i < shuffled.length && picked.length < 3; i += 1) {
+    uniquePush(picked, shuffled[i], answer);
+  }
+  return picked;
+};
+
+const makeVerbPrompt = function (verb, person, tense, clause, withNicht) {
+  const inf = verb.infinitive;
+  const comp = verbComplement(inf);
+  const tail = verbTail(verb, tense);
+  const tag = " (" + inf + ", " + VERB_TENSE_LABEL[tense] + ")";
+  const after = (withNicht ? "nicht " : "") + comp + (tail ? " " + tail : "");
+  if (clause === "question") {
+    return "___ " + person + " " + after + tag;
+  }
+  return person + " ___ " + after + tag;
+};
+
+const makeVerbCard = function (verb, person, tense, clause, withNicht) {
+  const answer = verbFinite(verb, person, tense);
+  const distractors = verbDistractors(verb, person, tense, answer);
+  if (distractors.length < 3) {
+    return null;
+  }
+  const options = [answer, distractors[0], distractors[1], distractors[2]];
+  const id = "wv-" + verb.infinitive + "-" + person + "-" + tense + "-" + clause + "-" + (withNicht ? "n" : "p");
+  return {
+    id: id,
+    muster: "workshop-verbs",
+    prompt: makeVerbPrompt(verb, person, tense, clause, withNicht),
+    gloss: verb.gloss,
+    glossEn: verb.glossEn,
+    answer: answer,
+    options: options
+  };
+};
+
+// Картки збираються на старті раунду, не під час вікна.
+window.IMPULS.buildVerbCards = function (count) {
+  const verbs = window.IMPULS.verbsRegular || [];
+  if (!verbs.length) {
+    return [];
+  }
+  let n = typeof count === "number" && Number.isFinite(count) ? Math.floor(count) : 1;
+  if (n < 1) {
+    n = 1;
+  }
+  const max = verbs.length * VERB_PERSONS.length * VERB_TENSES.length * 4;
+  if (n > max) {
+    n = max;
+  }
+  const used = {};
+  const cards = [];
+  let guard = 0;
+  while (cards.length < n && guard < n * 30) {
+    guard += 1;
+    const verb = verbs[Math.floor(Math.random() * verbs.length)];
+    const person = VERB_PERSONS[Math.floor(Math.random() * VERB_PERSONS.length)];
+    const tense = VERB_TENSES[Math.floor(Math.random() * VERB_TENSES.length)];
+    const clause = Math.random() < 0.5 ? "statement" : "question";
+    const withNicht = Math.random() < 0.5;
+    const key = verb.infinitive + "|" + person + "|" + tense + "|" + clause + "|" + (withNicht ? "n" : "p");
+    if (used[key]) {
+      continue;
+    }
+    const card = makeVerbCard(verb, person, tense, clause, withNicht);
+    if (!card) {
+      continue;
+    }
+    used[key] = true;
+    cards.push(card);
+  }
+  return cards;
+};
