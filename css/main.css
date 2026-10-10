@@ -99,6 +99,7 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  user-select: none;
 }
 
 #btn-pack-fold,
@@ -304,7 +305,8 @@ h2 {
   white-space: nowrap;
 }
 
-.rows button[aria-pressed="true"] {
+.rows button[aria-pressed="true"],
+.workshop-rows button[aria-pressed="true"] {
   border-color: var(--accent);
 }
 

@@ -183,7 +183,11 @@ const windowOptionLabel = function (ms) {
   return t(WINDOW_OPTIONS[windowOptionIndex(ms)].key);
 };
 
-const startLabel = function (pack) {
+const startLabel = function () {
+  if (menuChoice === "m1") {
+    return t("menu.startM1");
+  }
+  const pack = window.IMPULS.state.pack;
   const code = pack === "mix" ? "PX" : String(pack || "p1").toUpperCase();
   return t("menu.start", { pack: code });
 };
@@ -192,6 +196,7 @@ const PACK_IDS = ["p1", "p2", "p3", "p4", "p5"];
 const PACK_ORDER = ["p1", "p2", "p3", "p4", "p5", "mix"];
 const WORKSHOP_ORDER = ["verbs", "ear", "text"];
 let workshopPick = "verbs";
+let menuChoice = "pack";
 
 const packDeck = function (pack) {
   if (pack === "p2") {
@@ -572,7 +577,7 @@ const bindFoldSelect = function (rootId, onPick, onStep) {
 
 const renderMenu = function () {
   const state = window.IMPULS.state;
-  document.getElementById("btn-start").textContent = startLabel(state.pack);
+  document.getElementById("btn-start").textContent = startLabel();
   renderRoundSize();
   const windowMs = setupWindowMs();
   document.getElementById("win-select-current").textContent = windowOptionLabel(windowMs);
@@ -581,14 +586,19 @@ const renderMenu = function () {
     const ms = Number(items[i].getAttribute("data-ms"));
     items[i].setAttribute("aria-selected", ms === windowMs ? "true" : "false");
   }
-  document.querySelector('#pack-rows [data-pack="p1"]').setAttribute("aria-pressed", state.pack === "p1" ? "true" : "false");
-  document.querySelector('#pack-rows [data-pack="p2"]').setAttribute("aria-pressed", state.pack === "p2" ? "true" : "false");
-  document.querySelector('#pack-rows [data-pack="p3"]').setAttribute("aria-pressed", state.pack === "p3" ? "true" : "false");
-  document.querySelector('#pack-rows [data-pack="p4"]').setAttribute("aria-pressed", state.pack === "p4" ? "true" : "false");
-  document.querySelector('#pack-rows [data-pack="p5"]').setAttribute("aria-pressed", state.pack === "p5" ? "true" : "false");
+  const packOn = menuChoice === "pack";
+  document.querySelector('#pack-rows [data-pack="p1"]').setAttribute("aria-pressed", packOn && state.pack === "p1" ? "true" : "false");
+  document.querySelector('#pack-rows [data-pack="p2"]').setAttribute("aria-pressed", packOn && state.pack === "p2" ? "true" : "false");
+  document.querySelector('#pack-rows [data-pack="p3"]').setAttribute("aria-pressed", packOn && state.pack === "p3" ? "true" : "false");
+  document.querySelector('#pack-rows [data-pack="p4"]').setAttribute("aria-pressed", packOn && state.pack === "p4" ? "true" : "false");
+  document.querySelector('#pack-rows [data-pack="p5"]').setAttribute("aria-pressed", packOn && state.pack === "p5" ? "true" : "false");
   const mixBtn = document.getElementById("btn-mix");
   if (mixBtn) {
-    mixBtn.setAttribute("aria-pressed", state.pack === "mix" ? "true" : "false");
+    mixBtn.setAttribute("aria-pressed", packOn && state.pack === "mix" ? "true" : "false");
+  }
+  const verbsBtn = document.querySelector('#workshop-rows [data-workshop="verbs"]');
+  if (verbsBtn) {
+    verbsBtn.setAttribute("aria-pressed", menuChoice === "m1" ? "true" : "false");
   }
   renderPackSeen();
   renderMedian();
@@ -633,8 +643,9 @@ const renderMedian = function () {
   if (!el) {
     return;
   }
+  const show = window.IMPULS.settings && window.IMPULS.settings.showMedian === true;
   const value = medianMs(firstHitTimes());
-  if (value === null) {
+  if (!show || value === null) {
     el.textContent = "";
     el.classList.add("is-hidden");
     return;
@@ -1554,10 +1565,28 @@ window.IMPULS.selectPack = function (id) {
   if (window.IMPULS.state.phase !== "menu") {
     return;
   }
-  const prev = window.IMPULS.state.pack;
+  const prevPack = window.IMPULS.state.pack;
+  const prevChoice = menuChoice;
+  menuChoice = "pack";
   window.IMPULS.setPack(id);
   renderMenu();
-  if (window.IMPULS.state.pack !== prev) {
+  if (window.IMPULS.state.pack !== prevPack || prevChoice !== "pack") {
+    playUi("click");
+  }
+};
+
+window.IMPULS.selectWorkshop = function (id) {
+  if (window.IMPULS.state.phase !== "menu") {
+    return;
+  }
+  if (id !== "verbs") {
+    return;
+  }
+  const prev = menuChoice;
+  menuChoice = "m1";
+  workshopPick = "verbs";
+  renderMenu();
+  if (prev !== "m1") {
     playUi("click");
   }
 };
@@ -1737,6 +1766,10 @@ const restoreRound = function () {
 
 const bindClicks = function () {
   document.getElementById("btn-start").addEventListener("click", function () {
+    if (menuChoice === "m1") {
+      window.IMPULS.startWorkshopVerbs();
+      return;
+    }
     window.IMPULS.startRound();
   });
 
@@ -1858,6 +1891,38 @@ const bindClicks = function () {
     toggleFoldSetting("workshopFolded");
   });
 
+  const bindHeadDblFold = function (head, settingKey) {
+    if (!head) {
+      return;
+    }
+    let lastTap = 0;
+    head.addEventListener("dblclick", function (event) {
+      if (event.target.closest("#btn-pack-fold, #btn-workshop-fold")) {
+        return;
+      }
+      event.preventDefault();
+      toggleFoldSetting(settingKey);
+    });
+    head.addEventListener("touchend", function (event) {
+      if (event.target.closest("#btn-pack-fold, #btn-workshop-fold")) {
+        return;
+      }
+      const now = Date.now();
+      if (now - lastTap > 0 && now - lastTap < 350) {
+        event.preventDefault();
+        lastTap = 0;
+        toggleFoldSetting(settingKey);
+        return;
+      }
+      lastTap = now;
+    });
+  };
+
+  const packLabel = document.getElementById("label-pack");
+  const workshopLabel = document.getElementById("label-workshop");
+  bindHeadDblFold(packLabel ? packLabel.parentElement : null, "packFolded");
+  bindHeadDblFold(workshopLabel ? workshopLabel.parentElement : null, "workshopFolded");
+
   bindFoldSelect("pack-select", function (event, root) {
     const item = event.target.closest("[data-pack]");
     if (!item || !root.contains(item)) {
@@ -1874,21 +1939,19 @@ const bindClicks = function () {
     }
     const id = item.getAttribute("data-workshop") || "verbs";
     workshopPick = id;
-    renderWorkshopSelect();
     closeFoldSelect(root);
     if (id === "verbs") {
-      window.IMPULS.startWorkshopVerbs();
+      window.IMPULS.selectWorkshop("verbs");
       return;
     }
+    renderWorkshopSelect();
     // stub
   }, stepWorkshopFold);
 
   const verbsBtn = document.querySelector('#workshop-rows [data-workshop="verbs"]');
   if (verbsBtn) {
     verbsBtn.addEventListener("click", function () {
-      workshopPick = "verbs";
-      renderWorkshopSelect();
-      window.IMPULS.startWorkshopVerbs();
+      window.IMPULS.selectWorkshop("verbs");
     });
   }
 

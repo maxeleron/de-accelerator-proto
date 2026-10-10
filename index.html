@@ -64,12 +64,6 @@
           </div>
         </section>
       </div>
-      <button type="button" id="btn-base">
-        <svg id="icon-base" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 5a2 2 0 0 1 2-2h6v16H5a2 2 0 0 0-2 2V5zm10-2h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2h-6V3z"></path>
-        </svg>
-        <span data-i18n="menu.base">База знань</span>
-      </button>
     </section>
 
     <section class="block" aria-labelledby="label-pack">
@@ -136,25 +130,32 @@
         </button>
       </div>
       <div class="workshop-rows" id="workshop-rows">
-        <button type="button" data-workshop="verbs" data-i18n="workshop.verbs">Дієслова</button>
+        <button type="button" data-workshop="verbs" aria-pressed="false" data-i18n="workshop.verbs">M1 Дієслова</button>
         <button type="button" aria-disabled="true" data-i18n="workshop.ear">Слух</button>
         <button type="button" aria-disabled="true" data-i18n="workshop.text">Текст</button>
       </div>
       <div id="workshop-select" class="is-hidden">
         <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-workshop workshop-select-current">
-          <span id="workshop-select-current">Дієслова</span>
+          <span id="workshop-select-current">M1 Дієслова</span>
           <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M8 9l4-4 4 4"></path>
             <path d="M8 15l4 4 4-4"></path>
           </svg>
         </button>
         <div class="win-select-menu is-hidden">
-          <button type="button" data-workshop="verbs" data-i18n="workshop.verbs" aria-selected="true">Дієслова</button>
+          <button type="button" data-workshop="verbs" data-i18n="workshop.verbs" aria-selected="true">M1 Дієслова</button>
           <button type="button" data-workshop="ear" data-i18n="workshop.ear" aria-selected="false">Слух</button>
           <button type="button" data-workshop="text" data-i18n="workshop.text" aria-selected="false">Текст</button>
         </div>
       </div>
     </section>
+
+    <button type="button" id="btn-base">
+      <svg id="icon-base" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 5a2 2 0 0 1 2-2h6v16H5a2 2 0 0 0-2 2V5zm10-2h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2h-6V3z"></path>
+      </svg>
+      <span data-i18n="menu.base">База знань</span>
+    </button>
 
     <button type="button" id="btn-settings">
       <svg id="icon-settings" viewBox="0 0 24 24" aria-hidden="true">
@@ -255,6 +256,10 @@
       <label class="setting-check">
         <input type="checkbox" id="set-show-keys" checked>
         <span data-i18n="settings.showKeys">Номери клавіш на варіантах</span>
+      </label>
+      <label class="setting-check">
+        <input type="checkbox" id="set-show-median">
+        <span data-i18n="settings.showMedian">Показувати медіану</span>
       </label>
     </section>
     <section class="block" aria-labelledby="label-audio">

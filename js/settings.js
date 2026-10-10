@@ -10,7 +10,8 @@ window.IMPULS.defaultSettings = {
   uiLang: "uk",
   glossLang: "uk",
   packFolded: false,
-  workshopFolded: false
+  workshopFolded: false,
+  showMedian: false
 };
 
 const copySettings = function (source) {
@@ -63,6 +64,9 @@ window.IMPULS.loadSettings = function () {
   if (window.IMPULS.settings.workshopFolded !== true) {
     window.IMPULS.settings.workshopFolded = false;
   }
+  if (window.IMPULS.settings.showMedian !== true) {
+    window.IMPULS.settings.showMedian = false;
+  }
   return window.IMPULS.settings;
 };
 
@@ -97,6 +101,28 @@ const bindShowKeys = function () {
     // Вимкнений ховає квадрати, клавіші 1–4 лишаються.
     window.IMPULS.setSetting("showKeys", box.checked);
     applyShowKeys();
+  });
+};
+
+const applyShowMedian = function () {
+  const on = window.IMPULS.settings.showMedian === true;
+  const box = document.getElementById("set-show-median");
+  if (box) {
+    box.checked = on;
+  }
+  if (typeof window.IMPULS.refreshChrome === "function") {
+    window.IMPULS.refreshChrome();
+  }
+};
+
+const bindShowMedian = function () {
+  const box = document.getElementById("set-show-median");
+  if (!box) {
+    return;
+  }
+  box.addEventListener("change", function () {
+    window.IMPULS.setSetting("showMedian", box.checked === true);
+    applyShowMedian();
   });
 };
 
@@ -466,6 +492,8 @@ document.addEventListener("DOMContentLoaded", function () {
     bindClearProgress();
     bindShowKeys();
     applyShowKeys();
+    bindShowMedian();
+    applyShowMedian();
     bindOptionLayout();
     applyOptionLayout();
     bindUiSound();
@@ -486,6 +514,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 window.IMPULS.loadSettings();
 applyShowKeys();
+applyShowMedian();
 applyOptionLayout();
 applyUiSound();
 applySpeakForm();
