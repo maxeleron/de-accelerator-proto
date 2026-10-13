@@ -36,6 +36,7 @@
           </svg>
         </button>
       </div>
+      <p id="menu-status" class="is-hidden"><span id="stat-hit"></span></p>
       <p id="stat-median" class="is-hidden"></p>
       <div id="round-setup" class="is-hidden">
         <section class="block" aria-labelledby="label-window">
@@ -182,24 +183,21 @@
       <p id="repair-badge" class="is-hidden" data-i18n="round.repair">Промахи</p>
     </div>
     <div class="stimulus-block">
-      <p id="stimulus"></p>
+      <p id="stimulus"><span id="stimulus-before"></span><input type="text" id="answer-input" size="1" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus data-i18n-aria="round.answer" aria-label="Відповідь"><span id="stimulus-after"></span></p>
       <p id="gloss"></p>
     </div>
     <div id="timer" aria-hidden="true"></div>
+    <div id="umlaut-row">
+      <button type="button" data-letter="ä" data-key="1">ä</button>
+      <button type="button" data-letter="ö" data-key="2">ö</button>
+      <button type="button" data-letter="ü" data-key="3">ü</button>
+      <button type="button" data-letter="ß" data-key="4">ß</button>
+    </div>
     <div class="options">
       <button type="button" id="opt-1"></button>
       <button type="button" id="opt-2"></button>
       <button type="button" id="opt-3"></button>
       <button type="button" id="opt-4"></button>
-    </div>
-    <div id="answer-panel">
-      <input type="text" id="answer-input" autocomplete="off" autocapitalize="off" spellcheck="false" data-i18n-aria="round.answer" aria-label="Відповідь">
-      <div id="umlaut-row">
-        <button type="button" data-letter="ä">ä</button>
-        <button type="button" data-letter="ö">ö</button>
-        <button type="button" data-letter="ü">ü</button>
-        <button type="button" data-letter="ß">ß</button>
-      </div>
     </div>
   </section>
 

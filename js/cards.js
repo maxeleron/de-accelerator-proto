@@ -75,7 +75,7 @@ window.IMPULS.cards = [
   {
     "id": "sh-06",
     "muster": "sein-haben",
-    "prompt": "sie ___ hier",
+    "prompt": "sie (Plural) ___ hier",
     "gloss": "вони тут",
     "glossEn": "they are here",
     "answer": "sind",
@@ -173,7 +173,7 @@ window.IMPULS.cards = [
   {
     "id": "sh-13",
     "muster": "sein-haben",
-    "prompt": "sie ___ Kinder",
+    "prompt": "sie (Plural) ___ Kinder",
     "gloss": "вони мають дітей",
     "glossEn": "they have children",
     "answer": "haben",
@@ -281,7 +281,7 @@ window.IMPULS.cardsP2 = [
   {
     "id": "en-06",
     "muster": "endings",
-    "prompt": "sie ___ Sport",
+    "prompt": "sie (Plural) ___ Sport",
     "gloss": "вони займаються спортом",
     "glossEn": "they do sports",
     "answer": "machen",
@@ -365,7 +365,7 @@ window.IMPULS.cardsP2 = [
   {
     "id": "en-12",
     "muster": "endings",
-    "prompt": "sie ___ Deutsch",
+    "prompt": "sie (Plural) ___ Deutsch",
     "gloss": "вони вчать німецьку",
     "glossEn": "they learn German",
     "answer": "lernen",
@@ -449,7 +449,7 @@ window.IMPULS.cardsP2 = [
   {
     "id": "en-18",
     "muster": "endings",
-    "prompt": "sie ___ in Berlin",
+    "prompt": "sie (Plural) ___ in Berlin",
     "gloss": "вони живуть у Берліні",
     "glossEn": "they live in Berlin",
     "answer": "wohnen",
@@ -797,7 +797,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "ich brauche ___ Tisch",
     "gloss": "мені потрібно стіл",
-    "glossEn": "I need a table",
+    "glossEn": "I need the table",
     "answer": "den",
     "options": [
       "den",
@@ -810,7 +810,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "er kauft ___ Lampe",
     "gloss": "він купує лампу",
-    "glossEn": "he buys a lamp",
+    "glossEn": "he buys the lamp",
     "answer": "die",
     "options": [
       "den",
@@ -823,7 +823,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "sie hat ___ Buch",
     "gloss": "вона має книгу",
-    "glossEn": "she has a book",
+    "glossEn": "she has the book",
     "answer": "das",
     "options": [
       "den",
@@ -836,7 +836,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "wir suchen ___ Mann",
     "gloss": "ми шукаємо чоловіка",
-    "glossEn": "we look for a man",
+    "glossEn": "we look for the man",
     "answer": "den",
     "options": [
       "den",
@@ -849,7 +849,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "ich sehe ___ Frau",
     "gloss": "я бачу жінку",
-    "glossEn": "I see a woman",
+    "glossEn": "I see the woman",
     "answer": "die",
     "options": [
       "den",
@@ -862,7 +862,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "er braucht ___ Kind",
     "gloss": "йому потрібно дитину",
-    "glossEn": "he needs a child",
+    "glossEn": "he needs the child",
     "answer": "das",
     "options": [
       "den",
@@ -875,7 +875,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "sie kauft ___ Stuhl",
     "gloss": "вона купує стілець",
-    "glossEn": "she buys a chair",
+    "glossEn": "she buys the chair",
     "answer": "den",
     "options": [
       "den",
@@ -888,7 +888,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "wir haben ___ Tür",
     "gloss": "ми маємо двері",
-    "glossEn": "we have a door",
+    "glossEn": "we have the door",
     "answer": "die",
     "options": [
       "den",
@@ -901,7 +901,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "ich suche ___ Fenster",
     "gloss": "я шукаю вікно",
-    "glossEn": "I look for a window",
+    "glossEn": "I look for the window",
     "answer": "das",
     "options": [
       "den",
@@ -914,7 +914,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "er sieht ___ Hund",
     "gloss": "він бачить собаку",
-    "glossEn": "he sees a dog",
+    "glossEn": "he sees the dog",
     "answer": "den",
     "options": [
       "den",
@@ -927,7 +927,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "sie braucht ___ Katze",
     "gloss": "їй потрібно кішку",
-    "glossEn": "she needs a cat",
+    "glossEn": "she needs the cat",
     "answer": "die",
     "options": [
       "den",
@@ -940,7 +940,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "wir kaufen ___ Haus",
     "gloss": "ми купуємо будинок",
-    "glossEn": "we buy a house",
+    "glossEn": "we buy the house",
     "answer": "das",
     "options": [
       "den",
@@ -953,7 +953,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "ich habe ___ Apfel",
     "gloss": "я маю яблуко",
-    "glossEn": "I have an apple",
+    "glossEn": "I have the apple",
     "answer": "den",
     "options": [
       "den",
@@ -966,7 +966,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "er sucht ___ Kaffee",
     "gloss": "він шукає каву",
-    "glossEn": "he looks for coffee",
+    "glossEn": "he looks for the coffee",
     "answer": "den",
     "options": [
       "den",
@@ -979,7 +979,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "sie sieht ___ Tasche",
     "gloss": "вона бачить сумку",
-    "glossEn": "she sees a bag",
+    "glossEn": "she sees the bag",
     "answer": "die",
     "options": [
       "den",
@@ -992,7 +992,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "wir brauchen ___ Auto",
     "gloss": "нам потрібно авто",
-    "glossEn": "we need a car",
+    "glossEn": "we need the car",
     "answer": "das",
     "options": [
       "den",
@@ -1005,7 +1005,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "ich kaufe ___ Computer",
     "gloss": "я купую комп’ютер",
-    "glossEn": "I buy a computer",
+    "glossEn": "I buy the computer",
     "answer": "den",
     "options": [
       "den",
@@ -1018,7 +1018,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "er hat ___ Schule",
     "gloss": "він має школу",
-    "glossEn": "he has a school",
+    "glossEn": "he has the school",
     "answer": "die",
     "options": [
       "den",
@@ -1031,7 +1031,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "sie sucht ___ Stift",
     "gloss": "вона шукає олівець",
-    "glossEn": "she looks for a pen",
+    "glossEn": "she looks for the pen",
     "answer": "den",
     "options": [
       "den",
@@ -1044,7 +1044,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "wir sehen ___ Zeitung",
     "gloss": "ми бачимо газету",
-    "glossEn": "we see a newspaper",
+    "glossEn": "we see the newspaper",
     "answer": "die",
     "options": [
       "den",
@@ -1057,7 +1057,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "ich brauche ___ Handy",
     "gloss": "мені потрібно телефон",
-    "glossEn": "I need a phone",
+    "glossEn": "I need the phone",
     "answer": "das",
     "options": [
       "den",
@@ -1070,7 +1070,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "er kauft ___ Stadt",
     "gloss": "він купує місто",
-    "glossEn": "he buys a city",
+    "glossEn": "he buys the city",
     "answer": "die",
     "options": [
       "den",
@@ -1083,7 +1083,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "sie hat ___ Wasser",
     "gloss": "вона має воду",
-    "glossEn": "she has water",
+    "glossEn": "she has the water",
     "answer": "das",
     "options": [
       "den",
@@ -1096,7 +1096,7 @@ window.IMPULS.cardsP4 = [
     "muster": "akkusativ",
     "prompt": "wir suchen ___ Freund",
     "gloss": "ми шукаємо друга",
-    "glossEn": "we look for a friend",
+    "glossEn": "we look for the friend",
     "answer": "den",
     "options": [
       "den",
@@ -1429,7 +1429,7 @@ window.IMPULS.cardsP5 = [
   {
     "id": "v2-01",
     "muster": "v2",
-    "prompt": "heute / nach Hause / gehen",
+    "prompt": "ich / heute / nach Hause / gehen",
     "gloss": "сьогодні я йду додому",
     "glossEn": "today I am going home",
     "answer": "Heute gehe ich nach Hause.",
@@ -1442,7 +1442,7 @@ window.IMPULS.cardsP5 = [
   {
     "id": "v2-02",
     "muster": "v2",
-    "prompt": "morgen / Deutsch / lernen",
+    "prompt": "ich / morgen / Deutsch / lernen",
     "gloss": "завтра я вчу німецьку",
     "glossEn": "tomorrow I learn German",
     "answer": "Morgen lerne ich Deutsch.",
@@ -1455,7 +1455,7 @@ window.IMPULS.cardsP5 = [
   {
     "id": "v2-03",
     "muster": "v2",
-    "prompt": "jetzt / hier / wohnen",
+    "prompt": "ich / jetzt / hier / wohnen",
     "gloss": "зараз я живу тут",
     "glossEn": "now I live here",
     "answer": "Jetzt wohne ich hier.",
@@ -1494,7 +1494,7 @@ window.IMPULS.cardsP5 = [
   {
     "id": "v2-06",
     "muster": "v2",
-    "prompt": "heute / Deutsch / lernen",
+    "prompt": "ich / heute / Deutsch / lernen",
     "gloss": "сьогодні я вчу німецьку",
     "glossEn": "today I learn German",
     "answer": "Heute lerne ich Deutsch.",
@@ -1507,7 +1507,7 @@ window.IMPULS.cardsP5 = [
   {
     "id": "v2-07",
     "muster": "v2",
-    "prompt": "jetzt / nach Hause / gehen",
+    "prompt": "ich / jetzt / nach Hause / gehen",
     "gloss": "зараз я йду додому",
     "glossEn": "now I am going home",
     "answer": "Jetzt gehe ich nach Hause.",
@@ -1533,7 +1533,7 @@ window.IMPULS.cardsP5 = [
   {
     "id": "v2-09",
     "muster": "v2",
-    "prompt": "morgen / nach Hause / gehen",
+    "prompt": "ich / morgen / nach Hause / gehen",
     "gloss": "завтра я йду додому",
     "glossEn": "tomorrow I am going home",
     "answer": "Morgen gehe ich nach Hause.",
@@ -1559,7 +1559,7 @@ window.IMPULS.cardsP5 = [
   {
     "id": "v2-11",
     "muster": "v2",
-    "prompt": "heute / Zeit / haben",
+    "prompt": "ich / heute / Zeit / haben",
     "gloss": "сьогодні я маю час",
     "glossEn": "today I have time",
     "answer": "Heute habe ich Zeit.",
@@ -1572,7 +1572,7 @@ window.IMPULS.cardsP5 = [
   {
     "id": "v2-12",
     "muster": "v2",
-    "prompt": "jetzt / den Tisch / sehen",
+    "prompt": "ich / jetzt / den Tisch / sehen",
     "gloss": "зараз я бачу стіл",
     "glossEn": "now I see the table",
     "answer": "Jetzt sehe ich den Tisch.",

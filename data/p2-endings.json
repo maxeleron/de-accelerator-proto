@@ -72,7 +72,7 @@
   {
     "id": "en-06",
     "muster": "endings",
-    "prompt": "sie ___ Sport",
+    "prompt": "sie (Plural) ___ Sport",
     "gloss": "вони займаються спортом",
     "glossEn": "they do sports",
     "answer": "machen",
@@ -156,7 +156,7 @@
   {
     "id": "en-12",
     "muster": "endings",
-    "prompt": "sie ___ Deutsch",
+    "prompt": "sie (Plural) ___ Deutsch",
     "gloss": "вони вчать німецьку",
     "glossEn": "they learn German",
     "answer": "lernen",
@@ -240,7 +240,7 @@
   {
     "id": "en-18",
     "muster": "endings",
-    "prompt": "sie ___ in Berlin",
+    "prompt": "sie (Plural) ___ in Berlin",
     "gloss": "вони живуть у Берліні",
     "glossEn": "they live in Berlin",
     "answer": "wohnen",

@@ -4,7 +4,7 @@
     "muster": "akkusativ",
     "prompt": "ich brauche ___ Tisch",
     "gloss": "мені потрібно стіл",
-    "glossEn": "I need a table",
+    "glossEn": "I need the table",
     "answer": "den",
     "options": [
       "den",
@@ -17,7 +17,7 @@
     "muster": "akkusativ",
     "prompt": "er kauft ___ Lampe",
     "gloss": "він купує лампу",
-    "glossEn": "he buys a lamp",
+    "glossEn": "he buys the lamp",
     "answer": "die",
     "options": [
       "den",
@@ -30,7 +30,7 @@
     "muster": "akkusativ",
     "prompt": "sie hat ___ Buch",
     "gloss": "вона має книгу",
-    "glossEn": "she has a book",
+    "glossEn": "she has the book",
     "answer": "das",
     "options": [
       "den",
@@ -43,7 +43,7 @@
     "muster": "akkusativ",
     "prompt": "wir suchen ___ Mann",
     "gloss": "ми шукаємо чоловіка",
-    "glossEn": "we look for a man",
+    "glossEn": "we look for the man",
     "answer": "den",
     "options": [
       "den",
@@ -56,7 +56,7 @@
     "muster": "akkusativ",
     "prompt": "ich sehe ___ Frau",
     "gloss": "я бачу жінку",
-    "glossEn": "I see a woman",
+    "glossEn": "I see the woman",
     "answer": "die",
     "options": [
       "den",
@@ -69,7 +69,7 @@
     "muster": "akkusativ",
     "prompt": "er braucht ___ Kind",
     "gloss": "йому потрібно дитину",
-    "glossEn": "he needs a child",
+    "glossEn": "he needs the child",
     "answer": "das",
     "options": [
       "den",
@@ -82,7 +82,7 @@
     "muster": "akkusativ",
     "prompt": "sie kauft ___ Stuhl",
     "gloss": "вона купує стілець",
-    "glossEn": "she buys a chair",
+    "glossEn": "she buys the chair",
     "answer": "den",
     "options": [
       "den",
@@ -95,7 +95,7 @@
     "muster": "akkusativ",
     "prompt": "wir haben ___ Tür",
     "gloss": "ми маємо двері",
-    "glossEn": "we have a door",
+    "glossEn": "we have the door",
     "answer": "die",
     "options": [
       "den",
@@ -108,7 +108,7 @@
     "muster": "akkusativ",
     "prompt": "ich suche ___ Fenster",
     "gloss": "я шукаю вікно",
-    "glossEn": "I look for a window",
+    "glossEn": "I look for the window",
     "answer": "das",
     "options": [
       "den",
@@ -121,7 +121,7 @@
     "muster": "akkusativ",
     "prompt": "er sieht ___ Hund",
     "gloss": "він бачить собаку",
-    "glossEn": "he sees a dog",
+    "glossEn": "he sees the dog",
     "answer": "den",
     "options": [
       "den",
@@ -134,7 +134,7 @@
     "muster": "akkusativ",
     "prompt": "sie braucht ___ Katze",
     "gloss": "їй потрібно кішку",
-    "glossEn": "she needs a cat",
+    "glossEn": "she needs the cat",
     "answer": "die",
     "options": [
       "den",
@@ -147,7 +147,7 @@
     "muster": "akkusativ",
     "prompt": "wir kaufen ___ Haus",
     "gloss": "ми купуємо будинок",
-    "glossEn": "we buy a house",
+    "glossEn": "we buy the house",
     "answer": "das",
     "options": [
       "den",
@@ -160,7 +160,7 @@
     "muster": "akkusativ",
     "prompt": "ich habe ___ Apfel",
     "gloss": "я маю яблуко",
-    "glossEn": "I have an apple",
+    "glossEn": "I have the apple",
     "answer": "den",
     "options": [
       "den",
@@ -173,7 +173,7 @@
     "muster": "akkusativ",
     "prompt": "er sucht ___ Kaffee",
     "gloss": "він шукає каву",
-    "glossEn": "he looks for coffee",
+    "glossEn": "he looks for the coffee",
     "answer": "den",
     "options": [
       "den",
@@ -186,7 +186,7 @@
     "muster": "akkusativ",
     "prompt": "sie sieht ___ Tasche",
     "gloss": "вона бачить сумку",
-    "glossEn": "she sees a bag",
+    "glossEn": "she sees the bag",
     "answer": "die",
     "options": [
       "den",
@@ -199,7 +199,7 @@
     "muster": "akkusativ",
     "prompt": "wir brauchen ___ Auto",
     "gloss": "нам потрібно авто",
-    "glossEn": "we need a car",
+    "glossEn": "we need the car",
     "answer": "das",
     "options": [
       "den",
@@ -212,7 +212,7 @@
     "muster": "akkusativ",
     "prompt": "ich kaufe ___ Computer",
     "gloss": "я купую комп’ютер",
-    "glossEn": "I buy a computer",
+    "glossEn": "I buy the computer",
     "answer": "den",
     "options": [
       "den",
@@ -225,7 +225,7 @@
     "muster": "akkusativ",
     "prompt": "er hat ___ Schule",
     "gloss": "він має школу",
-    "glossEn": "he has a school",
+    "glossEn": "he has the school",
     "answer": "die",
     "options": [
       "den",
@@ -238,7 +238,7 @@
     "muster": "akkusativ",
     "prompt": "sie sucht ___ Stift",
     "gloss": "вона шукає олівець",
-    "glossEn": "she looks for a pen",
+    "glossEn": "she looks for the pen",
     "answer": "den",
     "options": [
       "den",
@@ -251,7 +251,7 @@
     "muster": "akkusativ",
     "prompt": "wir sehen ___ Zeitung",
     "gloss": "ми бачимо газету",
-    "glossEn": "we see a newspaper",
+    "glossEn": "we see the newspaper",
     "answer": "die",
     "options": [
       "den",
@@ -264,7 +264,7 @@
     "muster": "akkusativ",
     "prompt": "ich brauche ___ Handy",
     "gloss": "мені потрібно телефон",
-    "glossEn": "I need a phone",
+    "glossEn": "I need the phone",
     "answer": "das",
     "options": [
       "den",
@@ -277,7 +277,7 @@
     "muster": "akkusativ",
     "prompt": "er kauft ___ Stadt",
     "gloss": "він купує місто",
-    "glossEn": "he buys a city",
+    "glossEn": "he buys the city",
     "answer": "die",
     "options": [
       "den",
@@ -290,7 +290,7 @@
     "muster": "akkusativ",
     "prompt": "sie hat ___ Wasser",
     "gloss": "вона має воду",
-    "glossEn": "she has water",
+    "glossEn": "she has the water",
     "answer": "das",
     "options": [
       "den",
@@ -303,7 +303,7 @@
     "muster": "akkusativ",
     "prompt": "wir suchen ___ Freund",
     "gloss": "ми шукаємо друга",
-    "glossEn": "we look for a friend",
+    "glossEn": "we look for the friend",
     "answer": "den",
     "options": [
       "den",

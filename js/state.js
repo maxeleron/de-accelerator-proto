@@ -15,6 +15,7 @@ window.IMPULS.state = {
   workshop: null,
   workshopCards: null,
   cardStartedAt: 0,
+  firstInputAt: null,
   locked: false,
   rafId: 0
 };

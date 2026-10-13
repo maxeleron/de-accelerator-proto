@@ -120,6 +120,14 @@ const onRoundKey = function (event) {
     if (event.key === "Enter" && !event.isComposing) {
       event.preventDefault();
       window.IMPULS.submitTyped();
+      return;
+    }
+    if (!event.isComposing && (event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4")) {
+      event.preventDefault();
+      const letters = { "1": "ä", "2": "ö", "3": "ü", "4": "ß" };
+      if (typeof window.IMPULS.insertUmlaut === "function") {
+        window.IMPULS.insertUmlaut(letters[event.key]);
+      }
     }
     return;
   }
@@ -165,6 +173,10 @@ const keyIndex = function (key) {
 
 window.IMPULS.bindKeys = function () {
   document.addEventListener("keydown", function (event) {
+    if (event.repeat) {
+      event.preventDefault();
+      return;
+    }
     if (event.altKey || event.ctrlKey || event.metaKey) {
       return;
     }

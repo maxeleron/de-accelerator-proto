@@ -72,7 +72,7 @@
   {
     "id": "sh-06",
     "muster": "sein-haben",
-    "prompt": "sie ___ hier",
+    "prompt": "sie (Plural) ___ hier",
     "gloss": "вони тут",
     "glossEn": "they are here",
     "answer": "sind",
@@ -170,7 +170,7 @@
   {
     "id": "sh-13",
     "muster": "sein-haben",
-    "prompt": "sie ___ Kinder",
+    "prompt": "sie (Plural) ___ Kinder",
     "gloss": "вони мають дітей",
     "glossEn": "they have children",
     "answer": "haben",

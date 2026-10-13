@@ -18,6 +18,69 @@ const isKeysLayout = function () {
   return window.IMPULS.settings && window.IMPULS.settings.optionLayout === "keys";
 };
 
+const STIMULUS_HOLE = "___";
+const ANSWER_MIN_FORM = "mm";
+
+let answerMeasureCtx = null;
+
+const splitPrompt = function (prompt) {
+  const text = prompt || "";
+  const at = text.indexOf(STIMULUS_HOLE);
+  if (at < 0) {
+    return { before: text, after: "" };
+  }
+  return {
+    before: text.slice(0, at),
+    after: text.slice(at + STIMULUS_HOLE.length)
+  };
+};
+
+const measureAnswerText = function (text, input) {
+  if (!answerMeasureCtx) {
+    answerMeasureCtx = document.createElement("canvas").getContext("2d");
+  }
+  const cs = window.getComputedStyle(input);
+  answerMeasureCtx.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+  return answerMeasureCtx.measureText(text).width;
+};
+
+const resizeAnswerInput = function () {
+  const input = document.getElementById("answer-input");
+  if (!input) {
+    return;
+  }
+  const value = input.value || "";
+  const text = value || ANSWER_MIN_FORM;
+  input.style.width = Math.ceil(measureAnswerText(text, input) + 1) + "px";
+};
+
+const paintStimulus = function (prompt) {
+  const lead = document.getElementById("stimulus-before");
+  const tail = document.getElementById("stimulus-after");
+  const input = document.getElementById("answer-input");
+  if (!lead || !tail) {
+    const el = document.getElementById("stimulus");
+    if (el) {
+      el.textContent = prompt || "";
+    }
+    return;
+  }
+  if (isKeysLayout()) {
+    const parts = splitPrompt(prompt);
+    lead.textContent = parts.before;
+    tail.textContent = parts.after;
+  } else {
+    lead.textContent = prompt || "";
+    tail.textContent = "";
+  }
+  if (input) {
+    input.value = "";
+    input.classList.remove("is-hit", "is-miss");
+    input.readOnly = false;
+    resizeAnswerInput();
+  }
+};
+
 const VERDICTS = {
   hit: true,
   miss: true,
@@ -621,8 +684,20 @@ const renderMenu = function () {
     verbsBtn.setAttribute("aria-pressed", menuChoice === "m1" ? "true" : "false");
   }
   renderPackSeen();
+  renderFirstScore();
   renderMedian();
   renderFolds();
+};
+
+const renderFirstScore = function () {
+  const state = window.IMPULS.state;
+  const ids = Object.keys(state.first);
+  const show = ids.length > 0 && state.main.length === 0 && state.repair.length === 0;
+  document.getElementById("menu-status").classList.toggle("is-hidden", !show);
+  const hits = ids.filter(function (id) {
+    return state.first[id] === "hit";
+  }).length;
+  document.getElementById("stat-hit").textContent = show ? t("stats.first", { hit: hits, total: ids.length }) : "";
 };
 
 const firstHitTimes = function () {
@@ -701,6 +776,7 @@ const showMenuView = function () {
   const from = window.IMPULS.state.phase;
   window.IMPULS.setPhase("menu");
   showScreen("screen-menu");
+  renderFirstScore();
   playUi("open");
   if (from === "settings") {
     document.getElementById("btn-settings").focus();
@@ -866,6 +942,18 @@ const foldAnswer = function (value) {
 
 const sameAnswer = function (pick, answer) {
   return foldAnswer(pick) === foldAnswer(answer);
+};
+
+const sameTypedAnswer = function (pick, card) {
+  if (sameAnswer(pick, card.answer)) {
+    return true;
+  }
+  if (card.muster !== "akkusativ") {
+    return false;
+  }
+  return window.IMPULS.cardsP4.some(function (other) {
+    return other.prompt === card.prompt && sameAnswer(pick, other.answer);
+  });
 };
 
 const readRound = function () {
@@ -1237,6 +1325,7 @@ const finishRound = function () {
   writeRound({
     done: true,
     windowMs: state.windowMs,
+    roundSize: state.roundSize,
     pack: state.pack,
     first: first,
     latency: latency
@@ -1274,7 +1363,11 @@ const showNext = function () {
   } else {
     state.presented = window.IMPULS.shuffle(card.options);
   }
-  document.getElementById("stimulus").textContent = card.prompt;
+  let prompt = card.prompt;
+  if (isKeysLayout() && card.muster === "v2") {
+    prompt += " (" + t("round.startWith", { word: card.answer.split(" ")[0] }) + ")";
+  }
+  paintStimulus(prompt);
   if (typeof window.IMPULS.applyCardGloss === "function") {
     window.IMPULS.applyCardGloss(card);
   } else {
@@ -1286,12 +1379,6 @@ const showNext = function () {
     btn.textContent = label;
     btn.classList.toggle("is-hidden", !label);
     btn.classList.remove("is-armed", "is-hit", "is-miss");
-  }
-  const input = document.getElementById("answer-input");
-  if (input) {
-    input.value = "";
-    input.classList.remove("is-hit", "is-miss");
-    input.readOnly = false;
   }
   const total = Object.keys(state.first).length + state.main.length;
   const badge = document.getElementById("repair-badge");
@@ -1376,6 +1463,7 @@ const commit = function (verdict, elapsedMs, optionIndex) {
     writeRound({
       done: true,
       windowMs: state.windowMs,
+      roundSize: state.roundSize,
       pack: state.pack,
       first: copyVerdicts(state.first),
       latency: copyLatency(state.latency)
@@ -1391,6 +1479,7 @@ const armTimer = function (ms) {
   const timer = document.getElementById("timer");
   const started = performance.now();
   state.cardStartedAt = started;
+  state.firstInputAt = null;
   state.locked = false;
   cancelFrame();
   timer.classList.remove("is-hit", "is-miss");
@@ -1446,6 +1535,17 @@ window.IMPULS.choose = function (index) {
   commit(verdict, elapsed, index);
 };
 
+window.IMPULS.markTypedInput = function () {
+  const state = window.IMPULS.state;
+  if (!isKeysLayout() || state.locked || state.firstInputAt !== null) {
+    return;
+  }
+  if (state.phase !== "round" && state.phase !== "repair") {
+    return;
+  }
+  state.firstInputAt = performance.now();
+};
+
 window.IMPULS.submitTyped = function () {
   const state = window.IMPULS.state;
   if (state.phase !== "round" && state.phase !== "repair") {
@@ -1463,8 +1563,9 @@ window.IMPULS.submitTyped = function () {
   }
   const input = document.getElementById("answer-input");
   const pick = input ? input.value : "";
-  const elapsed = performance.now() - state.cardStartedAt;
-  const verdict = sameAnswer(pick, card.answer) ? "hit" : "miss";
+  const answeredAt = state.firstInputAt === null ? performance.now() : state.firstInputAt;
+  const elapsed = answeredAt - state.cardStartedAt;
+  const verdict = sameTypedAnswer(pick, card) ? "hit" : "miss";
   commit(verdict, elapsed, -1);
 };
 
@@ -1473,13 +1574,17 @@ const insertUmlaut = function (letter) {
   if (!input || input.readOnly) {
     return;
   }
+  window.IMPULS.markTypedInput();
   const start = typeof input.selectionStart === "number" ? input.selectionStart : input.value.length;
   const end = typeof input.selectionEnd === "number" ? input.selectionEnd : input.value.length;
   input.value = input.value.slice(0, start) + letter + input.value.slice(end);
   const pos = start + letter.length;
   input.setSelectionRange(pos, pos);
+  resizeAnswerInput();
   input.focus();
 };
+
+window.IMPULS.insertUmlaut = insertUmlaut;
 
 const findSection = function (id) {
   const sections = window.IMPULS.loadHandbook();
@@ -1829,6 +1934,7 @@ const restoreRound = function () {
   if (saved.done === true) {
     window.IMPULS.state.first = copyVerdicts(saved.first);
     window.IMPULS.state.latency = copyLatency(saved.latency);
+    window.IMPULS.state.roundSize = typeof saved.roundSize === "number" ? saved.roundSize : Object.keys(window.IMPULS.state.first).length;
     renderMenu();
     return true;
   }
@@ -2115,9 +2221,40 @@ const bindClicks = function () {
     });
   }
 
+  const stimulus = document.getElementById("stimulus");
+  if (stimulus) {
+    stimulus.addEventListener("mousedown", function (event) {
+      if (!isKeysLayout()) {
+        return;
+      }
+      const input = document.getElementById("answer-input");
+      if (!input || event.target === input) {
+        return;
+      }
+      event.preventDefault();
+      input.focus();
+    });
+  }
+
   const answerInput = document.getElementById("answer-input");
   if (answerInput) {
+    answerInput.addEventListener("input", function () {
+      if (answerInput.value) {
+        window.IMPULS.markTypedInput();
+      }
+      resizeAnswerInput();
+    });
     answerInput.addEventListener("keydown", function (event) {
+      if (event.repeat) {
+        event.preventDefault();
+        return;
+      }
+      if (event.altKey || event.ctrlKey || event.metaKey) {
+        return;
+      }
+      if (event.key.length === 1 && !event.isComposing) {
+        window.IMPULS.markTypedInput();
+      }
       if (event.key !== "Enter" || event.isComposing) {
         return;
       }
