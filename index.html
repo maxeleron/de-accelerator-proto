@@ -132,7 +132,7 @@
       </div>
       <div class="workshop-rows" id="workshop-rows">
         <button type="button" data-workshop="verbs" aria-pressed="false" data-i18n="workshop.verbs">M1 Дієслова</button>
-        <button type="button" aria-disabled="true" data-i18n="workshop.ear">Слух</button>
+        <button type="button" data-workshop="irregular" aria-pressed="false" data-i18n="workshop.irregular">M2 Неправильні дієслова</button>
         <button type="button" aria-disabled="true" data-i18n="workshop.text">Текст</button>
       </div>
       <div id="workshop-select" class="is-hidden">
@@ -145,7 +145,7 @@
         </button>
         <div class="win-select-menu is-hidden">
           <button type="button" data-workshop="verbs" data-i18n="workshop.verbs" aria-selected="true">M1 Дієслова</button>
-          <button type="button" data-workshop="ear" data-i18n="workshop.ear" aria-selected="false">Слух</button>
+          <button type="button" data-workshop="irregular" data-i18n="workshop.irregular" aria-selected="false">M2 Неправильні дієслова</button>
           <button type="button" data-workshop="text" data-i18n="workshop.text" aria-selected="false">Текст</button>
         </div>
       </div>
@@ -184,6 +184,13 @@
     </div>
     <div class="stimulus-block">
       <p id="stimulus"><span id="stimulus-before"></span><input type="text" id="answer-input" size="1" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus data-i18n-aria="round.answer" aria-label="Відповідь"><span id="stimulus-after"></span></p>
+      <table id="irregular-stimulus" class="is-hidden">
+        <tbody>
+          <tr><th scope="row">Infinitiv</th><td id="irregular-infinitive"></td></tr>
+          <tr><th scope="row">Präteritum</th><td id="irregular-praeteritum"></td></tr>
+          <tr><th scope="row">Partizip II</th><td id="irregular-partizip2"></td></tr>
+        </tbody>
+      </table>
       <p id="gloss"></p>
     </div>
     <div id="timer" aria-hidden="true"></div>

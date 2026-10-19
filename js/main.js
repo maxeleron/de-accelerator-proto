@@ -254,6 +254,9 @@ const windowOptionLabel = function (ms) {
 };
 
 const startLabel = function () {
+  if (menuChoice === "m2") {
+    return t("menu.startM2");
+  }
   if (menuChoice === "m1") {
     return t("menu.startM1");
   }
@@ -264,7 +267,7 @@ const startLabel = function () {
 
 const PACK_IDS = ["p1", "p2", "p3", "p4", "p5"];
 const PACK_ORDER = ["p1", "p2", "p3", "p4", "p5", "mix"];
-const WORKSHOP_ORDER = ["verbs", "ear", "text"];
+const WORKSHOP_ORDER = ["verbs", "irregular", "text"];
 let workshopPick = "verbs";
 let menuChoice = "pack";
 
@@ -408,6 +411,9 @@ const renderPackSeen = function () {
 };
 
 const packCount = function (pack) {
+  if (menuChoice === "m2" || window.IMPULS.state.workshop === "irregular") {
+    return window.IMPULS.irregularVerbs.length * 3;
+  }
   const n = packDeck(pack).length;
   return n > 0 ? n : 1;
 };
@@ -600,6 +606,10 @@ const stepWorkshopFold = function (delta) {
     return;
   }
   workshopPick = WORKSHOP_ORDER[next];
+  if (workshopPick === "irregular" || (menuChoice === "m2" && workshopPick === "verbs")) {
+    window.IMPULS.selectWorkshop(workshopPick);
+    return;
+  }
   renderWorkshopSelect();
 };
 
@@ -682,6 +692,10 @@ const renderMenu = function () {
   const verbsBtn = document.querySelector('#workshop-rows [data-workshop="verbs"]');
   if (verbsBtn) {
     verbsBtn.setAttribute("aria-pressed", menuChoice === "m1" ? "true" : "false");
+  }
+  const irregularBtn = document.querySelector('#workshop-rows [data-workshop="irregular"]');
+  if (irregularBtn) {
+    irregularBtn.setAttribute("aria-pressed", menuChoice === "m2" ? "true" : "false");
   }
   renderPackSeen();
   renderFirstScore();
@@ -889,7 +903,7 @@ const copyVerdicts = function (source) {
   for (let i = 0; i < ids.length; i += 1) {
     const id = ids[i];
     const verdict = source[id];
-    if (VERDICTS[verdict] && (findCard(id) || (typeof id === "string" && id.indexOf("wv-") === 0))) {
+    if (VERDICTS[verdict] && (findCard(id) || (typeof id === "string" && (id.indexOf("wv-") === 0 || id.indexOf("wi-") === 0)))) {
       next[id] = verdict;
     }
   }
@@ -925,7 +939,7 @@ const copyLatency = function (source) {
   for (let i = 0; i < ids.length; i += 1) {
     const id = ids[i];
     const ms = source[id];
-    if ((findCard(id) || (typeof id === "string" && id.indexOf("wv-") === 0)) && typeof ms === "number" && Number.isFinite(ms)) {
+    if ((findCard(id) || (typeof id === "string" && (id.indexOf("wv-") === 0 || id.indexOf("wi-") === 0))) && typeof ms === "number" && Number.isFinite(ms)) {
       next[id] = ms;
     }
   }
@@ -1339,6 +1353,28 @@ const finishRound = function () {
   document.getElementById("btn-start").focus();
 };
 
+window.IMPULS.paintIrregularStimulus = function (card) {
+  const stimulus = document.getElementById("stimulus");
+  const input = document.getElementById("answer-input");
+  stimulus.insertBefore(input, document.getElementById("stimulus-after"));
+  stimulus.classList.add("is-hidden");
+  document.getElementById("irregular-stimulus").classList.remove("is-hidden");
+  const fields = ["infinitive", "praeteritum", "partizip2"];
+  for (let i = 0; i < fields.length; i += 1) {
+    const field = fields[i];
+    const cell = document.getElementById("irregular-" + field);
+    cell.textContent = field === card.hiddenForm ? "___" : card.forms[field];
+    if (field === card.hiddenForm && isKeysLayout()) {
+      cell.textContent = "";
+      cell.appendChild(input);
+    }
+  }
+  input.value = "";
+  input.classList.remove("is-hit", "is-miss");
+  input.readOnly = false;
+  resizeAnswerInput();
+};
+
 const showNext = function () {
   const state = window.IMPULS.state;
   const upcoming = window.IMPULS.nextCard();
@@ -1367,7 +1403,15 @@ const showNext = function () {
   if (isKeysLayout() && card.muster === "v2") {
     prompt += " (" + t("round.startWith", { word: card.answer.split(" ")[0] }) + ")";
   }
-  paintStimulus(prompt);
+  if (state.workshop === "irregular") {
+    window.IMPULS.paintIrregularStimulus(card);
+  } else {
+    const stimulus = document.getElementById("stimulus");
+    stimulus.insertBefore(document.getElementById("answer-input"), document.getElementById("stimulus-after"));
+    stimulus.classList.remove("is-hidden");
+    document.getElementById("irregular-stimulus").classList.add("is-hidden");
+    paintStimulus(prompt);
+  }
   if (typeof window.IMPULS.applyCardGloss === "function") {
     window.IMPULS.applyCardGloss(card);
   } else {
@@ -1775,6 +1819,16 @@ window.IMPULS.selectWorkshop = function (id) {
   if (window.IMPULS.state.phase !== "menu") {
     return;
   }
+  if (id === "irregular") {
+    const prev = menuChoice;
+    menuChoice = "m2";
+    workshopPick = "irregular";
+    renderMenu();
+    if (prev !== "m2") {
+      playUi("click");
+    }
+    return;
+  }
   if (id !== "verbs") {
     return;
   }
@@ -1845,6 +1899,9 @@ window.IMPULS.startRound = function () {
   }
   cancelFrame();
   clearFlash();
+  if (menuChoice === "m2") {
+    menuChoice = "pack";
+  }
   state.workshop = null;
   state.workshopCards = null;
   const cards = window.IMPULS.loadCards();
@@ -1899,6 +1956,38 @@ window.IMPULS.startWorkshopVerbs = function () {
   showNext();
 };
 
+window.IMPULS.startWorkshopIrregular = function () {
+  if (!ensureMenuPhase()) {
+    return;
+  }
+  const state = window.IMPULS.state;
+  if (isRoundSetupOpen()) {
+    commitRoundSetup();
+  }
+  cancelFrame();
+  clearFlash();
+  clampRoundSize();
+  const cards = window.IMPULS.buildIrregularCards(state.roundSize);
+  if (!cards.length) {
+    return;
+  }
+  state.workshop = "irregular";
+  state.workshopCards = cards;
+  state.main = window.IMPULS.buildQueue(cards, cards.length);
+  state.repair = [];
+  state.first = {};
+  state.latency = {};
+  state.currentId = null;
+  state.presented = [];
+  state.locked = false;
+  abortPending = false;
+  resetAbortUi();
+  window.IMPULS.setPhase("round");
+  persistActive();
+  showScreen("screen-round");
+  showNext();
+};
+
 window.IMPULS.requestAbort = function () {
   const state = window.IMPULS.state;
   if (state.phase !== "round" && state.phase !== "repair") {
@@ -1924,12 +2013,16 @@ const restoreRound = function () {
   if (saved.pack === "p1" || saved.pack === "p2" || saved.pack === "p3" || saved.pack === "p4" || saved.pack === "p5" || saved.pack === "mix") {
     window.IMPULS.setPack(saved.pack);
   }
-  if (saved.workshop === "verbs" && Array.isArray(saved.workshopCards) && saved.workshopCards.length) {
-    window.IMPULS.state.workshop = "verbs";
+  if ((saved.workshop === "verbs" || saved.workshop === "irregular") && Array.isArray(saved.workshopCards) && saved.workshopCards.length) {
+    window.IMPULS.state.workshop = saved.workshop;
     window.IMPULS.state.workshopCards = saved.workshopCards.slice();
   } else {
     window.IMPULS.state.workshop = null;
     window.IMPULS.state.workshopCards = null;
+  }
+  if (saved.workshop === "irregular" || (saved.done === true && Object.keys(saved.first || {}).some(function (id) { return id.indexOf("wi-") === 0; }))) {
+    menuChoice = "m2";
+    workshopPick = "irregular";
   }
   if (saved.done === true) {
     window.IMPULS.state.first = copyVerdicts(saved.first);
@@ -1966,6 +2059,10 @@ const restoreRound = function () {
 
 const bindClicks = function () {
   document.getElementById("btn-start").addEventListener("click", function () {
+    if (menuChoice === "m2") {
+      window.IMPULS.startWorkshopIrregular();
+      return;
+    }
     if (menuChoice === "m1") {
       window.IMPULS.startWorkshopVerbs();
       return;
@@ -2143,8 +2240,8 @@ const bindClicks = function () {
     const id = item.getAttribute("data-workshop") || "verbs";
     workshopPick = id;
     closeFoldSelect(root);
-    if (id === "verbs") {
-      window.IMPULS.selectWorkshop("verbs");
+    if (id === "verbs" || id === "irregular") {
+      window.IMPULS.selectWorkshop(id);
       return;
     }
     renderWorkshopSelect();
@@ -2155,6 +2252,13 @@ const bindClicks = function () {
   if (verbsBtn) {
     verbsBtn.addEventListener("click", function () {
       window.IMPULS.selectWorkshop("verbs");
+    });
+  }
+
+  const irregularBtn = document.querySelector('#workshop-rows [data-workshop="irregular"]');
+  if (irregularBtn) {
+    irregularBtn.addEventListener("click", function () {
+      window.IMPULS.selectWorkshop("irregular");
     });
   }
 

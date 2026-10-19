@@ -290,7 +290,8 @@ h2 {
   cursor: default;
 }
 
-.workshop-rows button[data-workshop="verbs"] {
+.workshop-rows button[data-workshop="verbs"],
+.workshop-rows button[data-workshop="irregular"] {
   cursor: pointer;
 }
 
@@ -513,6 +514,8 @@ html[data-theme="light"] #icon-moon {
 }
 
 #screen-menu.is-hidden,
+#stimulus.is-hidden,
+#irregular-stimulus.is-hidden,
 #repair-badge.is-hidden,
 .options button.is-hidden,
 #win-select .win-select-menu.is-hidden,
@@ -609,6 +612,28 @@ html[data-theme="light"] #icon-moon {
   font-weight: 700;
   font-style: normal;
   line-height: 1.05;
+}
+
+#irregular-stimulus {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: left;
+}
+
+#irregular-stimulus th {
+  width: 40%;
+  padding: 8px 12px 8px 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+#irregular-stimulus td {
+  padding: 8px 0;
+  overflow-wrap: anywhere;
 }
 
 #gloss {

@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "sein",
+    "infinitive": "sein",
+    "praeteritum": "war",
+    "partizip2": "gewesen",
+    "gloss": "бути",
+    "glossEn": "to be",
+    "type": "strong",
+    "freq": 1
+  },
+  {
+    "id": "haben",
+    "infinitive": "haben",
+    "praeteritum": "hatte",
+    "partizip2": "gehabt",
+    "gloss": "мати",
+    "glossEn": "to have",
+    "type": "mixed",
+    "freq": 2
+  },
+  {
+    "id": "werden",
+    "infinitive": "werden",
+    "praeteritum": "wurde",
+    "partizip2": "geworden",
+    "gloss": "ставати",
+    "glossEn": "to become",
+    "type": "strong",
+    "freq": 3
+  },
+  {
+    "id": "können",
+    "infinitive": "können",
+    "praeteritum": "konnte",
+    "partizip2": "gekonnt",
+    "gloss": "могти",
+    "glossEn": "to be able to",
+    "type": "mixed",
+    "freq": 4
+  },
+  {
+    "id": "müssen",
+    "infinitive": "müssen",
+    "praeteritum": "musste",
+    "partizip2": "gemusst",
+    "gloss": "мусити",
+    "glossEn": "to have to",
+    "type": "mixed",
+    "freq": 5
+  },
+  {
+    "id": "wollen",
+    "infinitive": "wollen",
+    "praeteritum": "wollte",
+    "partizip2": "gewollt",
+    "gloss": "хотіти",
+    "glossEn": "to want",
+    "type": "mixed",
+    "freq": 6
+  },
+  {
+    "id": "sollen",
+    "infinitive": "sollen",
+    "praeteritum": "sollte",
+    "partizip2": "gesollt",
+    "gloss": "мати обов'язок",
+    "glossEn": "to be supposed to",
+    "type": "mixed",
+    "freq": 7
+  },
+  {
+    "id": "dürfen",
+    "infinitive": "dürfen",
+    "praeteritum": "durfte",
+    "partizip2": "gedurft",
+    "gloss": "мати дозвіл",
+    "glossEn": "to be allowed to",
+    "type": "mixed",
+    "freq": 8
+  },
+  {
+    "id": "mögen",
+    "infinitive": "mögen",
+    "praeteritum": "mochte",
+    "partizip2": "gemocht",
+    "gloss": "любити",
+    "glossEn": "to like",
+    "type": "mixed",
+    "freq": 9
+  },
+  {
+    "id": "wissen",
+    "infinitive": "wissen",
+    "praeteritum": "wusste",
+    "partizip2": "gewusst",
+    "gloss": "знати факт",
+    "glossEn": "to know a fact",
+    "type": "mixed",
+    "freq": 10
+  },
+  {
+    "id": "gehen",
+    "infinitive": "gehen",
+    "praeteritum": "ging",
+    "partizip2": "gegangen",
+    "gloss": "йти",
+    "glossEn": "to go",
+    "type": "strong",
+    "freq": 11
+  },
+  {
+    "id": "kommen",
+    "infinitive": "kommen",
+    "praeteritum": "kam",
+    "partizip2": "gekommen",
+    "gloss": "приходити",
+    "glossEn": "to come",
+    "type": "strong",
+    "freq": 12
+  },
+  {
+    "id": "sehen",
+    "infinitive": "sehen",
+    "praeteritum": "sah",
+    "partizip2": "gesehen",
+    "gloss": "бачити",
+    "glossEn": "to see",
+    "type": "strong",
+    "freq": 13
+  },
+  {
+    "id": "geben",
+    "infinitive": "geben",
+    "praeteritum": "gab",
+    "partizip2": "gegeben",
+    "gloss": "давати",
+    "glossEn": "to give",
+    "type": "strong",
+    "freq": 14
+  },
+  {
+    "id": "nehmen",
+    "infinitive": "nehmen",
+    "praeteritum": "nahm",
+    "partizip2": "genommen",
+    "gloss": "брати",
+    "glossEn": "to take",
+    "type": "strong",
+    "freq": 15
+  },
+  {
+    "id": "finden",
+    "infinitive": "finden",
+    "praeteritum": "fand",
+    "partizip2": "gefunden",
+    "gloss": "знаходити",
+    "glossEn": "to find",
+    "type": "strong",
+    "freq": 16
+  },
+  {
+    "id": "denken",
+    "infinitive": "denken",
+    "praeteritum": "dachte",
+    "partizip2": "gedacht",
+    "gloss": "думати",
+    "glossEn": "to think",
+    "type": "mixed",
+    "freq": 17
+  },
+  {
+    "id": "tun",
+    "infinitive": "tun",
+    "praeteritum": "tat",
+    "partizip2": "getan",
+    "gloss": "робити",
+    "glossEn": "to do",
+    "type": "strong",
+    "freq": 18
+  },
+  {
+    "id": "stehen",
+    "infinitive": "stehen",
+    "praeteritum": "stand",
+    "partizip2": "gestanden",
+    "gloss": "стояти",
+    "glossEn": "to stand",
+    "type": "strong",
+    "freq": 19
+  },
+  {
+    "id": "liegen",
+    "infinitive": "liegen",
+    "praeteritum": "lag",
+    "partizip2": "gelegen",
+    "gloss": "лежати",
+    "glossEn": "to lie",
+    "type": "strong",
+    "freq": 20
+  },
+  {
+    "id": "halten",
+    "infinitive": "halten",
+    "praeteritum": "hielt",
+    "partizip2": "gehalten",
+    "gloss": "тримати",
+    "glossEn": "to hold",
+    "type": "strong",
+    "freq": 21
+  },
+  {
+    "id": "lassen",
+    "infinitive": "lassen",
+    "praeteritum": "ließ",
+    "partizip2": "gelassen",
+    "gloss": "залишати; дозволяти",
+    "glossEn": "to leave; to let",
+    "type": "strong",
+    "freq": 22
+  },
+  {
+    "id": "fahren",
+    "infinitive": "fahren",
+    "praeteritum": "fuhr",
+    "partizip2": "gefahren",
+    "gloss": "їхати",
+    "glossEn": "to travel by vehicle",
+    "type": "strong",
+    "freq": 23
+  },
+  {
+    "id": "sprechen",
+    "infinitive": "sprechen",
+    "praeteritum": "sprach",
+    "partizip2": "gesprochen",
+    "gloss": "говорити",
+    "glossEn": "to speak",
+    "type": "strong",
+    "freq": 24
+  },
+  {
+    "id": "essen",
+    "infinitive": "essen",
+    "praeteritum": "aß",
+    "partizip2": "gegessen",
+    "gloss": "їсти",
+    "glossEn": "to eat",
+    "type": "strong",
+    "freq": 25
+  },
+  {
+    "id": "trinken",
+    "infinitive": "trinken",
+    "praeteritum": "trank",
+    "partizip2": "getrunken",
+    "gloss": "пити",
+    "glossEn": "to drink",
+    "type": "strong",
+    "freq": 26
+  },
+  {
+    "id": "schlafen",
+    "infinitive": "schlafen",
+    "praeteritum": "schlief",
+    "partizip2": "geschlafen",
+    "gloss": "спати",
+    "glossEn": "to sleep",
+    "type": "strong",
+    "freq": 27
+  },
+  {
+    "id": "lesen",
+    "infinitive": "lesen",
+    "praeteritum": "las",
+    "partizip2": "gelesen",
+    "gloss": "читати",
+    "glossEn": "to read",
+    "type": "strong",
+    "freq": 28
+  },
+  {
+    "id": "schreiben",
+    "infinitive": "schreiben",
+    "praeteritum": "schrieb",
+    "partizip2": "geschrieben",
+    "gloss": "писати",
+    "glossEn": "to write",
+    "type": "strong",
+    "freq": 29
+  },
+  {
+    "id": "heißen",
+    "infinitive": "heißen",
+    "praeteritum": "hieß",
+    "partizip2": "geheißen",
+    "gloss": "називатися",
+    "glossEn": "to be called",
+    "type": "strong",
+    "freq": 30
+  },
+  {
+    "id": "bleiben",
+    "infinitive": "bleiben",
+    "praeteritum": "blieb",
+    "partizip2": "geblieben",
+    "gloss": "залишатися",
+    "glossEn": "to stay",
+    "type": "strong",
+    "freq": 31
+  },
+  {
+    "id": "bringen",
+    "infinitive": "bringen",
+    "praeteritum": "brachte",
+    "partizip2": "gebracht",
+    "gloss": "приносити",
+    "glossEn": "to bring",
+    "type": "mixed",
+    "freq": 32
+  },
+  {
+    "id": "kennen",
+    "infinitive": "kennen",
+    "praeteritum": "kannte",
+    "partizip2": "gekannt",
+    "gloss": "бути знайомим із",
+    "glossEn": "to be familiar with",
+    "type": "mixed",
+    "freq": 33
+  },
+  {
+    "id": "sitzen",
+    "infinitive": "sitzen",
+    "praeteritum": "saß",
+    "partizip2": "gesessen",
+    "gloss": "сидіти",
+    "glossEn": "to sit",
+    "type": "strong",
+    "freq": 34
+  },
+  {
+    "id": "laufen",
+    "infinitive": "laufen",
+    "praeteritum": "lief",
+    "partizip2": "gelaufen",
+    "gloss": "бігти",
+    "glossEn": "to run",
+    "type": "strong",
+    "freq": 35
+  },
+  {
+    "id": "verstehen",
+    "infinitive": "verstehen",
+    "praeteritum": "verstand",
+    "partizip2": "verstanden",
+    "gloss": "розуміти",
+    "glossEn": "to understand",
+    "type": "strong",
+    "freq": 36
+  },
+  {
+    "id": "bekommen",
+    "infinitive": "bekommen",
+    "praeteritum": "bekam",
+    "partizip2": "bekommen",
+    "gloss": "отримувати",
+    "glossEn": "to receive",
+    "type": "strong",
+    "freq": 37
+  },
+  {
+    "id": "helfen",
+    "infinitive": "helfen",
+    "praeteritum": "half",
+    "partizip2": "geholfen",
+    "gloss": "допомагати",
+    "glossEn": "to help",
+    "type": "strong",
+    "freq": 38
+  },
+  {
+    "id": "tragen",
+    "infinitive": "tragen",
+    "praeteritum": "trug",
+    "partizip2": "getragen",
+    "gloss": "нести; носити",
+    "glossEn": "to carry; to wear",
+    "type": "strong",
+    "freq": 39
+  },
+  {
+    "id": "treffen",
+    "infinitive": "treffen",
+    "praeteritum": "traf",
+    "partizip2": "getroffen",
+    "gloss": "зустрічати",
+    "glossEn": "to meet",
+    "type": "strong",
+    "freq": 40
+  },
+  {
+    "id": "beginnen",
+    "infinitive": "beginnen",
+    "praeteritum": "begann",
+    "partizip2": "begonnen",
+    "gloss": "починати",
+    "glossEn": "to begin",
+    "type": "strong",
+    "freq": 41
+  },
+  {
+    "id": "fallen",
+    "infinitive": "fallen",
+    "praeteritum": "fiel",
+    "partizip2": "gefallen",
+    "gloss": "падати",
+    "glossEn": "to fall",
+    "type": "strong",
+    "freq": 42
+  },
+  {
+    "id": "gewinnen",
+    "infinitive": "gewinnen",
+    "praeteritum": "gewann",
+    "partizip2": "gewonnen",
+    "gloss": "вигравати",
+    "glossEn": "to win",
+    "type": "strong",
+    "freq": 43
+  },
+  {
+    "id": "verlieren",
+    "infinitive": "verlieren",
+    "praeteritum": "verlor",
+    "partizip2": "verloren",
+    "gloss": "втрачати",
+    "glossEn": "to lose",
+    "type": "strong",
+    "freq": 44
+  },
+  {
+    "id": "ziehen",
+    "infinitive": "ziehen",
+    "praeteritum": "zog",
+    "partizip2": "gezogen",
+    "gloss": "тягнути",
+    "glossEn": "to pull",
+    "type": "strong",
+    "freq": 45
+  },
+  {
+    "id": "schließen",
+    "infinitive": "schließen",
+    "praeteritum": "schloss",
+    "partizip2": "geschlossen",
+    "gloss": "закривати",
+    "glossEn": "to close",
+    "type": "strong",
+    "freq": 46
+  },
+  {
+    "id": "steigen",
+    "infinitive": "steigen",
+    "praeteritum": "stieg",
+    "partizip2": "gestiegen",
+    "gloss": "підніматися",
+    "glossEn": "to rise",
+    "type": "strong",
+    "freq": 47
+  },
+  {
+    "id": "sterben",
+    "infinitive": "sterben",
+    "praeteritum": "starb",
+    "partizip2": "gestorben",
+    "gloss": "помирати",
+    "glossEn": "to die",
+    "type": "strong",
+    "freq": 48
+  },
+  {
+    "id": "vergessen",
+    "infinitive": "vergessen",
+    "praeteritum": "vergaß",
+    "partizip2": "vergessen",
+    "gloss": "забувати",
+    "glossEn": "to forget",
+    "type": "strong",
+    "freq": 49
+  },
+  {
+    "id": "nennen",
+    "infinitive": "nennen",
+    "praeteritum": "nannte",
+    "partizip2": "genannt",
+    "gloss": "називати",
+    "glossEn": "to name",
+    "type": "mixed",
+    "freq": 50
+  },
+  {
+    "id": "bieten",
+    "infinitive": "bieten",
+    "praeteritum": "bot",
+    "partizip2": "geboten",
+    "gloss": "пропонувати",
+    "glossEn": "to offer",
+    "type": "strong",
+    "freq": 51
+  },
+  {
+    "id": "bitten",
+    "infinitive": "bitten",
+    "praeteritum": "bat",
+    "partizip2": "gebeten",
+    "gloss": "просити",
+    "glossEn": "to ask for",
+    "type": "strong",
+    "freq": 52
+  },
+  {
+    "id": "gelten",
+    "infinitive": "gelten",
+    "praeteritum": "galt",
+    "partizip2": "gegolten",
+    "gloss": "бути чинним",
+    "glossEn": "to be valid",
+    "type": "strong",
+    "freq": 53
+  },
+  {
+    "id": "scheinen",
+    "infinitive": "scheinen",
+    "praeteritum": "schien",
+    "partizip2": "geschienen",
+    "gloss": "світити; здаватися",
+    "glossEn": "to shine; to seem",
+    "type": "strong",
+    "freq": 54
+  },
+  {
+    "id": "empfehlen",
+    "infinitive": "empfehlen",
+    "praeteritum": "empfahl",
+    "partizip2": "empfohlen",
+    "gloss": "рекомендувати",
+    "glossEn": "to recommend",
+    "type": "strong",
+    "freq": 55
+  },
+  {
+    "id": "entscheiden",
+    "infinitive": "entscheiden",
+    "praeteritum": "entschied",
+    "partizip2": "entschieden",
+    "gloss": "вирішувати",
+    "glossEn": "to decide",
+    "type": "strong",
+    "freq": 56
+  },
+  {
+    "id": "erhalten",
+    "infinitive": "erhalten",
+    "praeteritum": "erhielt",
+    "partizip2": "erhalten",
+    "gloss": "одержувати; зберігати",
+    "glossEn": "to obtain; to preserve",
+    "type": "strong",
+    "freq": 57
+  },
+  {
+    "id": "erfahren",
+    "infinitive": "erfahren",
+    "praeteritum": "erfuhr",
+    "partizip2": "erfahren",
+    "gloss": "дізнаватися",
+    "glossEn": "to learn of",
+    "type": "strong",
+    "freq": 58
+  },
+  {
+    "id": "entstehen",
+    "infinitive": "entstehen",
+    "praeteritum": "entstand",
+    "partizip2": "entstanden",
+    "gloss": "виникати",
+    "glossEn": "to arise",
+    "type": "strong",
+    "freq": 59
+  },
+  {
+    "id": "geschehen",
+    "infinitive": "geschehen",
+    "praeteritum": "geschah",
+    "partizip2": "geschehen",
+    "gloss": "траплятися",
+    "glossEn": "to happen",
+    "type": "strong",
+    "freq": 60
+  },
+  {
+    "id": "gefallen",
+    "infinitive": "gefallen",
+    "praeteritum": "gefiel",
+    "partizip2": "gefallen",
+    "gloss": "подобатися",
+    "glossEn": "to please",
+    "type": "strong",
+    "freq": 61
+  },
+  {
+    "id": "vergleichen",
+    "infinitive": "vergleichen",
+    "praeteritum": "verglich",
+    "partizip2": "verglichen",
+    "gloss": "порівнювати",
+    "glossEn": "to compare",
+    "type": "strong",
+    "freq": 62
+  },
+  {
+    "id": "vermeiden",
+    "infinitive": "vermeiden",
+    "praeteritum": "vermied",
+    "partizip2": "vermieden",
+    "gloss": "уникати",
+    "glossEn": "to avoid",
+    "type": "strong",
+    "freq": 63
+  },
+  {
+    "id": "verbinden",
+    "infinitive": "verbinden",
+    "praeteritum": "verband",
+    "partizip2": "verbunden",
+    "gloss": "з'єднувати",
+    "glossEn": "to connect",
+    "type": "strong",
+    "freq": 64
+  },
+  {
+    "id": "versprechen",
+    "infinitive": "versprechen",
+    "praeteritum": "versprach",
+    "partizip2": "versprochen",
+    "gloss": "обіцяти",
+    "glossEn": "to promise",
+    "type": "strong",
+    "freq": 65
+  },
+  {
+    "id": "verschwinden",
+    "infinitive": "verschwinden",
+    "praeteritum": "verschwand",
+    "partizip2": "verschwunden",
+    "gloss": "зникати",
+    "glossEn": "to disappear",
+    "type": "strong",
+    "freq": 66
+  },
+  {
+    "id": "verlassen",
+    "infinitive": "verlassen",
+    "praeteritum": "verließ",
+    "partizip2": "verlassen",
+    "gloss": "покидати",
+    "glossEn": "to leave",
+    "type": "strong",
+    "freq": 67
+  },
+  {
+    "id": "unternehmen",
+    "infinitive": "unternehmen",
+    "praeteritum": "unternahm",
+    "partizip2": "unternommen",
+    "gloss": "здійснювати",
+    "glossEn": "to undertake",
+    "type": "strong",
+    "freq": 68
+  },
+  {
+    "id": "übernehmen",
+    "infinitive": "übernehmen",
+    "praeteritum": "übernahm",
+    "partizip2": "übernommen",
+    "gloss": "перебирати на себе",
+    "glossEn": "to take over",
+    "type": "strong",
+    "freq": 69
+  },
+  {
+    "id": "beschreiben",
+    "infinitive": "beschreiben",
+    "praeteritum": "beschrieb",
+    "partizip2": "beschrieben",
+    "gloss": "описувати",
+    "glossEn": "to describe",
+    "type": "strong",
+    "freq": 70
+  },
+  {
+    "id": "bestehen",
+    "infinitive": "bestehen",
+    "praeteritum": "bestand",
+    "partizip2": "bestanden",
+    "gloss": "існувати; складати іспит",
+    "glossEn": "to exist; to pass an exam",
+    "type": "strong",
+    "freq": 71
+  },
+  {
+    "id": "besitzen",
+    "infinitive": "besitzen",
+    "praeteritum": "besaß",
+    "partizip2": "besessen",
+    "gloss": "володіти",
+    "glossEn": "to possess",
+    "type": "strong",
+    "freq": 72
+  },
+  {
+    "id": "beweisen",
+    "infinitive": "beweisen",
+    "praeteritum": "bewies",
+    "partizip2": "bewiesen",
+    "gloss": "доводити",
+    "glossEn": "to prove",
+    "type": "strong",
+    "freq": 73
+  },
+  {
+    "id": "erkennen",
+    "infinitive": "erkennen",
+    "praeteritum": "erkannte",
+    "partizip2": "erkannt",
+    "gloss": "впізнавати",
+    "glossEn": "to recognize",
+    "type": "mixed",
+    "freq": 74
+  },
+  {
+    "id": "rufen",
+    "infinitive": "rufen",
+    "praeteritum": "rief",
+    "partizip2": "gerufen",
+    "gloss": "кликати",
+    "glossEn": "to call",
+    "type": "strong",
+    "freq": 75
+  },
+  {
+    "id": "werfen",
+    "infinitive": "werfen",
+    "praeteritum": "warf",
+    "partizip2": "geworfen",
+    "gloss": "кидати",
+    "glossEn": "to throw",
+    "type": "strong",
+    "freq": 76
+  },
+  {
+    "id": "schlagen",
+    "infinitive": "schlagen",
+    "praeteritum": "schlug",
+    "partizip2": "geschlagen",
+    "gloss": "бити",
+    "glossEn": "to hit",
+    "type": "strong",
+    "freq": 77
+  },
+  {
+    "id": "springen",
+    "infinitive": "springen",
+    "praeteritum": "sprang",
+    "partizip2": "gesprungen",
+    "gloss": "стрибати",
+    "glossEn": "to jump",
+    "type": "strong",
+    "freq": 78
+  },
+  {
+    "id": "schwimmen",
+    "infinitive": "schwimmen",
+    "praeteritum": "schwamm",
+    "partizip2": "geschwommen",
+    "gloss": "плавати",
+    "glossEn": "to swim",
+    "type": "strong",
+    "freq": 79
+  },
+  {
+    "id": "singen",
+    "infinitive": "singen",
+    "praeteritum": "sang",
+    "partizip2": "gesungen",
+    "gloss": "співати",
+    "glossEn": "to sing",
+    "type": "strong",
+    "freq": 80
+  },
+  {
+    "id": "schneiden",
+    "infinitive": "schneiden",
+    "praeteritum": "schnitt",
+    "partizip2": "geschnitten",
+    "gloss": "різати",
+    "glossEn": "to cut",
+    "type": "strong",
+    "freq": 81
+  },
+  {
+    "id": "waschen",
+    "infinitive": "waschen",
+    "praeteritum": "wusch",
+    "partizip2": "gewaschen",
+    "gloss": "мити",
+    "glossEn": "to wash",
+    "type": "strong",
+    "freq": 82
+  },
+  {
+    "id": "wachsen",
+    "infinitive": "wachsen",
+    "praeteritum": "wuchs",
+    "partizip2": "gewachsen",
+    "gloss": "рости",
+    "glossEn": "to grow",
+    "type": "strong",
+    "freq": 83
+  },
+  {
+    "id": "fangen",
+    "infinitive": "fangen",
+    "praeteritum": "fing",
+    "partizip2": "gefangen",
+    "gloss": "ловити",
+    "glossEn": "to catch",
+    "type": "strong",
+    "freq": 84
+  },
+  {
+    "id": "brennen",
+    "infinitive": "brennen",
+    "praeteritum": "brannte",
+    "partizip2": "gebrannt",
+    "gloss": "горіти",
+    "glossEn": "to burn",
+    "type": "mixed",
+    "freq": 85
+  },
+  {
+    "id": "rennen",
+    "infinitive": "rennen",
+    "praeteritum": "rannte",
+    "partizip2": "gerannt",
+    "gloss": "бігти швидко",
+    "glossEn": "to run fast",
+    "type": "mixed",
+    "freq": 86
+  },
+  {
+    "id": "leiden",
+    "infinitive": "leiden",
+    "praeteritum": "litt",
+    "partizip2": "gelitten",
+    "gloss": "страждати",
+    "glossEn": "to suffer",
+    "type": "strong",
+    "freq": 87
+  },
+  {
+    "id": "leihen",
+    "infinitive": "leihen",
+    "praeteritum": "lieh",
+    "partizip2": "geliehen",
+    "gloss": "позичати",
+    "glossEn": "to lend",
+    "type": "strong",
+    "freq": 88
+  },
+  {
+    "id": "riechen",
+    "infinitive": "riechen",
+    "praeteritum": "roch",
+    "partizip2": "gerochen",
+    "gloss": "пахнути",
+    "glossEn": "to smell",
+    "type": "strong",
+    "freq": 89
+  },
+  {
+    "id": "fliegen",
+    "infinitive": "fliegen",
+    "praeteritum": "flog",
+    "partizip2": "geflogen",
+    "gloss": "літати",
+    "glossEn": "to fly",
+    "type": "strong",
+    "freq": 90
+  },
+  {
+    "id": "frieren",
+    "infinitive": "frieren",
+    "praeteritum": "fror",
+    "partizip2": "gefroren",
+    "gloss": "мерзнути",
+    "glossEn": "to freeze",
+    "type": "strong",
+    "freq": 91
+  },
+  {
+    "id": "schweigen",
+    "infinitive": "schweigen",
+    "praeteritum": "schwieg",
+    "partizip2": "geschwiegen",
+    "gloss": "мовчати",
+    "glossEn": "to be silent",
+    "type": "strong",
+    "freq": 92
+  },
+  {
+    "id": "lügen",
+    "infinitive": "lügen",
+    "praeteritum": "log",
+    "partizip2": "gelogen",
+    "gloss": "брехати",
+    "glossEn": "to lie",
+    "type": "strong",
+    "freq": 93
+  },
+  {
+    "id": "streiten",
+    "infinitive": "streiten",
+    "praeteritum": "stritt",
+    "partizip2": "gestritten",
+    "gloss": "сперечатися",
+    "glossEn": "to argue",
+    "type": "strong",
+    "freq": 94
+  },
+  {
+    "id": "treiben",
+    "infinitive": "treiben",
+    "praeteritum": "trieb",
+    "partizip2": "getrieben",
+    "gloss": "гнати",
+    "glossEn": "to drive onward",
+    "type": "strong",
+    "freq": 95
+  },
+  {
+    "id": "treten",
+    "infinitive": "treten",
+    "praeteritum": "trat",
+    "partizip2": "getreten",
+    "gloss": "ступати; копати ногою",
+    "glossEn": "to step; to kick",
+    "type": "strong",
+    "freq": 96
+  },
+  {
+    "id": "beißen",
+    "infinitive": "beißen",
+    "praeteritum": "biss",
+    "partizip2": "gebissen",
+    "gloss": "кусати",
+    "glossEn": "to bite",
+    "type": "strong",
+    "freq": 97
+  },
+  {
+    "id": "brechen",
+    "infinitive": "brechen",
+    "praeteritum": "brach",
+    "partizip2": "gebrochen",
+    "gloss": "ламати",
+    "glossEn": "to break",
+    "type": "strong",
+    "freq": 98
+  },
+  {
+    "id": "binden",
+    "infinitive": "binden",
+    "praeteritum": "band",
+    "partizip2": "gebunden",
+    "gloss": "зв'язувати",
+    "glossEn": "to bind",
+    "type": "strong",
+    "freq": 99
+  },
+  {
+    "id": "greifen",
+    "infinitive": "greifen",
+    "praeteritum": "griff",
+    "partizip2": "gegriffen",
+    "gloss": "хапати",
+    "glossEn": "to grab",
+    "type": "strong",
+    "freq": 100
+  },
+  {
+    "id": "heben",
+    "infinitive": "heben",
+    "praeteritum": "hob",
+    "partizip2": "gehoben",
+    "gloss": "піднімати",
+    "glossEn": "to lift",
+    "type": "strong",
+    "freq": 101
+  },
+  {
+    "id": "messen",
+    "infinitive": "messen",
+    "praeteritum": "maß",
+    "partizip2": "gemessen",
+    "gloss": "вимірювати",
+    "glossEn": "to measure",
+    "type": "strong",
+    "freq": 102
+  },
+  {
+    "id": "genießen",
+    "infinitive": "genießen",
+    "praeteritum": "genoss",
+    "partizip2": "genossen",
+    "gloss": "насолоджуватися",
+    "glossEn": "to enjoy",
+    "type": "strong",
+    "freq": 103
+  },
+  {
+    "id": "gießen",
+    "infinitive": "gießen",
+    "praeteritum": "goss",
+    "partizip2": "gegossen",
+    "gloss": "лити; поливати",
+    "glossEn": "to pour; to water",
+    "type": "strong",
+    "freq": 104
+  },
+  {
+    "id": "stehlen",
+    "infinitive": "stehlen",
+    "praeteritum": "stahl",
+    "partizip2": "gestohlen",
+    "gloss": "красти",
+    "glossEn": "to steal",
+    "type": "strong",
+    "freq": 105
+  },
+  {
+    "id": "stoßen",
+    "infinitive": "stoßen",
+    "praeteritum": "stieß",
+    "partizip2": "gestoßen",
+    "gloss": "штовхати",
+    "glossEn": "to push",
+    "type": "strong",
+    "freq": 106
+  },
+  {
+    "id": "schleichen",
+    "infinitive": "schleichen",
+    "praeteritum": "schlich",
+    "partizip2": "geschlichen",
+    "gloss": "крастися",
+    "glossEn": "to sneak",
+    "type": "strong",
+    "freq": 107
+  },
+  {
+    "id": "gelingen",
+    "infinitive": "gelingen",
+    "praeteritum": "gelang",
+    "partizip2": "gelungen",
+    "gloss": "вдаватися",
+    "glossEn": "to succeed",
+    "type": "strong",
+    "freq": 108
+  },
+  {
+    "id": "geraten",
+    "infinitive": "geraten",
+    "praeteritum": "geriet",
+    "partizip2": "geraten",
+    "gloss": "потрапляти",
+    "glossEn": "to get into",
+    "type": "strong",
+    "freq": 109
+  },
+  {
+    "id": "laden",
+    "infinitive": "laden",
+    "praeteritum": "lud",
+    "partizip2": "geladen",
+    "gloss": "вантажити",
+    "glossEn": "to load",
+    "type": "strong",
+    "freq": 110
+  },
+  {
+    "id": "schaffen",
+    "infinitive": "schaffen",
+    "praeteritum": "schuf",
+    "partizip2": "geschaffen",
+    "gloss": "створювати",
+    "glossEn": "to create",
+    "type": "strong",
+    "freq": 111
+  },
+  {
+    "id": "schieben",
+    "infinitive": "schieben",
+    "praeteritum": "schob",
+    "partizip2": "geschoben",
+    "gloss": "пересувати",
+    "glossEn": "to slide",
+    "type": "strong",
+    "freq": 112
+  },
+  {
+    "id": "schießen",
+    "infinitive": "schießen",
+    "praeteritum": "schoss",
+    "partizip2": "geschossen",
+    "gloss": "стріляти",
+    "glossEn": "to shoot",
+    "type": "strong",
+    "freq": 113
+  },
+  {
+    "id": "sinken",
+    "infinitive": "sinken",
+    "praeteritum": "sank",
+    "partizip2": "gesunken",
+    "gloss": "опускатися; тонути",
+    "glossEn": "to sink",
+    "type": "strong",
+    "freq": 114
+  },
+  {
+    "id": "zwingen",
+    "infinitive": "zwingen",
+    "praeteritum": "zwang",
+    "partizip2": "gezwungen",
+    "gloss": "змушувати",
+    "glossEn": "to force",
+    "type": "strong",
+    "freq": 115
+  },
+  {
+    "id": "fliehen",
+    "infinitive": "fliehen",
+    "praeteritum": "floh",
+    "partizip2": "geflohen",
+    "gloss": "тікати",
+    "glossEn": "to flee",
+    "type": "strong",
+    "freq": 116
+  },
+  {
+    "id": "fließen",
+    "infinitive": "fließen",
+    "praeteritum": "floss",
+    "partizip2": "geflossen",
+    "gloss": "текти",
+    "glossEn": "to flow",
+    "type": "strong",
+    "freq": 117
+  },
+  {
+    "id": "reiten",
+    "infinitive": "reiten",
+    "praeteritum": "ritt",
+    "partizip2": "geritten",
+    "gloss": "їхати верхи",
+    "glossEn": "to ride a horse",
+    "type": "strong",
+    "freq": 118
+  },
+  {
+    "id": "pfeifen",
+    "infinitive": "pfeifen",
+    "praeteritum": "pfiff",
+    "partizip2": "gepfiffen",
+    "gloss": "свистіти",
+    "glossEn": "to whistle",
+    "type": "strong",
+    "freq": 119
+  },
+  {
+    "id": "reißen",
+    "infinitive": "reißen",
+    "praeteritum": "riss",
+    "partizip2": "gerissen",
+    "gloss": "рвати",
+    "glossEn": "to tear",
+    "type": "strong",
+    "freq": 120
+  },
+  {
+    "id": "schwören",
+    "infinitive": "schwören",
+    "praeteritum": "schwor",
+    "partizip2": "geschworen",
+    "gloss": "присягатися",
+    "glossEn": "to swear",
+    "type": "strong",
+    "freq": 121
+  },
+  {
+    "id": "stechen",
+    "infinitive": "stechen",
+    "praeteritum": "stach",
+    "partizip2": "gestochen",
+    "gloss": "колоти",
+    "glossEn": "to sting",
+    "type": "strong",
+    "freq": 122
+  },
+  {
+    "id": "stinken",
+    "infinitive": "stinken",
+    "praeteritum": "stank",
+    "partizip2": "gestunken",
+    "gloss": "смердіти",
+    "glossEn": "to stink",
+    "type": "strong",
+    "freq": 123
+  },
+  {
+    "id": "wenden",
+    "infinitive": "wenden",
+    "praeteritum": "wandte",
+    "partizip2": "gewandt",
+    "gloss": "повертати",
+    "glossEn": "to turn",
+    "type": "mixed",
+    "freq": 124
+  },
+  {
+    "id": "senden",
+    "infinitive": "senden",
+    "praeteritum": "sandte",
+    "partizip2": "gesandt",
+    "gloss": "надсилати",
+    "glossEn": "to send",
+    "type": "mixed",
+    "freq": 125
+  },
+  {
+    "id": "schmelzen",
+    "infinitive": "schmelzen",
+    "praeteritum": "schmolz",
+    "partizip2": "geschmolzen",
+    "gloss": "танути",
+    "glossEn": "to melt",
+    "type": "strong",
+    "freq": 126
+  },
+  {
+    "id": "biegen",
+    "infinitive": "biegen",
+    "praeteritum": "bog",
+    "partizip2": "gebogen",
+    "gloss": "гнути",
+    "glossEn": "to bend",
+    "type": "strong",
+    "freq": 127
+  },
+  {
+    "id": "braten",
+    "infinitive": "braten",
+    "praeteritum": "briet",
+    "partizip2": "gebraten",
+    "gloss": "смажити",
+    "glossEn": "to fry",
+    "type": "strong",
+    "freq": 128
+  },
+  {
+    "id": "fressen",
+    "infinitive": "fressen",
+    "praeteritum": "fraß",
+    "partizip2": "gefressen",
+    "gloss": "їсти (про тварин)",
+    "glossEn": "to eat (animals)",
+    "type": "strong",
+    "freq": 129
+  },
+  {
+    "id": "hängen",
+    "infinitive": "hängen",
+    "praeteritum": "hing",
+    "partizip2": "gehangen",
+    "gloss": "висіти",
+    "glossEn": "to hang",
+    "type": "strong",
+    "freq": 130
+  },
+  {
+    "id": "bewegen",
+    "infinitive": "bewegen",
+    "praeteritum": "bewog",
+    "partizip2": "bewogen",
+    "gloss": "спонукати",
+    "glossEn": "to induce",
+    "type": "strong",
+    "freq": 131
+  },
+  {
+    "id": "verbieten",
+    "infinitive": "verbieten",
+    "praeteritum": "verbot",
+    "partizip2": "verboten",
+    "gloss": "забороняти",
+    "glossEn": "to forbid",
+    "type": "strong",
+    "freq": 132
+  },
+  {
+    "id": "verbringen",
+    "infinitive": "verbringen",
+    "praeteritum": "verbrachte",
+    "partizip2": "verbracht",
+    "gloss": "проводити час",
+    "glossEn": "to spend time",
+    "type": "mixed",
+    "freq": 133
+  },
+  {
+    "id": "verzeihen",
+    "infinitive": "verzeihen",
+    "praeteritum": "verzieh",
+    "partizip2": "verziehen",
+    "gloss": "пробачати",
+    "glossEn": "to forgive",
+    "type": "strong",
+    "freq": 134
+  },
+  {
+    "id": "betrügen",
+    "infinitive": "betrügen",
+    "praeteritum": "betrog",
+    "partizip2": "betrogen",
+    "gloss": "обманювати",
+    "glossEn": "to deceive",
+    "type": "strong",
+    "freq": 135
+  },
+  {
+    "id": "erfinden",
+    "infinitive": "erfinden",
+    "praeteritum": "erfand",
+    "partizip2": "erfunden",
+    "gloss": "винаходити",
+    "glossEn": "to invent",
+    "type": "strong",
+    "freq": 136
+  },
+  {
+    "id": "enthalten",
+    "infinitive": "enthalten",
+    "praeteritum": "enthielt",
+    "partizip2": "enthalten",
+    "gloss": "містити",
+    "glossEn": "to contain",
+    "type": "strong",
+    "freq": 137
+  },
+  {
+    "id": "entlassen",
+    "infinitive": "entlassen",
+    "praeteritum": "entließ",
+    "partizip2": "entlassen",
+    "gloss": "звільняти",
+    "glossEn": "to dismiss",
+    "type": "strong",
+    "freq": 138
+  },
+  {
+    "id": "erschrecken",
+    "infinitive": "erschrecken",
+    "praeteritum": "erschrak",
+    "partizip2": "erschrocken",
+    "gloss": "лякатися",
+    "glossEn": "to get frightened",
+    "type": "strong",
+    "freq": 139
+  },
+  {
+    "id": "erziehen",
+    "infinitive": "erziehen",
+    "praeteritum": "erzog",
+    "partizip2": "erzogen",
+    "gloss": "виховувати",
+    "glossEn": "to bring up",
+    "type": "strong",
+    "freq": 140
+  },
+  {
+    "id": "empfangen",
+    "infinitive": "empfangen",
+    "praeteritum": "empfing",
+    "partizip2": "empfangen",
+    "gloss": "приймати",
+    "glossEn": "to receive",
+    "type": "strong",
+    "freq": 141
+  },
+  {
+    "id": "empfinden",
+    "infinitive": "empfinden",
+    "praeteritum": "empfand",
+    "partizip2": "empfunden",
+    "gloss": "відчувати",
+    "glossEn": "to feel",
+    "type": "strong",
+    "freq": 142
+  },
+  {
+    "id": "beraten",
+    "infinitive": "beraten",
+    "praeteritum": "beriet",
+    "partizip2": "beraten",
+    "gloss": "радити",
+    "glossEn": "to advise",
+    "type": "strong",
+    "freq": 143
+  },
+  {
+    "id": "behalten",
+    "infinitive": "behalten",
+    "praeteritum": "behielt",
+    "partizip2": "behalten",
+    "gloss": "зберігати в себе",
+    "glossEn": "to keep",
+    "type": "strong",
+    "freq": 144
+  },
+  {
+    "id": "beschließen",
+    "infinitive": "beschließen",
+    "praeteritum": "beschloss",
+    "partizip2": "beschlossen",
+    "gloss": "ухвалювати",
+    "glossEn": "to resolve",
+    "type": "strong",
+    "freq": 145
+  },
+  {
+    "id": "besprechen",
+    "infinitive": "besprechen",
+    "praeteritum": "besprach",
+    "partizip2": "besprochen",
+    "gloss": "обговорювати",
+    "glossEn": "to discuss",
+    "type": "strong",
+    "freq": 146
+  },
+  {
+    "id": "betreiben",
+    "infinitive": "betreiben",
+    "praeteritum": "betrieb",
+    "partizip2": "betrieben",
+    "gloss": "керувати діяльністю",
+    "glossEn": "to operate",
+    "type": "strong",
+    "freq": 147
+  },
+  {
+    "id": "weisen",
+    "infinitive": "weisen",
+    "praeteritum": "wies",
+    "partizip2": "gewiesen",
+    "gloss": "вказувати",
+    "glossEn": "to point",
+    "type": "strong",
+    "freq": 148
+  },
+  {
+    "id": "unterbrechen",
+    "infinitive": "unterbrechen",
+    "praeteritum": "unterbrach",
+    "partizip2": "unterbrochen",
+    "gloss": "переривати",
+    "glossEn": "to interrupt",
+    "type": "strong",
+    "freq": 149
+  },
+  {
+    "id": "unterscheiden",
+    "infinitive": "unterscheiden",
+    "praeteritum": "unterschied",
+    "partizip2": "unterschieden",
+    "gloss": "розрізняти",
+    "glossEn": "to distinguish",
+    "type": "strong",
+    "freq": 150
+  },
+  {
+    "id": "unterschreiben",
+    "infinitive": "unterschreiben",
+    "praeteritum": "unterschrieb",
+    "partizip2": "unterschrieben",
+    "gloss": "підписувати",
+    "glossEn": "to sign",
+    "type": "strong",
+    "freq": 151
+  },
+  {
+    "id": "unterhalten",
+    "infinitive": "unterhalten",
+    "praeteritum": "unterhielt",
+    "partizip2": "unterhalten",
+    "gloss": "розважати; підтримувати",
+    "glossEn": "to entertain; to maintain",
+    "type": "strong",
+    "freq": 152
+  },
+  {
+    "id": "vertreten",
+    "infinitive": "vertreten",
+    "praeteritum": "vertrat",
+    "partizip2": "vertreten",
+    "gloss": "представляти",
+    "glossEn": "to represent",
+    "type": "strong",
+    "freq": 153
+  },
+  {
+    "id": "raten",
+    "infinitive": "raten",
+    "praeteritum": "riet",
+    "partizip2": "geraten",
+    "gloss": "радити; вгадувати",
+    "glossEn": "to advise; to guess",
+    "type": "strong",
+    "freq": 154
+  },
+  {
+    "id": "backen",
+    "infinitive": "backen",
+    "praeteritum": "backte",
+    "partizip2": "gebacken",
+    "gloss": "пекти",
+    "glossEn": "to bake",
+    "type": "strong",
+    "freq": 155
+  },
+  {
+    "id": "wiegen",
+    "infinitive": "wiegen",
+    "praeteritum": "wog",
+    "partizip2": "gewogen",
+    "gloss": "зважувати",
+    "glossEn": "to weigh",
+    "type": "strong",
+    "freq": 156
+  },
+  {
+    "id": "werben",
+    "infinitive": "werben",
+    "praeteritum": "warb",
+    "partizip2": "geworben",
+    "gloss": "рекламувати; вербувати",
+    "glossEn": "to advertise; to recruit",
+    "type": "strong",
+    "freq": 157
+  },
+  {
+    "id": "ankommen",
+    "infinitive": "ankommen",
+    "praeteritum": "kam an",
+    "partizip2": "angekommen",
+    "gloss": "прибувати",
+    "glossEn": "to arrive",
+    "type": "strong",
+    "freq": 158
+  },
+  {
+    "id": "anfangen",
+    "infinitive": "anfangen",
+    "praeteritum": "fing an",
+    "partizip2": "angefangen",
+    "gloss": "починати",
+    "glossEn": "to start",
+    "type": "strong",
+    "freq": 159
+  },
+  {
+    "id": "aufstehen",
+    "infinitive": "aufstehen",
+    "praeteritum": "stand auf",
+    "partizip2": "aufgestanden",
+    "gloss": "вставати",
+    "glossEn": "to get up",
+    "type": "strong",
+    "freq": 160
+  }
+]
