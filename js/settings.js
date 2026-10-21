@@ -258,7 +258,11 @@ const renderLangSelect = function (rootId, value) {
   }
   const current = document.getElementById(rootId + "-current");
   if (current && label) {
-    current.textContent = label;
+    current.textContent = label + " ";
+    const flag = root.querySelector("[aria-selected=\"true\"] .flag");
+    if (flag) {
+      current.appendChild(flag.cloneNode(true));
+    }
   }
 };
 

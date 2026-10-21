@@ -140,21 +140,32 @@ const speakOn = function () {
   return window.IMPULS.settings && window.IMPULS.settings.speakForm === true;
 };
 
+const formSpeech = { voice: null, timer: null, utter: null, form: "" };
+
 const germanVoice = function () {
+  if (formSpeech.voice) {
+    return formSpeech.voice;
+  }
   if (!window.speechSynthesis || typeof window.speechSynthesis.getVoices !== "function") {
     return null;
   }
   const voices = window.speechSynthesis.getVoices();
+  formSpeech.voice = voices[0] || null;
   for (let i = 0; i < voices.length; i += 1) {
     const lang = String(voices[i].lang || "").toLowerCase();
     if (lang.indexOf("de") === 0) {
-      return voices[i];
+      formSpeech.voice = voices[i];
+      break;
     }
   }
-  return null;
+  return formSpeech.voice;
 };
 
 window.IMPULS.stopSpeakForm = function () {
+  clearTimeout(formSpeech.timer);
+  formSpeech.timer = null;
+  formSpeech.utter = null;
+  formSpeech.form = "";
   try {
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
@@ -164,35 +175,81 @@ window.IMPULS.stopSpeakForm = function () {
   }
 };
 
+const startSpeakForm = function () {
+  formSpeech.timer = null;
+  if (!speakOn() || !formSpeech.form) {
+    formSpeech.form = "";
+    return;
+  }
+  try {
+    const synth = window.speechSynthesis;
+    const utter = new window.SpeechSynthesisUtterance(formSpeech.form);
+    const selected = germanVoice();
+    utter.lang = selected ? selected.lang : "de-DE";
+    if (selected) {
+      utter.voice = selected;
+    }
+    utter.rate = 0.88;
+    formSpeech.utter = utter;
+    utter.onend = utter.onerror = function () {
+      if (formSpeech.utter === utter) {
+        formSpeech.utter = null;
+        formSpeech.form = "";
+      }
+    };
+    if (synth.paused && typeof synth.resume === "function") {
+      synth.resume();
+    }
+    synth.speak(utter);
+  } catch (err) {
+    formSpeech.utter = null;
+    formSpeech.form = "";
+    // Синтез недоступний — тиша.
+  }
+};
+
 window.IMPULS.speakForm = function (text) {
   try {
     if (!speakOn()) {
       return;
     }
-    const form = String(text || "").trim();
+    const form = String(text || "").replace(/\s+/g, " ").replace(/^[\s.,!?;:…]+|[\s.,!?;:…]+$/g, "");
     if (!form || !window.speechSynthesis || typeof window.SpeechSynthesisUtterance !== "function") {
       return;
     }
-    const voice = germanVoice();
-    if (!voice) {
+    const synth = window.speechSynthesis;
+    if (formSpeech.form === form && (formSpeech.timer !== null || synth.speaking || synth.pending)) {
+      if (synth.paused && typeof synth.resume === "function") {
+        synth.resume();
+      }
       return;
     }
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(form);
-    utter.lang = "de-DE";
-    utter.voice = voice;
-    window.speechSynthesis.speak(utter);
+    window.IMPULS.stopSpeakForm();
+    formSpeech.form = form;
+    // Порожній список потребує часу; після cancel не говоримо в тому самому такті.
+    formSpeech.timer = setTimeout(startSpeakForm, germanVoice() ? 50 : 250);
   } catch (err) {
-    // Немає німецького голосу або API — тиша.
+    window.IMPULS.stopSpeakForm();
   }
 };
 
 if (window.speechSynthesis && typeof window.speechSynthesis.addEventListener === "function") {
   window.speechSynthesis.addEventListener("voiceschanged", function () {
     try {
-      window.speechSynthesis.getVoices();
+      formSpeech.voice = null;
+      germanVoice();
+      if (formSpeech.timer !== null) {
+        clearTimeout(formSpeech.timer);
+        formSpeech.timer = setTimeout(startSpeakForm, 50);
+      }
     } catch (err) {
       // Список голосів інколи порожній.
     }
   });
+}
+
+try {
+  germanVoice();
+} catch (err) {
+  // Голоси можуть зʼявитися пізніше через voiceschanged.
 }

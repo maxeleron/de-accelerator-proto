@@ -19,9 +19,6 @@ const isKeysLayout = function () {
 };
 
 const STIMULUS_HOLE = "___";
-const ANSWER_MIN_FORM = "mm";
-
-let answerMeasureCtx = null;
 
 const splitPrompt = function (prompt) {
   const text = prompt || "";
@@ -33,25 +30,6 @@ const splitPrompt = function (prompt) {
     before: text.slice(0, at),
     after: text.slice(at + STIMULUS_HOLE.length)
   };
-};
-
-const measureAnswerText = function (text, input) {
-  if (!answerMeasureCtx) {
-    answerMeasureCtx = document.createElement("canvas").getContext("2d");
-  }
-  const cs = window.getComputedStyle(input);
-  answerMeasureCtx.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
-  return answerMeasureCtx.measureText(text).width;
-};
-
-const resizeAnswerInput = function () {
-  const input = document.getElementById("answer-input");
-  if (!input) {
-    return;
-  }
-  const value = input.value || "";
-  const text = value || ANSWER_MIN_FORM;
-  input.style.width = Math.ceil(measureAnswerText(text, input) + 1) + "px";
 };
 
 const paintStimulus = function (prompt) {
@@ -77,7 +55,6 @@ const paintStimulus = function (prompt) {
     input.value = "";
     input.classList.remove("is-hit", "is-miss");
     input.readOnly = false;
-    resizeAnswerInput();
   }
 };
 
@@ -200,20 +177,6 @@ const commitRoundSetup = function () {
   setupDraft = null;
   hideRoundSetup();
   renderMenu();
-};
-
-const discardRoundSetup = function () {
-  setupDraft = null;
-  hideRoundSetup();
-  renderMenu();
-};
-
-window.IMPULS.closeRoundSetup = function () {
-  if (!isRoundSetupOpen() && !setupDraft) {
-    closeWinSelect();
-    return;
-  }
-  discardRoundSetup();
 };
 
 window.IMPULS.toggleRoundSetup = function () {
@@ -1372,7 +1335,6 @@ window.IMPULS.paintIrregularStimulus = function (card) {
   input.value = "";
   input.classList.remove("is-hit", "is-miss");
   input.readOnly = false;
-  resizeAnswerInput();
 };
 
 const showNext = function () {
@@ -1391,6 +1353,8 @@ const showNext = function () {
     return;
   }
   state.currentId = upcoming.id;
+  const roundKey = state.workshop ? workshopI18nKey(state.workshop) : packI18nKey(state.pack);
+  document.getElementById("round-label").textContent = t(roundKey);
   if (!state.workshop) {
     markSeen(packOfCardId(card.id), card.id);
   }
@@ -1624,7 +1588,6 @@ const insertUmlaut = function (letter) {
   input.value = input.value.slice(0, start) + letter + input.value.slice(end);
   const pos = start + letter.length;
   input.setSelectionRange(pos, pos);
-  resizeAnswerInput();
   input.focus();
 };
 
@@ -2147,16 +2110,6 @@ const bindClicks = function () {
       return;
     }
     closeWinSelect();
-    if (!isRoundSetupOpen()) {
-      return;
-    }
-    const panel = document.getElementById("round-setup");
-    const editBtn = document.getElementById("btn-round-edit");
-    const startBtn = document.getElementById("btn-start");
-    if (panel.contains(event.target) || editBtn.contains(event.target) || startBtn.contains(event.target)) {
-      return;
-    }
-    discardRoundSetup();
   });
 
   document.querySelector('#pack-rows [data-pack="p1"]').addEventListener("click", function () {
@@ -2346,7 +2299,6 @@ const bindClicks = function () {
       if (answerInput.value) {
         window.IMPULS.markTypedInput();
       }
-      resizeAnswerInput();
     });
     answerInput.addEventListener("keydown", function (event) {
       if (event.repeat) {
