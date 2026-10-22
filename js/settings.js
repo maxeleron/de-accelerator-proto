@@ -8,6 +8,7 @@ window.IMPULS.defaultSettings = {
   speakForm: false,
   shuffleOptions: true,
   unlimitRoundSize: false,
+  irregularEnabled: null,
   uiLang: "uk",
   glossLang: "uk",
   packFolded: false,
@@ -56,6 +57,12 @@ window.IMPULS.loadSettings = function () {
   if (window.IMPULS.settings.unlimitRoundSize !== true) {
     window.IMPULS.settings.unlimitRoundSize = false;
   }
+  const enabled = window.IMPULS.settings.irregularEnabled;
+  window.IMPULS.settings.irregularEnabled = Array.isArray(enabled) ? enabled.filter(function (id, index) {
+    return enabled.indexOf(id) === index && window.IMPULS.irregularVerbs.some(function (verb) {
+      return verb.id === id;
+    });
+  }) : null;
   if (window.IMPULS.settings.uiLang !== "en" && window.IMPULS.settings.uiLang !== "de") {
     window.IMPULS.settings.uiLang = "uk";
   }

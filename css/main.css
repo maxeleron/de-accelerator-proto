@@ -581,6 +581,9 @@ html[data-theme="light"] #icon-moon {
 #pack-select.is-hidden,
 #workshop-select.is-hidden,
 #round-setup.is-hidden,
+#btn-irregular-dictionary.is-hidden,
+#irregular-empty.is-hidden,
+#irregular-tooltip.is-hidden,
 #menu-status.is-hidden,
 #stat-median.is-hidden,
 #btn-clear-progress.is-hidden,
@@ -1159,6 +1162,134 @@ html[data-option-layout="keys"] #umlaut-row {
 #screen-settings.is-hidden {
   display: none;
   pointer-events: none;
+}
+
+#btn-irregular-dictionary,
+#irregular-filters button,
+#irregular-grid button {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+#irregular-empty {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+#btn-start:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+#irregular-dialog {
+  width: min(960px, calc(100% - 48px));
+  max-height: calc(100vh - 48px);
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+  overflow: auto;
+}
+
+#irregular-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.irregular-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+#irregular-title {
+  color: var(--text);
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+#btn-irregular-close {
+  display: flex;
+  flex-shrink: 0;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+#btn-irregular-close svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+#irregular-filters,
+#irregular-types {
+  display: flex;
+  gap: 8px;
+}
+
+#irregular-filters {
+  margin-block: 16px;
+  overflow-x: auto;
+}
+
+#irregular-filters button {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 13px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#irregular-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 6px;
+}
+
+#irregular-grid button {
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+#irregular-tooltip {
+  position: fixed;
+  z-index: 1;
+  width: max-content;
+  max-width: min(360px, calc(100vw - 16px));
+  max-height: calc(100vh - 16px);
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--muted-strong);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#irregular-grid button[aria-pressed="true"] {
+  border-color: var(--accent);
+  box-shadow: inset 0 -2px var(--accent);
+  color: var(--text);
+}
+
+#btn-irregular-dictionary:hover,
+#irregular-filters button:hover,
+#irregular-grid button:hover {
+  border-color: var(--accent);
 }
 
 .base-layout {

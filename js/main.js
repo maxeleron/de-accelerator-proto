@@ -388,7 +388,7 @@ const roundSizeCap = function (n) {
 
 const packCount = function (pack) {
   if (menuChoice === "m2" || window.IMPULS.state.workshop === "irregular") {
-    return roundSizeCap(window.IMPULS.irregularVerbs.length * 3);
+    return roundSizeCap(window.IMPULS.enabledIrregularVerbs().length * 3);
   }
   const n = packDeck(pack).length;
   return roundSizeCap(n > 0 ? n : 1);
@@ -424,7 +424,8 @@ const renderRoundSize = function () {
   const max = clampRoundSize();
   const n = setupRoundSize();
   const slider = document.getElementById("round-size");
-  slider.min = "1";
+  slider.min = max > 0 ? "1" : "0";
+  slider.disabled = max === 0;
   slider.max = String(max);
   slider.value = String(n);
   document.getElementById("round-size-label").textContent = n + " / " + max;
@@ -436,6 +437,154 @@ const packI18nKey = function (id) {
 
 const workshopI18nKey = function (id) {
   return "workshop." + id;
+};
+
+const renderIrregularSelection = function () {
+  const enabled = window.IMPULS.enabledIrregularVerbs().map(function (verb) { return verb.id; });
+  const buttons = document.querySelectorAll("#irregular-grid [data-irregular-id]");
+  for (let i = 0; i < buttons.length; i += 1) {
+    const on = enabled.indexOf(buttons[i].getAttribute("data-irregular-id")) !== -1;
+    buttons[i].setAttribute("aria-pressed", on ? "true" : "false");
+  }
+};
+
+const saveIrregularSelection = function (verbs) {
+  window.IMPULS.setSetting("irregularEnabled", verbs.map(function (verb) { return verb.id; }));
+  renderIrregularSelection();
+  renderMenu();
+};
+
+const renderIrregularDictionary = function () {
+  const verbs = window.IMPULS.irregularVerbs;
+  const grid = document.getElementById("irregular-grid");
+  grid.textContent = "";
+  for (let i = 0; i < verbs.length; i += 1) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = verbs[i].infinitive;
+    button.setAttribute("data-irregular-id", verbs[i].id);
+    grid.appendChild(button);
+  }
+  const types = verbs.map(function (verb) { return verb.type; }).filter(function (type, index, list) {
+    return type && list.indexOf(type) === index;
+  });
+  const filters = document.getElementById("irregular-types");
+  filters.textContent = "";
+  for (let i = 0; i < types.length; i += 1) {
+    const button = document.createElement("button");
+    const key = "irregular.type." + types[i];
+    const label = t(key);
+    button.type = "button";
+    button.textContent = label === key ? types[i] : label;
+    button.setAttribute("data-irregular-type", types[i]);
+    filters.appendChild(button);
+  }
+  renderIrregularSelection();
+};
+
+const positionIrregularTooltip = function (tooltip, button) {
+  const rect = button.getBoundingClientRect();
+  const tip = tooltip.getBoundingClientRect();
+  const width = document.documentElement.clientWidth;
+  const height = document.documentElement.clientHeight;
+  const left = Math.max(8, Math.min(rect.left, width - tip.width - 8));
+  let top = rect.bottom + 6;
+  if (top + tip.height > height - 8) {
+    top = rect.top - tip.height - 6;
+  }
+  tooltip.style.left = left + "px";
+  tooltip.style.top = Math.max(8, Math.min(top, height - tip.height - 8)) + "px";
+};
+
+const bindIrregularTooltip = function (dialog) {
+  const grid = document.getElementById("irregular-grid");
+  const tooltip = document.createElement("div");
+  tooltip.id = "irregular-tooltip";
+  tooltip.className = "is-hidden";
+  tooltip.setAttribute("role", "tooltip");
+  dialog.appendChild(tooltip);
+  let active = null;
+  const hide = function () {
+    tooltip.classList.add("is-hidden");
+    if (active) {
+      active.removeAttribute("aria-describedby");
+      active = null;
+    }
+  };
+  grid.addEventListener("pointerover", function (event) {
+    const button = event.target.closest("[data-irregular-id]");
+    const verb = button && window.IMPULS.irregularVerbs.find(function (item) {
+      return item.id === button.getAttribute("data-irregular-id");
+    });
+    if (!verb) {
+      return;
+    }
+    hide();
+    active = button;
+    tooltip.textContent = [verb.infinitive, verb.praeteritum, verb.partizip2].join(" / ");
+    button.setAttribute("aria-describedby", tooltip.id);
+    tooltip.classList.remove("is-hidden");
+    positionIrregularTooltip(tooltip, button);
+  });
+  grid.addEventListener("pointerout", hide);
+  dialog.addEventListener("scroll", hide, { passive: true });
+  dialog.addEventListener("close", hide);
+  window.addEventListener("resize", hide);
+};
+
+const bindIrregularDictionary = function () {
+  const dialog = document.getElementById("irregular-dialog");
+  bindIrregularTooltip(dialog);
+  document.getElementById("btn-irregular-dictionary").addEventListener("click", function () {
+    if (menuChoice !== "m2") {
+      return;
+    }
+    renderIrregularDictionary();
+    dialog.showModal();
+  });
+  document.getElementById("btn-irregular-close").addEventListener("click", function () {
+    dialog.close();
+  });
+  dialog.addEventListener("click", function (event) {
+    if (event.target !== dialog) {
+      return;
+    }
+    const rect = dialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) {
+      dialog.close();
+    }
+  });
+  dialog.addEventListener("keydown", function (event) {
+    // Enter у словнику не запускає раунд через глобальний обробник меню.
+    event.stopPropagation();
+  });
+  document.getElementById("irregular-grid").addEventListener("click", function (event) {
+    const button = event.target.closest("[data-irregular-id]");
+    if (!button) {
+      return;
+    }
+    const id = button.getAttribute("data-irregular-id");
+    const selected = window.IMPULS.enabledIrregularVerbs();
+    const on = selected.some(function (verb) { return verb.id === id; });
+    const matching = window.IMPULS.irregularVerbs.filter(function (verb) { return verb.id === id; });
+    const next = on ? selected.filter(function (verb) { return verb.id !== id; }) : selected.concat(matching);
+    saveIrregularSelection(next);
+  });
+  document.getElementById("irregular-filters").addEventListener("click", function (event) {
+    const button = event.target.closest("button");
+    if (!button) {
+      return;
+    }
+    const type = button.getAttribute("data-irregular-type");
+    const pick = button.getAttribute("data-irregular-pick");
+    let selected = window.IMPULS.irregularVerbs;
+    if (type) {
+      selected = selected.filter(function (verb) { return verb.type === type; });
+    } else if (pick !== "all") {
+      selected = window.IMPULS.shuffle(selected).slice(0, Number(pick));
+    }
+    saveIrregularSelection(selected);
+  });
 };
 
 const isPackFolded = function () {
@@ -633,6 +782,11 @@ const bindFoldSelect = function (rootId, onPick, onStep) {
 
 const renderMenu = function () {
   const state = window.IMPULS.state;
+  const irregular = menuChoice === "m2";
+  const empty = irregular && window.IMPULS.enabledIrregularVerbs().length === 0;
+  document.getElementById("btn-irregular-dictionary").classList.toggle("is-hidden", !irregular);
+  document.getElementById("irregular-empty").classList.toggle("is-hidden", !empty);
+  document.getElementById("btn-start").disabled = empty;
   document.getElementById("btn-start").textContent = startLabel();
   renderRoundSize();
   const keys = isKeysLayout();
@@ -1937,7 +2091,7 @@ window.IMPULS.startWorkshopVerbs = function () {
 };
 
 window.IMPULS.startWorkshopIrregular = function () {
-  if (!ensureMenuPhase()) {
+  if (!ensureMenuPhase() || !window.IMPULS.enabledIrregularVerbs().length) {
     return;
   }
   const state = window.IMPULS.state;
@@ -2346,6 +2500,7 @@ const bindClicks = function () {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
+  bindIrregularDictionary();
   bindClicks();
   window.IMPULS.bindKeys();
   bindHistory();

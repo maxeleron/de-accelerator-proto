@@ -63,6 +63,8 @@
             <p id="round-size-label">14 / 14</p>
           </div>
         </section>
+        <button type="button" id="btn-irregular-dictionary" class="is-hidden" data-i18n="irregular.dictionary">Словник</button>
+        <p id="irregular-empty" class="is-hidden" data-i18n="irregular.empty">Оберіть хоча б одне дієслово.</p>
         <div id="layout-keys" class="layout-keys" role="radiogroup" data-i18n-aria="settings.layout" aria-label="Вигляд варіантів">
           <button type="button" id="set-layout-list" data-layout="list" aria-pressed="true" data-i18n="settings.list">Список</button>
           <button type="button" id="set-layout-table" data-layout="table" aria-pressed="false" data-i18n="settings.table">Таблиця</button>
@@ -326,6 +328,26 @@
       <div id="base-body"></div>
     </div>
   </section>
+
+  <dialog id="irregular-dialog" aria-labelledby="irregular-title">
+    <header>
+      <div class="irregular-heading">
+        <h2 id="irregular-title" data-i18n="irregular.title">Неправильні дієслова</h2>
+        <button type="button" id="btn-irregular-close" data-i18n-aria="irregular.close" aria-label="Закрити словник" autofocus>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+      </div>
+      <div id="irregular-filters">
+        <button type="button" data-irregular-pick="10" data-i18n="irregular.random10">10 навмання</button>
+        <button type="button" data-irregular-pick="20" data-i18n="irregular.random20">20 навмання</button>
+        <button type="button" data-irregular-pick="40" data-i18n="irregular.random40">40 навмання</button>
+        <button type="button" data-irregular-pick="all" data-i18n="irregular.all">Усі</button>
+        <button type="button" data-irregular-pick="0" data-i18n="irregular.none">Жодного</button>
+        <span id="irregular-types"></span>
+      </div>
+    </header>
+    <div id="irregular-grid"></div>
+  </dialog>
 
   <script src="js/cards.js" defer></script>
   <script src="js/handbook.js" defer></script>

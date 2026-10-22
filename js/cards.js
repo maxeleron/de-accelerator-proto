@@ -3767,9 +3767,16 @@ window.IMPULS.irregularVerbs = [
   }
 ];
 
+window.IMPULS.enabledIrregularVerbs = function () {
+  const enabled = window.IMPULS.settings && window.IMPULS.settings.irregularEnabled;
+  return window.IMPULS.irregularVerbs.filter(function (verb) {
+    return !Array.isArray(enabled) || enabled.indexOf(verb.id) !== -1;
+  });
+};
+
 // Три форми кожного дієслова дають три різні картки на старті.
 window.IMPULS.buildIrregularCards = function (count) {
-  const verbs = window.IMPULS.irregularVerbs;
+  const verbs = window.IMPULS.enabledIrregularVerbs();
   const fields = ["infinitive", "praeteritum", "partizip2"];
   const slots = [];
   for (let i = 0; i < verbs.length; i += 1) {
