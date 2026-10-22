@@ -20,7 +20,6 @@
   <main id="screen-menu">
     <header>
       <h1>IMPULS</h1>
-      <p>de-accelerator-proto</p>
     </header>
 
     <section class="block" aria-labelledby="label-round">
@@ -64,6 +63,11 @@
             <p id="round-size-label">14 / 14</p>
           </div>
         </section>
+        <div id="layout-keys" class="layout-keys" role="radiogroup" data-i18n-aria="settings.layout" aria-label="Вигляд варіантів">
+          <button type="button" id="set-layout-list" data-layout="list" aria-pressed="true" data-i18n="settings.list">Список</button>
+          <button type="button" id="set-layout-table" data-layout="table" aria-pressed="false" data-i18n="settings.table">Таблиця</button>
+          <button type="button" id="set-layout-keys" data-layout="keys" aria-pressed="false" data-i18n="settings.keys">Клавіатура</button>
+        </div>
       </div>
     </section>
 
@@ -183,7 +187,10 @@
         <p id="counter">1/14</p>
       </div>
       <p id="round-label"></p>
-      <p id="repair-badge" class="is-hidden" data-i18n="round.repair">Промахи</p>
+      <div class="round-side">
+        <p id="repair-badge" class="is-hidden" data-i18n="round.repair">Промахи</p>
+        <button type="button" id="btn-repair-skip" class="is-hidden" data-i18n="round.skip">Пропустити</button>
+      </div>
     </div>
     <div class="stimulus-block">
       <p id="stimulus"><span id="stimulus-before"></span><input type="text" id="answer-input" size="1" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus data-i18n-aria="round.answer" aria-label="Відповідь"><span id="stimulus-after"></span></p>
@@ -222,58 +229,45 @@
     </div>
     <section class="block" aria-labelledby="label-lang">
       <h2 id="label-lang" data-i18n="settings.lang">Мова</h2>
-      <div class="setting-select">
-        <span id="label-ui-lang" data-i18n="settings.uiLang">Мова інтерфейсу</span>
-        <div id="set-ui-lang">
-          <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-ui-lang set-ui-lang-current">
-            <span id="set-ui-lang-current">Українська <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#0057b7" d="M0 0h24v8H0z"></path><path fill="#ffd700" d="M0 8h24v8H0z"></path></svg></span>
-            <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8 9l4-4 4 4"></path>
-              <path d="M8 15l4 4 4-4"></path>
-            </svg>
-          </button>
-          <div class="win-select-menu is-hidden">
-            <button type="button" data-lang="uk" aria-selected="true"><span data-i18n="lang.uk">Українська</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#0057b7" d="M0 0h24v8H0z"></path><path fill="#ffd700" d="M0 8h24v8H0z"></path></svg></button>
-            <button type="button" data-lang="en" aria-selected="false"><span data-i18n="lang.en">English</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#012169" d="M0 0h24v16H0z"></path><path d="m0 0 24 16m0-16L0 16" stroke="#fff" stroke-width="4"></path><path d="m0 0 24 16m0-16L0 16" stroke="#c8102e" stroke-width="1.6"></path><path fill="#fff" d="M9 0h6v16H9zM0 5h24v6H0z"></path><path fill="#c8102e" d="M10 0h4v16h-4zM0 6h24v4H0z"></path></svg></button>
-            <button type="button" data-lang="de" aria-selected="false"><span data-i18n="lang.de">Deutsch</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#000" d="M0 0h24v16H0z"></path><path fill="#d00" d="M0 5.333h24v5.334H0z"></path><path fill="#ffce00" d="M0 10.667h24V16H0z"></path></svg></button>
+      <div class="lang-row">
+        <div class="setting-select">
+          <span id="label-gloss-lang" data-i18n="settings.glossLang">Мова перекладу</span>
+          <div id="set-gloss-lang">
+            <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-gloss-lang set-gloss-lang-current">
+              <span id="set-gloss-lang-current">Українська <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#0057b7" d="M0 0h24v8H0z"></path><path fill="#ffd700" d="M0 8h24v8H0z"></path></svg></span>
+              <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 9l4-4 4 4"></path>
+                <path d="M8 15l4 4 4-4"></path>
+              </svg>
+            </button>
+            <div class="win-select-menu is-hidden">
+              <button type="button" data-lang="uk" aria-selected="true"><span data-i18n="lang.uk">Українська</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#0057b7" d="M0 0h24v8H0z"></path><path fill="#ffd700" d="M0 8h24v8H0z"></path></svg></button>
+              <button type="button" data-lang="en" aria-selected="false"><span data-i18n="lang.en">English</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#012169" d="M0 0h24v16H0z"></path><path d="m0 0 24 16m0-16L0 16" stroke="#fff" stroke-width="4"></path><path d="m0 0 24 16m0-16L0 16" stroke="#c8102e" stroke-width="1.6"></path><path fill="#fff" d="M9 0h6v16H9zM0 5h24v6H0z"></path><path fill="#c8102e" d="M10 0h4v16h-4zM0 6h24v4H0z"></path></svg></button>
+              <button type="button" data-lang="off" aria-selected="false"><span data-i18n="lang.off">Вимкнено</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.7"></circle><path d="m8 4 8 8" stroke="currentColor" stroke-width="1.7"></path></svg></button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="setting-select">
-        <span id="label-gloss-lang" data-i18n="settings.glossLang">Мова перекладу</span>
-        <div id="set-gloss-lang">
-          <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-gloss-lang set-gloss-lang-current">
-            <span id="set-gloss-lang-current">Українська <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#0057b7" d="M0 0h24v8H0z"></path><path fill="#ffd700" d="M0 8h24v8H0z"></path></svg></span>
-            <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8 9l4-4 4 4"></path>
-              <path d="M8 15l4 4 4-4"></path>
-            </svg>
-          </button>
-          <div class="win-select-menu is-hidden">
-            <button type="button" data-lang="uk" aria-selected="true"><span data-i18n="lang.uk">Українська</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#0057b7" d="M0 0h24v8H0z"></path><path fill="#ffd700" d="M0 8h24v8H0z"></path></svg></button>
-            <button type="button" data-lang="en" aria-selected="false"><span data-i18n="lang.en">English</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#012169" d="M0 0h24v16H0z"></path><path d="m0 0 24 16m0-16L0 16" stroke="#fff" stroke-width="4"></path><path d="m0 0 24 16m0-16L0 16" stroke="#c8102e" stroke-width="1.6"></path><path fill="#fff" d="M9 0h6v16H9zM0 5h24v6H0z"></path><path fill="#c8102e" d="M10 0h4v16h-4zM0 6h24v4H0z"></path></svg></button>
-            <button type="button" data-lang="de" aria-selected="false"><span data-i18n="lang.de">Deutsch</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#000" d="M0 0h24v16H0z"></path><path fill="#d00" d="M0 5.333h24v5.334H0z"></path><path fill="#ffce00" d="M0 10.667h24V16H0z"></path></svg></button>
-            <button type="button" data-lang="off" aria-selected="false"><span data-i18n="lang.off">Вимкнено</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.7"></circle><path d="m8 4 8 8" stroke="currentColor" stroke-width="1.7"></path></svg></button>
+        <div class="setting-select">
+          <span id="label-ui-lang" data-i18n="settings.uiLang">Мова інтерфейсу</span>
+          <div id="set-ui-lang">
+            <button type="button" class="win-select-face" aria-expanded="false" aria-labelledby="label-ui-lang set-ui-lang-current">
+              <span id="set-ui-lang-current">Українська <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#0057b7" d="M0 0h24v8H0z"></path><path fill="#ffd700" d="M0 8h24v8H0z"></path></svg></span>
+              <svg class="win-select-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 9l4-4 4 4"></path>
+                <path d="M8 15l4 4 4-4"></path>
+              </svg>
+            </button>
+            <div class="win-select-menu is-hidden">
+              <button type="button" data-lang="uk" aria-selected="true"><span data-i18n="lang.uk">Українська</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#0057b7" d="M0 0h24v8H0z"></path><path fill="#ffd700" d="M0 8h24v8H0z"></path></svg></button>
+              <button type="button" data-lang="en" aria-selected="false"><span data-i18n="lang.en">English</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#012169" d="M0 0h24v16H0z"></path><path d="m0 0 24 16m0-16L0 16" stroke="#fff" stroke-width="4"></path><path d="m0 0 24 16m0-16L0 16" stroke="#c8102e" stroke-width="1.6"></path><path fill="#fff" d="M9 0h6v16H9zM0 5h24v6H0z"></path><path fill="#c8102e" d="M10 0h4v16h-4zM0 6h24v4H0z"></path></svg></button>
+              <button type="button" data-lang="de" aria-selected="false"><span data-i18n="lang.de">Deutsch</span> <svg class="flag" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path fill="#000" d="M0 0h24v16H0z"></path><path fill="#d00" d="M0 5.333h24v5.334H0z"></path><path fill="#ffce00" d="M0 10.667h24V16H0z"></path></svg></button>
+            </div>
           </div>
         </div>
       </div>
     </section>
     <section class="block" aria-labelledby="label-visual">
       <h2 id="label-visual" data-i18n="settings.visual">Візуал</h2>
-      <div class="setting-radios" role="radiogroup" data-i18n-aria="settings.layout" aria-label="Вигляд варіантів">
-        <label class="setting-check">
-          <input type="radio" name="option-layout" id="set-layout-list" value="list" checked>
-          <span data-i18n="settings.list">Список</span>
-        </label>
-        <label class="setting-check">
-          <input type="radio" name="option-layout" id="set-layout-table" value="table">
-          <span data-i18n="settings.table">Таблиця</span>
-        </label>
-        <label class="setting-check">
-          <input type="radio" name="option-layout" id="set-layout-keys" value="keys">
-          <span data-i18n="settings.keys">Клавіатура</span>
-        </label>
-      </div>
       <label class="setting-check">
         <input type="checkbox" id="set-show-keys" checked>
         <span data-i18n="settings.showKeys">Номери клавіш на варіантах</span>
@@ -299,6 +293,10 @@
       <label class="setting-check">
         <input type="checkbox" id="set-shuffle-options" checked>
         <span data-i18n="settings.shuffle">Перемішування варіантів відповідей</span>
+      </label>
+      <label class="setting-check">
+        <input type="checkbox" id="set-unlimit-round">
+        <span data-i18n="settings.unlimitRound">Без обмеження довжини</span>
       </label>
     </section>
     <section class="block" aria-labelledby="label-data">

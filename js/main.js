@@ -373,12 +373,25 @@ const renderPackSeen = function () {
   }
 };
 
+const ROUND_SIZE_CAP = 40;
+
+// Без галочки стеля — 40 карток, але не більше за саму колоду.
+const roundSizeCap = function (n) {
+  if (window.IMPULS.settings && window.IMPULS.settings.unlimitRoundSize === true) {
+    return n;
+  }
+  if (n > ROUND_SIZE_CAP) {
+    return ROUND_SIZE_CAP;
+  }
+  return n;
+};
+
 const packCount = function (pack) {
   if (menuChoice === "m2" || window.IMPULS.state.workshop === "irregular") {
-    return window.IMPULS.irregularVerbs.length * 3;
+    return roundSizeCap(window.IMPULS.irregularVerbs.length * 3);
   }
   const n = packDeck(pack).length;
-  return n > 0 ? n : 1;
+  return roundSizeCap(n > 0 ? n : 1);
 };
 
 const clampSizeValue = function (n, max) {
@@ -1310,6 +1323,7 @@ const finishRound = function () {
   showScreen("screen-menu");
   playUi("open");
   document.getElementById("repair-badge").classList.add("is-hidden");
+  document.getElementById("btn-repair-skip").classList.add("is-hidden");
   document.getElementById("timer").classList.remove("is-hit", "is-miss");
   clearPickFill();
   renderMenu();
@@ -1390,6 +1404,7 @@ const showNext = function () {
   }
   const total = Object.keys(state.first).length + state.main.length;
   const badge = document.getElementById("repair-badge");
+  const skip = document.getElementById("btn-repair-skip");
   if (upcoming.repair) {
     document.getElementById("counter").textContent = total + "/" + total;
     badge.classList.remove("is-hidden");
@@ -1398,6 +1413,8 @@ const showNext = function () {
     document.getElementById("counter").textContent = n + "/" + total;
     badge.classList.add("is-hidden");
   }
+  // Skip лише в ремонті: хвіст уже зібраний, вердикт ця кнопка не пише.
+  skip.classList.toggle("is-hidden", state.phase !== "repair" && state.repair.length === 0);
   focusRound();
   // Хвіст і режим keys: смуга повна, timeout і late немає.
   armTimer(upcoming.repair || isKeysLayout() ? 0 : state.windowMs);
@@ -2021,6 +2038,14 @@ const restoreRound = function () {
 };
 
 const bindClicks = function () {
+  document.getElementById("btn-repair-skip").addEventListener("click", function () {
+    const state = window.IMPULS.state;
+    if (state.phase !== "repair" && state.repair.length === 0) {
+      return;
+    }
+    finishRound();
+  });
+
   document.getElementById("btn-start").addEventListener("click", function () {
     if (menuChoice === "m2") {
       window.IMPULS.startWorkshopIrregular();

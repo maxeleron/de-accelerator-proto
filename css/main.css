@@ -15,6 +15,8 @@ html {
   --surface: transparent;
   --hit: #2f6f4e;
   --miss: #8f3d3d;
+  --miss-text: #e39a9a;
+  --miss-soft: rgba(227, 154, 154, 0.18);
   --on-fill: #e7eee9;
   --gloss: #8b978f;
 }
@@ -30,6 +32,8 @@ html[data-theme="light"] {
   --surface: #faf7f2;
   --hit: #2f6f4e;
   --miss: #8f3d3d;
+  --miss-text: #8f3d3d;
+  --miss-soft: rgba(143, 61, 61, 0.14);
   --on-fill: #e7eee9;
   --gloss: #6f675e;
 }
@@ -227,6 +231,54 @@ h2 {
   font-weight: 500;
   color: var(--gloss);
   white-space: nowrap;
+}
+
+.layout-keys {
+  display: flex;
+  width: 100%;
+}
+
+.layout-keys button {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 40px;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.layout-keys button + button {
+  margin-inline-start: -1px;
+}
+
+.layout-keys button:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.layout-keys button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.layout-keys button:hover {
+  border-color: var(--accent);
+}
+
+.layout-keys button[aria-pressed="true"] {
+  z-index: 1;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-fill);
+}
+
+.layout-keys button[aria-pressed="true"]:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 #btn-base {
@@ -517,6 +569,7 @@ html[data-theme="light"] #icon-moon {
 #stimulus.is-hidden,
 #irregular-stimulus.is-hidden,
 #repair-badge.is-hidden,
+#btn-repair-skip.is-hidden,
 .options button.is-hidden,
 #win-select .win-select-menu.is-hidden,
 #set-ui-lang .win-select-menu.is-hidden,
@@ -597,8 +650,7 @@ html[data-theme="light"] #icon-moon {
 }
 
 #counter,
-#round-label,
-#repair-badge {
+#round-label {
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -614,8 +666,40 @@ html[data-theme="light"] #icon-moon {
   text-overflow: ellipsis;
 }
 
+.round-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-self: end;
+  gap: 4px;
+  min-width: 0;
+}
+
 #repair-badge {
-  margin-left: auto;
+  margin: 0;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: var(--miss-soft);
+  color: var(--miss-text);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+#btn-repair-skip {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+#btn-repair-skip:hover {
+  text-decoration: underline;
 }
 
 .stimulus-block {
@@ -975,6 +1059,25 @@ html[data-option-layout="keys"] #umlaut-row {
   font-weight: 500;
 }
 
+.lang-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.lang-row > .setting-select {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.lang-row .win-select-face > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 
 
 .setting-check {
@@ -986,19 +1089,10 @@ html[data-option-layout="keys"] #umlaut-row {
   cursor: pointer;
 }
 
-.setting-radios {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
 #set-show-keys,
 #set-ui-sound,
 #set-speak-form,
-#set-shuffle-options,
-#set-layout-list,
-#set-layout-table,
-#set-layout-keys {
+#set-shuffle-options {
   width: 18px;
   height: 18px;
   margin: 0;

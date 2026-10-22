@@ -7,6 +7,7 @@ window.IMPULS.defaultSettings = {
   uiSound: false,
   speakForm: false,
   shuffleOptions: true,
+  unlimitRoundSize: false,
   uiLang: "uk",
   glossLang: "uk",
   packFolded: false,
@@ -52,10 +53,13 @@ window.IMPULS.loadSettings = function () {
   if (window.IMPULS.settings.shuffleOptions !== false) {
     window.IMPULS.settings.shuffleOptions = true;
   }
+  if (window.IMPULS.settings.unlimitRoundSize !== true) {
+    window.IMPULS.settings.unlimitRoundSize = false;
+  }
   if (window.IMPULS.settings.uiLang !== "en" && window.IMPULS.settings.uiLang !== "de") {
     window.IMPULS.settings.uiLang = "uk";
   }
-  if (window.IMPULS.settings.glossLang !== "en" && window.IMPULS.settings.glossLang !== "de" && window.IMPULS.settings.glossLang !== "off") {
+  if (window.IMPULS.settings.glossLang !== "en" && window.IMPULS.settings.glossLang !== "off") {
     window.IMPULS.settings.glossLang = "uk";
   }
   if (window.IMPULS.settings.packFolded !== true) {
@@ -130,17 +134,11 @@ const applyOptionLayout = function () {
   const raw = window.IMPULS.settings.optionLayout;
   const layout = raw === "table" || raw === "keys" ? raw : "list";
   document.documentElement.setAttribute("data-option-layout", layout);
-  const list = document.getElementById("set-layout-list");
-  const table = document.getElementById("set-layout-table");
-  const keys = document.getElementById("set-layout-keys");
-  if (list) {
-    list.checked = layout === "list";
-  }
-  if (table) {
-    table.checked = layout === "table";
-  }
-  if (keys) {
-    keys.checked = layout === "keys";
+  const buttons = document.querySelectorAll("#layout-keys [data-layout]");
+  for (let i = 0; i < buttons.length; i += 1) {
+    const on = buttons[i].getAttribute("data-layout") === layout;
+    buttons[i].setAttribute("aria-pressed", on ? "true" : "false");
+    buttons[i].setAttribute("aria-selected", on ? "true" : "false");
   }
   if (typeof window.IMPULS.refreshChrome === "function") {
     window.IMPULS.refreshChrome();
@@ -188,15 +186,26 @@ const applyShuffleOptions = function () {
   }
 };
 
+const applyUnlimitRoundSize = function () {
+  const on = window.IMPULS.settings.unlimitRoundSize === true;
+  const box = document.getElementById("set-unlimit-round");
+  if (box) {
+    box.checked = on;
+  }
+  if (typeof window.IMPULS.refreshChrome === "function") {
+    window.IMPULS.refreshChrome();
+  }
+};
+
 const UI_LANGS = ["uk", "en", "de"];
-const GLOSS_LANGS = ["uk", "en", "de", "off"];
+const GLOSS_LANGS = ["uk", "en", "off"];
 
 const coerceUiLang = function (value) {
   return value === "en" || value === "de" ? value : "uk";
 };
 
 const coerceGlossLang = function (value) {
-  return value === "en" || value === "de" || value === "off" ? value : "uk";
+  return value === "en" || value === "off" ? value : "uk";
 };
 
 const langSelectRoot = function (id) {
@@ -384,6 +393,17 @@ const bindShuffleOptions = function () {
   });
 };
 
+const bindUnlimitRoundSize = function () {
+  const box = document.getElementById("set-unlimit-round");
+  if (!box) {
+    return;
+  }
+  box.addEventListener("change", function () {
+    window.IMPULS.setSetting("unlimitRoundSize", box.checked === true);
+    applyUnlimitRoundSize();
+  });
+};
+
 const bindSpeakForm = function () {
   const box = document.getElementById("set-speak-form");
   if (!box) {
@@ -396,24 +416,20 @@ const bindSpeakForm = function () {
 };
 
 const bindOptionLayout = function () {
-  const list = document.getElementById("set-layout-list");
-  const table = document.getElementById("set-layout-table");
-  const keys = document.getElementById("set-layout-keys");
-  const onChange = function (event) {
-    const raw = event.target.value;
+  const root = document.getElementById("layout-keys");
+  if (!root) {
+    return;
+  }
+  root.addEventListener("click", function (event) {
+    const button = event.target.closest("[data-layout]");
+    if (!button || !root.contains(button)) {
+      return;
+    }
+    const raw = button.getAttribute("data-layout");
     const value = raw === "table" || raw === "keys" ? raw : "list";
     window.IMPULS.setSetting("optionLayout", value);
     applyOptionLayout();
-  };
-  if (list) {
-    list.addEventListener("change", onChange);
-  }
-  if (table) {
-    table.addEventListener("change", onChange);
-  }
-  if (keys) {
-    keys.addEventListener("change", onChange);
-  }
+  });
 };
 
 const blankSeenPacks = function () {
@@ -519,6 +535,8 @@ document.addEventListener("DOMContentLoaded", function () {
     applySpeakForm();
     bindShuffleOptions();
     applyShuffleOptions();
+    bindUnlimitRoundSize();
+    applyUnlimitRoundSize();
     bindUiLang();
     applyUiLangSetting();
     bindGlossLang();
@@ -536,5 +554,6 @@ applyOptionLayout();
 applyUiSound();
 applySpeakForm();
 applyShuffleOptions();
+applyUnlimitRoundSize();
 applyUiLangSetting();
 applyGlossLangSetting();
