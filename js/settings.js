@@ -6,6 +6,12 @@ window.IMPULS.defaultSettings = {
   optionLayout: "list",
   uiSound: false,
   speakForm: false,
+  speakWhat: "answer",
+  speakWhen: "after",
+  speakCondition: "always",
+  showSummary: true,
+  showCorrect: true,
+  pauseAfterAnswer: true,
   shuffleOptions: true,
   unlimitRoundSize: false,
   irregularEnabled: null,
@@ -38,7 +44,13 @@ window.IMPULS.loadSettings = function () {
     window.IMPULS.settings = copySettings(window.IMPULS.defaultSettings);
     return window.IMPULS.settings;
   }
-  window.IMPULS.settings = copySettings(saved);
+  window.IMPULS.settings = copySettings(window.IMPULS.defaultSettings);
+  Object.keys(window.IMPULS.defaultSettings).forEach(function (key) {
+    if (Object.prototype.hasOwnProperty.call(saved, key)) {
+      window.IMPULS.settings[key] = saved[key];
+    }
+  });
+  window.IMPULS.settings.version = window.IMPULS.defaultSettings.version;
   if (window.IMPULS.settings.showKeys !== false) {
     window.IMPULS.settings.showKeys = true;
   }
@@ -51,6 +63,15 @@ window.IMPULS.loadSettings = function () {
   if (window.IMPULS.settings.speakForm !== true) {
     window.IMPULS.settings.speakForm = false;
   }
+  const settings = window.IMPULS.settings;
+  settings.speakWhat = settings.speakWhat === "sentence" ? "sentence" : "answer";
+  settings.speakWhen = settings.speakWhen === "open" ? "open" : "after";
+  if (settings.speakCondition !== "correct" && settings.speakCondition !== "incorrect") {
+    settings.speakCondition = "always";
+  }
+  ["showSummary", "showCorrect", "pauseAfterAnswer"].forEach(function (key) {
+    settings[key] = settings[key] !== false;
+  });
   if (window.IMPULS.settings.shuffleOptions !== false) {
     window.IMPULS.settings.shuffleOptions = true;
   }
@@ -58,10 +79,14 @@ window.IMPULS.loadSettings = function () {
     window.IMPULS.settings.unlimitRoundSize = false;
   }
   const enabled = window.IMPULS.settings.irregularEnabled;
-  window.IMPULS.settings.irregularEnabled = Array.isArray(enabled) ? enabled.filter(function (id, index) {
-    return enabled.indexOf(id) === index && window.IMPULS.irregularVerbs.some(function (verb) {
-      return verb.id === id;
-    });
+  const known = new Set((window.IMPULS.irregularVerbs || []).map(function (verb) { return verb.id; }));
+  const seen = new Set();
+  window.IMPULS.settings.irregularEnabled = Array.isArray(enabled) ? enabled.filter(function (id) {
+    if (!known.has(id) || seen.has(id)) {
+      return false;
+    }
+    seen.add(id);
+    return true;
   }) : null;
   if (window.IMPULS.settings.uiLang !== "en" && window.IMPULS.settings.uiLang !== "de") {
     window.IMPULS.settings.uiLang = "uk";
@@ -182,6 +207,56 @@ const applySpeakForm = function () {
   }
   if (!on && typeof window.IMPULS.stopSpeakForm === "function") {
     window.IMPULS.stopSpeakForm();
+  }
+};
+
+const applyRoundSettings = function () {
+  const settings = window.IMPULS.settings;
+  const boxes = {
+    "set-show-summary": "showSummary",
+    "set-show-correct": "showCorrect",
+    "set-pause-after-answer": "pauseAfterAnswer"
+  };
+  Object.keys(boxes).forEach(function (id) {
+    const box = document.getElementById(id);
+    if (box) {
+      box.checked = settings[boxes[id]] !== false;
+    }
+  });
+  const radios = document.querySelectorAll(".speech-options input[type=\"radio\"]");
+  for (let i = 0; i < radios.length; i += 1) {
+    radios[i].checked = settings[radios[i].name] === radios[i].value;
+  }
+  const condition = document.getElementById("speak-condition");
+  if (condition) {
+    condition.disabled = settings.speakWhen === "open";
+  }
+};
+
+const bindRoundSettings = function () {
+  const boxes = {
+    "set-show-summary": "showSummary",
+    "set-show-correct": "showCorrect",
+    "set-pause-after-answer": "pauseAfterAnswer"
+  };
+  Object.keys(boxes).forEach(function (id) {
+    const box = document.getElementById(id);
+    if (!box) {
+      return;
+    }
+    box.addEventListener("change", function () {
+      window.IMPULS.setSetting(boxes[id], box.checked);
+    });
+  });
+  const radios = document.querySelectorAll(".speech-options input[type=\"radio\"]");
+  for (let i = 0; i < radios.length; i += 1) {
+    radios[i].addEventListener("change", function (event) {
+      const radio = event.target;
+      if (radio.checked) {
+        window.IMPULS.setSetting(radio.name, radio.value);
+        applyRoundSettings();
+      }
+    });
   }
 };
 
@@ -540,6 +615,8 @@ document.addEventListener("DOMContentLoaded", function () {
     applyUiSound();
     bindSpeakForm();
     applySpeakForm();
+    bindRoundSettings();
+    applyRoundSettings();
     bindShuffleOptions();
     applyShuffleOptions();
     bindUnlimitRoundSize();
@@ -560,6 +637,7 @@ applyShowMedian();
 applyOptionLayout();
 applyUiSound();
 applySpeakForm();
+applyRoundSettings();
 applyShuffleOptions();
 applyUnlimitRoundSize();
 applyUiLangSetting();

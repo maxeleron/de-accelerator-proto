@@ -70,7 +70,10 @@ const selectWindowKey = function (key) {
 const onMenuKey = function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
-    document.getElementById("btn-start").click();
+    const start = document.getElementById("btn-start");
+    if (start) {
+      start.click();
+    }
     return;
   }
   if (event.key === "ArrowUp" || event.key === "ArrowDown") {
@@ -173,14 +176,23 @@ const keyIndex = function (key) {
 
 window.IMPULS.bindKeys = function () {
   document.addEventListener("keydown", function (event) {
-    if (event.repeat) {
-      event.preventDefault();
+    if (event.defaultPrevented || event.isComposing) {
       return;
     }
     if (event.altKey || event.ctrlKey || event.metaKey) {
       return;
     }
     const phase = window.IMPULS.state.phase;
+    if (event.repeat) {
+      if ((phase === "round" || phase === "repair") && event.key === "Enter") {
+        event.preventDefault();
+      }
+      return;
+    }
+    const target = event.target;
+    if (phase === "menu" && target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) {
+      return;
+    }
     if (phase === "menu") {
       onMenuKey(event);
       return;

@@ -66,6 +66,7 @@ const VERDICTS = {
 };
 
 let flashId = 0;
+let nextId = 0;
 let abortPending = false;
 
 const ABORT_CLICKS = 3;
@@ -898,6 +899,19 @@ const showScreen = function (id) {
   document.getElementById("screen-round").classList.toggle("is-hidden", id !== "screen-round");
   document.getElementById("screen-base").classList.toggle("is-hidden", id !== "screen-base");
   document.getElementById("screen-settings").classList.toggle("is-hidden", id !== "screen-settings");
+  document.getElementById("screen-summary").classList.toggle("is-hidden", id !== "screen-summary");
+};
+
+const showSummaryView = function () {
+  renderMenu();
+  document.getElementById("summary-hit").textContent = document.getElementById("stat-hit").textContent;
+  const median = document.getElementById("summary-median");
+  const source = document.getElementById("stat-median");
+  median.textContent = source.textContent;
+  median.classList.toggle("is-hidden", source.classList.contains("is-hidden"));
+  window.IMPULS.setPhase("summary");
+  showScreen("screen-summary");
+  document.getElementById("btn-again").focus();
 };
 
 const replaceHistory = function (screen) {
@@ -918,6 +932,13 @@ const pushHistory = function (screen) {
 
 const showMenuView = function () {
   const from = window.IMPULS.state.phase;
+  if (from === "summary") {
+    const saved = readRound();
+    if (saved && saved.done) {
+      saved.summarySeen = true;
+      writeRound(saved);
+    }
+  }
   window.IMPULS.setPhase("menu");
   showScreen("screen-menu");
   renderFirstScore();
@@ -928,6 +949,9 @@ const showMenuView = function () {
   }
   if (from === "base") {
     document.getElementById("btn-base").focus();
+  }
+  if (from === "summary") {
+    document.getElementById("btn-start").focus();
   }
 };
 
@@ -1006,23 +1030,29 @@ const focusRound = function () {
   document.getElementById("screen-round").focus();
 };
 
-const findCard = function (id) {
-  const extra = window.IMPULS.state && window.IMPULS.state.workshopCards;
-  if (extra) {
-    for (let i = 0; i < extra.length; i += 1) {
-      if (extra[i].id === id) {
-        return extra[i];
+const findCard = (function () {
+  let pack = null;
+  let workshopCards = null;
+  const index = new Map();
+  return function (id) {
+    const state = window.IMPULS.state;
+    if (pack !== state.pack || workshopCards !== state.workshopCards) {
+      pack = state.pack;
+      workshopCards = state.workshopCards;
+      index.clear();
+      const cards = window.IMPULS.loadCards();
+      for (let i = 0; i < cards.length; i += 1) {
+        index.set(cards[i].id, cards[i]);
+      }
+      if (workshopCards) {
+        for (let i = 0; i < workshopCards.length; i += 1) {
+          index.set(workshopCards[i].id, workshopCards[i]);
+        }
       }
     }
-  }
-  const cards = window.IMPULS.loadCards();
-  for (let i = 0; i < cards.length; i += 1) {
-    if (cards[i].id === id) {
-      return cards[i];
-    }
-  }
-  return null;
-};
+    return index.get(id) || null;
+  };
+})();
 
 const copyVerdicts = function (source) {
   const next = {};
@@ -1033,7 +1063,7 @@ const copyVerdicts = function (source) {
   for (let i = 0; i < ids.length; i += 1) {
     const id = ids[i];
     const verdict = source[id];
-    if (VERDICTS[verdict] && (findCard(id) || (typeof id === "string" && (id.indexOf("wv-") === 0 || id.indexOf("wi-") === 0)))) {
+    if (Object.prototype.hasOwnProperty.call(VERDICTS, verdict) && (findCard(id) || (typeof id === "string" && (id.indexOf("wv-") === 0 || id.indexOf("wi-") === 0)))) {
       next[id] = verdict;
     }
   }
@@ -1121,6 +1151,7 @@ const persistActive = function () {
   writeRound({
     done: false,
     pack: state.pack,
+    roundSize: state.roundSize,
     workshop: state.workshop || null,
     workshopCards: state.workshopCards ? state.workshopCards.slice() : null,
     windowMs: state.windowMs,
@@ -1130,6 +1161,20 @@ const persistActive = function () {
     first: copyVerdicts(state.first),
     latency: copyLatency(state.latency)
   });
+};
+
+const roundResult = function (completed) {
+  const state = window.IMPULS.state;
+  return {
+    done: true,
+    completed: completed,
+    workshop: state.workshop,
+    windowMs: state.windowMs,
+    roundSize: state.roundSize,
+    pack: state.pack,
+    first: copyVerdicts(state.first),
+    latency: copyLatency(state.latency)
+  };
 };
 
 const cancelFrame = function () {
@@ -1142,11 +1187,10 @@ const cancelFrame = function () {
 };
 
 const clearFlash = function () {
-  if (!flashId) {
-    return;
-  }
   clearTimeout(flashId);
+  clearTimeout(nextId);
   flashId = 0;
+  nextId = 0;
 };
 
 const clearPickFill = function () {
@@ -1452,6 +1496,9 @@ const bindAbortButton = function () {
 
 const finishRound = function () {
   const state = window.IMPULS.state;
+  const completed = !abortPending && state.main.length === 0 && state.repair.length === 0 && Object.keys(state.first).length > 0;
+  const result = roundResult(completed);
+  menuChoice = state.workshop === "irregular" ? "m2" : state.workshop === "verbs" ? "m1" : "pack";
   abortPending = false;
   resetAbortUi();
   cancelFrame();
@@ -1462,25 +1509,21 @@ const finishRound = function () {
   state.main = [];
   state.repair = [];
   window.IMPULS.setPhase("menu");
-  const first = copyVerdicts(state.first);
-  const latency = copyLatency(state.latency);
   state.workshop = null;
   state.workshopCards = null;
-  writeRound({
-    done: true,
-    windowMs: state.windowMs,
-    roundSize: state.roundSize,
-    pack: state.pack,
-    first: first,
-    latency: latency
-  });
+  writeRound(result);
   showScreen("screen-menu");
   playUi("open");
   document.getElementById("repair-badge").classList.add("is-hidden");
   document.getElementById("btn-repair-skip").classList.add("is-hidden");
   document.getElementById("timer").classList.remove("is-hit", "is-miss");
   clearPickFill();
+  document.getElementById("correct-answer").classList.add("is-hidden");
   renderMenu();
+  if (completed && window.IMPULS.settings.showSummary !== false) {
+    showSummaryView();
+    return;
+  }
   document.getElementById("btn-start").focus();
 };
 
@@ -1507,6 +1550,8 @@ window.IMPULS.paintIrregularStimulus = function (card) {
 
 const showNext = function () {
   const state = window.IMPULS.state;
+  document.getElementById("correct-answer").classList.add("is-hidden");
+  document.getElementById("correct-answer").textContent = "";
   const upcoming = window.IMPULS.nextCard();
   if (!upcoming) {
     finishRound();
@@ -1572,6 +1617,7 @@ const showNext = function () {
   focusRound();
   // Хвіст і режим keys: смуга повна, timeout і late немає.
   armTimer(upcoming.repair || isKeysLayout() ? 0 : state.windowMs);
+  window.IMPULS.speakForm(card, "open");
 };
 
 const flash = function (verdict, optionIndex) {
@@ -1582,19 +1628,25 @@ const flash = function (verdict, optionIndex) {
   // Стеля спалаху — 200 мс. Під смугою немає правила.
   timer.classList.add(verdict === "hit" ? "is-hit" : "is-miss");
   playUi(verdict === "hit" ? "hit" : "miss");
-  if ((verdict === "hit" || verdict === "miss") && typeof window.IMPULS.speakForm === "function") {
-    const card = findCard(window.IMPULS.state.currentId);
-    if (card && card.answer) {
-      window.IMPULS.speakForm(card.answer);
-    }
+  const card = findCard(window.IMPULS.state.currentId);
+  const input = document.getElementById("answer-input");
+  const response = isKeysLayout() ? (input ? input.value : "") : window.IMPULS.state.presented[optionIndex];
+  if (!abortPending && card) {
+    window.IMPULS.speakForm(card, "after", verdict, response);
+  }
+  if (!abortPending && card && window.IMPULS.settings.showCorrect !== false && (verdict === "miss" || verdict === "late")) {
+    const correct = document.getElementById("correct-answer");
+    correct.textContent = t("round.correct", { answer: card.answer });
+    correct.classList.remove("is-hidden");
+  }
+  if (input) {
+    input.readOnly = true;
   }
   // Late і timeout не заливають кнопку: вибору немає.
   if (verdict === "hit" || verdict === "miss") {
     if (isKeysLayout()) {
-      const input = document.getElementById("answer-input");
       if (input) {
         input.classList.add(verdict === "hit" ? "is-hit" : "is-miss");
-        input.readOnly = true;
       }
     } else {
       const btn = document.getElementById("opt-" + (optionIndex + 1));
@@ -1609,12 +1661,16 @@ const flash = function (verdict, optionIndex) {
     flashId = 0;
     timer.classList.remove("is-hit", "is-miss");
     clearPickFill();
+  }, 200);
+  // Спалах лишається 200 мс; пауза тримає картку без повторного приймання відповіді.
+  nextId = window.setTimeout(function () {
+    nextId = 0;
     if (abortPending) {
       finishRound();
       return;
     }
     showNext();
-  }, 200);
+  }, !abortPending && window.IMPULS.settings.pauseAfterAnswer !== false ? 700 : 200);
 };
 
 const commit = function (verdict, elapsedMs, optionIndex) {
@@ -1639,14 +1695,7 @@ const commit = function (verdict, elapsedMs, optionIndex) {
   }
   // Після картки, не в кінці раунду. Порожня черга вже є результат.
   if (state.main.length === 0 && state.repair.length === 0) {
-    writeRound({
-      done: true,
-      windowMs: state.windowMs,
-      roundSize: state.roundSize,
-      pack: state.pack,
-      first: copyVerdicts(state.first),
-      latency: copyLatency(state.latency)
-    });
+    writeRound(roundResult(true));
   } else {
     persistActive();
   }
@@ -1890,6 +1939,9 @@ window.IMPULS.refreshChrome = function () {
     abort.setAttribute("aria-label", t("round.abort"));
   }
   const state = window.IMPULS.state;
+  if (state && state.phase === "summary") {
+    showSummaryView();
+  }
   if (state && state.phase === "base" && state.baseId) {
     window.IMPULS.showBase(state.baseId);
   }
@@ -2027,6 +2079,7 @@ window.IMPULS.startRound = function () {
   if (window.IMPULS.state.phase !== "base" && !ensureMenuPhase()) {
     return;
   }
+  window.IMPULS.stopSpeakForm();
   const state = window.IMPULS.state;
   if (isRoundSetupOpen()) {
     commitRoundSetup();
@@ -2062,6 +2115,7 @@ window.IMPULS.startWorkshopVerbs = function () {
   if (!ensureMenuPhase()) {
     return;
   }
+  window.IMPULS.stopSpeakForm();
   const state = window.IMPULS.state;
   if (isRoundSetupOpen()) {
     commitRoundSetup();
@@ -2094,6 +2148,7 @@ window.IMPULS.startWorkshopIrregular = function () {
   if (!ensureMenuPhase() || !window.IMPULS.enabledIrregularVerbs().length) {
     return;
   }
+  window.IMPULS.stopSpeakForm();
   const state = window.IMPULS.state;
   if (isRoundSetupOpen()) {
     commitRoundSetup();
@@ -2128,7 +2183,8 @@ window.IMPULS.requestAbort = function () {
     return;
   }
   abortPending = true;
-  // Картка жива: намір і вихід після спалаху 200 мс. Locked або спалаху немає — одразу.
+  window.IMPULS.stopSpeakForm();
+  // Картка жива: вихід після спалаху 200 мс. Під час паузи — одразу.
   if (!state.locked) {
     state.locked = true;
     cancelFrame();
@@ -2140,19 +2196,39 @@ window.IMPULS.requestAbort = function () {
 
 const restoreRound = function () {
   const saved = readRound();
-  if (!saved || typeof saved !== "object") {
+  if (!saved || typeof saved !== "object" || Array.isArray(saved)) {
     return false;
   }
+  const state = window.IMPULS.state;
+  const discard = function () {
+    state.workshop = null;
+    state.workshopCards = null;
+    writeRound(null);
+    return false;
+  };
   window.IMPULS.setWindow(normalizeWindow(saved.windowMs));
   if (saved.pack === "p1" || saved.pack === "p2" || saved.pack === "p3" || saved.pack === "p4" || saved.pack === "p5" || saved.pack === "mix") {
     window.IMPULS.setPack(saved.pack);
   }
   if ((saved.workshop === "verbs" || saved.workshop === "irregular") && Array.isArray(saved.workshopCards) && saved.workshopCards.length) {
+    const valid = saved.workshopCards.every(function (card) {
+      if (!card || typeof card.id !== "string" || typeof card.prompt !== "string" || typeof card.answer !== "string" || !Array.isArray(card.options) || !card.options.length || !card.options.every(function (option) { return typeof option === "string"; })) {
+        return false;
+      }
+      return saved.workshop !== "irregular" || (card.forms && ["infinitive", "praeteritum", "partizip2"].every(function (field) { return typeof card.forms[field] === "string"; }) && ["infinitive", "praeteritum", "partizip2"].indexOf(card.hiddenForm) !== -1);
+    });
+    if (!valid) {
+      return discard();
+    }
     window.IMPULS.state.workshop = saved.workshop;
     window.IMPULS.state.workshopCards = saved.workshopCards.slice();
   } else {
     window.IMPULS.state.workshop = null;
     window.IMPULS.state.workshopCards = null;
+  }
+  if (saved.workshop === "verbs" || (saved.done === true && Object.keys(saved.first || {}).some(function (id) { return id.indexOf("wv-") === 0; }))) {
+    menuChoice = "m1";
+    workshopPick = "verbs";
   }
   if (saved.workshop === "irregular" || (saved.done === true && Object.keys(saved.first || {}).some(function (id) { return id.indexOf("wi-") === 0; }))) {
     menuChoice = "m2";
@@ -2161,19 +2237,19 @@ const restoreRound = function () {
   if (saved.done === true) {
     window.IMPULS.state.first = copyVerdicts(saved.first);
     window.IMPULS.state.latency = copyLatency(saved.latency);
-    window.IMPULS.state.roundSize = typeof saved.roundSize === "number" ? saved.roundSize : Object.keys(window.IMPULS.state.first).length;
+    window.IMPULS.state.roundSize = Number.isFinite(saved.roundSize) && saved.roundSize > 0 ? Math.floor(saved.roundSize) : Object.keys(window.IMPULS.state.first).length;
     renderMenu();
+    if (saved.completed === true && saved.summarySeen !== true && window.IMPULS.settings.showSummary !== false) {
+      showSummaryView();
+    }
     return true;
   }
   if (!Array.isArray(saved.main) || !Array.isArray(saved.repair)) {
-    writeRound(null);
-    return false;
+    return discard();
   }
   if (!idsKnown(saved.main) || !idsKnown(saved.repair)) {
-    writeRound(null);
-    return false;
+    return discard();
   }
-  const state = window.IMPULS.state;
   state.main = saved.main.slice();
   state.repair = saved.repair.slice();
   state.first = copyVerdicts(saved.first);
@@ -2192,6 +2268,19 @@ const restoreRound = function () {
 };
 
 const bindClicks = function () {
+  document.getElementById("btn-again").addEventListener("click", function () {
+    showMenuView();
+    document.getElementById("btn-start").click();
+  });
+  document.getElementById("btn-summary-menu").addEventListener("click", function () {
+    showMenuView();
+  });
+  document.getElementById("screen-summary").addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      showMenuView();
+    }
+  });
   document.getElementById("btn-repair-skip").addEventListener("click", function () {
     const state = window.IMPULS.state;
     if (state.phase !== "repair" && state.repair.length === 0) {
@@ -2481,7 +2570,9 @@ const bindClicks = function () {
     });
     answerInput.addEventListener("keydown", function (event) {
       if (event.repeat) {
-        event.preventDefault();
+        if (event.key === "Enter" || /^[1-4]$/.test(event.key)) {
+          event.preventDefault();
+        }
         return;
       }
       if (event.altKey || event.ctrlKey || event.metaKey) {

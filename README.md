@@ -1,8 +1,5 @@
-Open index.html in a browser. No server, npm, or build step.
-index.html is the Ukrainian shell (start, round, repair, summary).
-css/main.css is the dark one-column layout (max-width 720px).
-Scripts, in order: js/cards.js, js/storage.js, js/state.js, js/queue.js, js/input.js, js/main.js.
-data/p1-sein-haben.json holds four sein-haben sample cards.
-Stubs: loadCards, resetRound, goTo, recordAttempt, buildQueue, pushRepair, nextCard, shuffle.
-save and load use localStorage key impuls.v1 and are not called.
-btn-start logs "round later". bindKeys does not attach listeners.
+IMPULS — тренажер німецьких форм на vanilla HTML/CSS/JS. Відкрийте `index.html` у браузері: сервер, npm і збірка не потрібні.
+
+Пакети P1–P5, мікс і майстерні дієслів; вибір відповіді клавішами `1–4` або набір з Enter. Промахи повертаються в ремонт, який не змінює оцінку першої спроби.
+
+Черга, результати, тема й налаштування зберігаються в `localStorage` під ключем `impuls.v1`. JSON у `data/` — джерело правди; копії в скриптах забезпечують роботу через `file://`.

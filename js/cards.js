@@ -3769,8 +3769,9 @@ window.IMPULS.irregularVerbs = [
 
 window.IMPULS.enabledIrregularVerbs = function () {
   const enabled = window.IMPULS.settings && window.IMPULS.settings.irregularEnabled;
+  const selected = Array.isArray(enabled) ? new Set(enabled) : null;
   return window.IMPULS.irregularVerbs.filter(function (verb) {
-    return !Array.isArray(enabled) || enabled.indexOf(verb.id) !== -1;
+    return !selected || selected.has(verb.id);
   });
 };
 
@@ -3778,6 +3779,10 @@ window.IMPULS.enabledIrregularVerbs = function () {
 window.IMPULS.buildIrregularCards = function (count) {
   const verbs = window.IMPULS.enabledIrregularVerbs();
   const fields = ["infinitive", "praeteritum", "partizip2"];
+  const pools = {};
+  for (let j = 0; j < fields.length; j += 1) {
+    pools[fields[j]] = Array.from(new Set(verbs.map(function (verb) { return verb[fields[j]]; })));
+  }
   const slots = [];
   for (let i = 0; i < verbs.length; i += 1) {
     for (let j = 0; j < fields.length; j += 1) {
@@ -3789,12 +3794,8 @@ window.IMPULS.buildIrregularCards = function (count) {
   return selected.map(function (slot) {
     const verb = slot.verb;
     const answer = verb[slot.field];
-    const pool = verbs.filter(function (other) {
-      return other.id !== verb.id && other[slot.field] !== answer;
-    }).map(function (other) {
-      return other[slot.field];
-    }).filter(function (form, index, list) {
-      return list.indexOf(form) === index;
+    const pool = pools[slot.field].filter(function (form) {
+      return form !== answer;
     });
     const forms = { infinitive: verb.infinitive, praeteritum: verb.praeteritum, partizip2: verb.partizip2 };
     return {

@@ -63,11 +63,11 @@ const cancelVoice = function () {
 const blip = function (ctx, fromHz, toHz, ms, peak) {
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
-  osc.type = "square";
+  osc.type = "sine";
   const t0 = ctx.currentTime;
   const dur = ms / 1000;
   const t1 = t0 + dur;
-  const attack = Math.min(0.004, dur / 4);
+  const attack = Math.min(0.002, dur / 4);
   const release = Math.min(0.02, dur / 3);
   osc.frequency.setValueAtTime(fromHz, t0);
   osc.frequency.linearRampToValueAtTime(toHz, t1);
@@ -100,19 +100,19 @@ const playKind = function (kind) {
   }
   cancelVoice();
   if (kind === "open") {
-    blip(ctx, 780, 360, 90, 0.04);
+    blip(ctx, 440, 300, 80, 0.018);
     return;
   }
   if (kind === "click") {
-    blip(ctx, 1680, 1320, 40, 0.032);
+    blip(ctx, 620, 480, 35, 0.012);
     return;
   }
   if (kind === "hit") {
-    blip(ctx, 1480, 1480, 70, 0.045);
+    blip(ctx, 660, 720, 65, 0.02);
     return;
   }
   if (kind === "miss") {
-    blip(ctx, 196, 160, 80, 0.04);
+    blip(ctx, 160, 130, 70, 0.016);
   }
 };
 
@@ -128,11 +128,7 @@ window.IMPULS.playUi = function (kind) {
   try {
     playKind(kind);
   } catch (err) {
-    try {
-      cancelVoice();
-    } catch (stopErr) {
-      voice = [];
-    }
+    window.IMPULS.stopUiSound();
   }
 };
 
@@ -140,7 +136,7 @@ const speakOn = function () {
   return window.IMPULS.settings && window.IMPULS.settings.speakForm === true;
 };
 
-const formSpeech = { voice: null, timer: null, utter: null, form: "" };
+const formSpeech = { voice: null, timer: null, watchdog: null, utter: null, form: "", queue: [] };
 
 const germanVoice = function () {
   if (formSpeech.voice) {
@@ -150,7 +146,6 @@ const germanVoice = function () {
     return null;
   }
   const voices = window.speechSynthesis.getVoices();
-  formSpeech.voice = voices[0] || null;
   for (let i = 0; i < voices.length; i += 1) {
     const lang = String(voices[i].lang || "").toLowerCase();
     if (lang.indexOf("de") === 0) {
@@ -163,9 +158,12 @@ const germanVoice = function () {
 
 window.IMPULS.stopSpeakForm = function () {
   clearTimeout(formSpeech.timer);
+  clearTimeout(formSpeech.watchdog);
   formSpeech.timer = null;
+  formSpeech.watchdog = null;
   formSpeech.utter = null;
   formSpeech.form = "";
+  formSpeech.queue = [];
   try {
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
@@ -173,6 +171,14 @@ window.IMPULS.stopSpeakForm = function () {
   } catch (err) {
     // Немає синтезу — тиша.
   }
+};
+
+const scheduleSpeakForm = function () {
+  if (formSpeech.utter || formSpeech.timer !== null || !formSpeech.queue.length) {
+    return;
+  }
+  formSpeech.form = formSpeech.queue.shift();
+  formSpeech.timer = setTimeout(startSpeakForm, germanVoice() ? 50 : 250);
 };
 
 const startSpeakForm = function () {
@@ -191,43 +197,78 @@ const startSpeakForm = function () {
     }
     utter.rate = 0.88;
     formSpeech.utter = utter;
-    utter.onend = utter.onerror = function () {
-      if (formSpeech.utter === utter) {
-        formSpeech.utter = null;
-        formSpeech.form = "";
+    const finish = function () {
+      if (formSpeech.utter !== utter) {
+        return;
       }
+      clearTimeout(formSpeech.watchdog);
+      formSpeech.watchdog = null;
+      formSpeech.utter = null;
+      formSpeech.form = "";
+      scheduleSpeakForm();
     };
+    utter.onend = utter.onerror = finish;
+    // Браузер інколи не надсилає end/error; черга має продовжитися.
+    formSpeech.watchdog = setTimeout(function () {
+      if (formSpeech.utter !== utter) {
+        return;
+      }
+      finish();
+      try {
+        synth.cancel();
+      } catch (err) {
+        // Наступна репліка все одно лишається в черзі.
+      }
+    }, Math.max(15000, utter.text.length * 150));
     if (synth.paused && typeof synth.resume === "function") {
       synth.resume();
     }
     synth.speak(utter);
   } catch (err) {
+    clearTimeout(formSpeech.watchdog);
+    formSpeech.watchdog = null;
     formSpeech.utter = null;
     formSpeech.form = "";
+    scheduleSpeakForm();
     // Синтез недоступний — тиша.
   }
 };
 
-window.IMPULS.speakForm = function (text) {
+const speechText = function (card, when, verdict, response) {
+  const settings = window.IMPULS.settings || {};
+  if (!card || settings.speakWhen !== when) {
+    return "";
+  }
+  if (when === "after" && ((settings.speakCondition === "correct" && verdict !== "hit") || (settings.speakCondition === "incorrect" && verdict === "hit"))) {
+    return "";
+  }
+  const answer = verdict === "hit" && response ? response : card.answer;
+  if (settings.speakWhat !== "sentence" || card.muster === "v2") {
+    return answer;
+  }
+  let prompt = String(card.prompt || "");
+  if (card.muster === "workshop-verbs") {
+    prompt = prompt.replace(/\s+\([^()]*\)\s*$/, "");
+  }
+  return prompt.indexOf("___") < 0 ? answer : prompt.replace("___", function () { return answer; });
+};
+
+window.IMPULS.speakForm = function (card, when, verdict, response) {
   try {
     if (!speakOn()) {
       return;
     }
-    const form = String(text || "").replace(/\s+/g, " ").replace(/^[\s.,!?;:…]+|[\s.,!?;:…]+$/g, "");
+    const form = String(speechText(card, when, verdict, response) || "").replace(/\s+/g, " ").replace(/^[\s.,!?;:…]+|[\s.,!?;:…]+$/g, "");
     if (!form || !window.speechSynthesis || typeof window.SpeechSynthesisUtterance !== "function") {
       return;
     }
     const synth = window.speechSynthesis;
-    if (formSpeech.form === form && (formSpeech.timer !== null || synth.speaking || synth.pending)) {
-      if (synth.paused && typeof synth.resume === "function") {
-        synth.resume();
-      }
-      return;
+    if (synth.paused && typeof synth.resume === "function") {
+      synth.resume();
     }
-    window.IMPULS.stopSpeakForm();
-    formSpeech.form = form;
-    // Порожній список потребує часу; після cancel не говоримо в тому самому такті.
-    formSpeech.timer = setTimeout(startSpeakForm, germanVoice() ? 50 : 250);
+    // Наступна картка не скасовує поточну репліку, навіть без паузи.
+    formSpeech.queue.push(form);
+    scheduleSpeakForm();
   } catch (err) {
     window.IMPULS.stopSpeakForm();
   }

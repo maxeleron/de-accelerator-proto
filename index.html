@@ -204,6 +204,7 @@
         </tbody>
       </table>
       <p id="gloss"></p>
+      <p id="correct-answer" class="is-hidden" aria-live="polite"></p>
     </div>
     <div id="timer" aria-hidden="true"></div>
     <div id="umlaut-row">
@@ -217,6 +218,16 @@
       <button type="button" id="opt-2"></button>
       <button type="button" id="opt-3"></button>
       <button type="button" id="opt-4"></button>
+    </div>
+  </section>
+
+  <section id="screen-summary" class="is-hidden" tabindex="-1" aria-labelledby="summary-title">
+    <h2 id="summary-title" data-i18n="summary.title">Підсумок раунду</h2>
+    <p id="summary-hit"></p>
+    <p id="summary-median" class="is-hidden"></p>
+    <div class="summary-actions">
+      <button type="button" id="btn-again" data-i18n="summary.again">Ще раз</button>
+      <button type="button" id="btn-summary-menu" data-i18n="summary.menu">В меню</button>
     </div>
   </section>
 
@@ -287,11 +298,40 @@
       </label>
       <label class="setting-check">
         <input type="checkbox" id="set-speak-form">
-        <span data-i18n="settings.speakForm">Озвучувати форму</span>
+        <span data-i18n="settings.speakEnabled">Увімкнути озвучення</span>
       </label>
+      <fieldset class="speech-options">
+        <legend data-i18n="settings.speakWhat">Що озвучувати</legend>
+        <label class="setting-check"><input type="radio" name="speakWhat" value="answer" checked><span data-i18n="settings.speakAnswer">Лише відповідь</span></label>
+        <label class="setting-check"><input type="radio" name="speakWhat" value="sentence"><span data-i18n="settings.speakSentence">Усе речення</span></label>
+      </fieldset>
+      <fieldset class="speech-options">
+        <legend data-i18n="settings.speakWhen">Коли озвучувати</legend>
+        <label class="setting-check"><input type="radio" name="speakWhen" value="open"><span data-i18n="settings.speakOpen">Коли картка відкрилась</span></label>
+        <label class="setting-check"><input type="radio" name="speakWhen" value="after" checked><span data-i18n="settings.speakAfter">Після відповіді</span></label>
+      </fieldset>
+      <fieldset id="speak-condition" class="speech-options" aria-describedby="speak-condition-note">
+        <legend data-i18n="settings.speakCondition">Умова</legend>
+        <label class="setting-check"><input type="radio" name="speakCondition" value="always" checked><span data-i18n="settings.speakAlways">Завжди</span></label>
+        <label class="setting-check"><input type="radio" name="speakCondition" value="correct"><span data-i18n="settings.speakCorrect">Лише коли правильно</span></label>
+        <label class="setting-check"><input type="radio" name="speakCondition" value="incorrect"><span data-i18n="settings.speakIncorrect">Лише коли неправильно (правильна форма)</span></label>
+      </fieldset>
+      <p id="speak-condition-note" data-i18n="settings.speakConditionNote">Умова діє лише після відповіді.</p>
     </section>
     <section class="block" aria-labelledby="label-gameplay">
       <h2 id="label-gameplay" data-i18n="settings.gameplay">Геймплей</h2>
+      <label class="setting-check">
+        <input type="checkbox" id="set-show-summary" checked>
+        <span data-i18n="settings.showSummary">Показувати підсумок</span>
+      </label>
+      <label class="setting-check">
+        <input type="checkbox" id="set-show-correct" checked>
+        <span data-i18n="settings.showCorrect">Показувати правильну відповідь</span>
+      </label>
+      <label class="setting-check">
+        <input type="checkbox" id="set-pause-after-answer" checked>
+        <span data-i18n="settings.pauseAfterAnswer">Пауза після відповіді</span>
+      </label>
       <label class="setting-check">
         <input type="checkbox" id="set-shuffle-options" checked>
         <span data-i18n="settings.shuffle">Перемішування варіантів відповідей</span>

@@ -907,13 +907,6 @@ html[data-option-layout="keys"] #answer-input {
   white-space: nowrap;
   overflow: hidden;
   outline: none;
-  outline-width: 0;
-  box-shadow: none;
-}
-
-html[data-option-layout="keys"] #answer-input:focus {
-  outline: none;
-  outline-width: 0;
   box-shadow: none;
 }
 
@@ -998,6 +991,91 @@ html[data-option-layout="keys"] #umlaut-row {
 
 #screen-settings:focus {
   outline: none;
+}
+
+#screen-summary {
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+#screen-summary:focus {
+  outline: none;
+}
+
+#summary-title {
+  font-size: 32px;
+  color: var(--text);
+}
+
+#summary-hit {
+  font-size: clamp(24px, 5vw, 36px);
+  font-weight: 650;
+}
+
+#summary-median,
+#speak-condition-note {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.summary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.summary-actions button {
+  flex: 1 1 10rem;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.summary-actions button:hover {
+  border-color: var(--accent);
+}
+
+#correct-answer {
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.speech-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  margin: 8px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.speech-options legend {
+  margin-bottom: 8px;
+  color: var(--muted-strong);
+  font-size: 13px;
+}
+
+.speech-options:disabled {
+  opacity: 0.5;
+}
+
+.setting-check input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--accent);
 }
 
 .screen-head {
@@ -1092,17 +1170,6 @@ html[data-option-layout="keys"] #umlaut-row {
   cursor: pointer;
 }
 
-#set-show-keys,
-#set-ui-sound,
-#set-speak-form,
-#set-shuffle-options {
-  width: 18px;
-  height: 18px;
-  margin: 0;
-  flex-shrink: 0;
-  accent-color: var(--accent);
-}
-
 #btn-clear-progress,
 #btn-clear-cancel,
 #btn-clear-wipe {
@@ -1158,6 +1225,9 @@ html[data-option-layout="keys"] #umlaut-row {
 
 /* Прихований екран не ловить кліки меню і не лишається шаром поверх. */
 #screen-round.is-hidden,
+#screen-summary.is-hidden,
+#summary-median.is-hidden,
+#correct-answer.is-hidden,
 #screen-base.is-hidden,
 #screen-settings.is-hidden {
   display: none;
@@ -1371,7 +1441,6 @@ html[data-option-layout="keys"] #umlaut-row {
   font-weight: 650;
 }
 
-.base-table td.mark,
 .mark {
   color: var(--accent);
 }

@@ -1,27 +1,23 @@
 window.IMPULS = window.IMPULS || {};
 
-IMPULS.save = function (key, value) {
-  var raw = localStorage.getItem("impuls.v1");
-  var bag = {};
-  if (raw) {
-    try {
-      bag = JSON.parse(raw) || {};
-    } catch (err) {
-      bag = {};
-    }
+window.IMPULS.save = function (key, value) {
+  let bag;
+  try {
+    bag = JSON.parse(localStorage.getItem("impuls.v1"));
+  } catch (err) {
+    bag = null;
+  }
+  if (!bag || typeof bag !== "object" || Array.isArray(bag)) {
+    bag = {};
   }
   bag[key] = value;
   localStorage.setItem("impuls.v1", JSON.stringify(bag));
 };
 
-IMPULS.load = function (key) {
-  var raw = localStorage.getItem("impuls.v1");
-  if (!raw) {
-    return undefined;
-  }
+window.IMPULS.load = function (key) {
   try {
-    var bag = JSON.parse(raw) || {};
-    return bag[key];
+    const bag = JSON.parse(localStorage.getItem("impuls.v1"));
+    return bag && typeof bag === "object" && !Array.isArray(bag) && Object.prototype.hasOwnProperty.call(bag, key) ? bag[key] : undefined;
   } catch (err) {
     return undefined;
   }
